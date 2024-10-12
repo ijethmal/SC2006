@@ -1,22 +1,41 @@
 import TextButton from "../components/TextButton";
 import "./LoginWebpage.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginWebpage = () => {
-
   // State to hold email and password in an object (loginData)
   const [loginData, setLoginData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
+
+  const navigate = useNavigate(); // Get the navigate function from useNavigate
 
   // Handle input change for email and password
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setLoginData({
       ...loginData, // Spread existing data
-      [name]: value // Update the relevant field (email or password)
+      [name]: value, // Update the relevant field (email or password)
     });
+  };
+
+  // Handle form submission or login button click
+  const handleLogin = () => {
+    console.log(loginData);
+
+    // Check if email and password match the credentials
+    if (
+      loginData.email === "abc@gmail.com" &&
+      loginData.password === "password"
+    ) {
+      // If credentials are correct, navigate to the target route
+      navigate("/community-web-page"); // Replace '/dashboard' with the desired route
+    } else {
+      // If credentials are incorrect, show an error message
+      alert("Invalid email or password");
+    }
   };
 
   return (
@@ -30,18 +49,32 @@ const LoginWebpage = () => {
       <div className="emailandpass">
         <div className="textbox">
           <div className="textbox-child" />
-          <input type="email" name="email" value={loginData.email} placeholder="Enter your email" onChange={handleInputChange} className="email"/>
+          <input
+            type="email"
+            name="email"
+            value={loginData.email}
+            placeholder="Enter your email"
+            onChange={handleInputChange}
+            className="email"
+          />
           <img className="mdipassword-icon" alt="" src="/mdipassword.svg" />
         </div>
         <div className="textbox">
           <div className="textbox-child" />
           <img className="mdipassword-icon" alt="" src="/mdipassword1.svg" />
-          <input type="password" name="password" value={loginData.password} placeholder="Enter your password" onChange={handleInputChange} className="email"/>
+          <input
+            type="password"
+            name="password"
+            value={loginData.password}
+            placeholder="Enter your password"
+            onChange={handleInputChange}
+            className="email"
+          />
         </div>
       </div>
       <img className="login-webpage-child" alt="" src="/ellipse-3@2x.png" />
       <div className="gatherhub">GatherHub</div>
-      <TextButton />
+      <TextButton onClick={handleLogin} />
       <div className="rmb">
         <div className="rmb-child" />
         <div className="dont-have-an">Remember me</div>

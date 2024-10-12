@@ -46,6 +46,7 @@
   position: absolute;
   top: calc(50% - 8.5px);
   left: 54px;
+  border: none;
 }
 .mdipassword-icon {
   position: absolute;
@@ -131,3 +132,5 @@
   color: var(--color-black);
   font-family: var(--font-sf-pro);
 }
+
+
