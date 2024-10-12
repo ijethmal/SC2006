@@ -1,27 +1,23 @@
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./LocationChanger.css";
 
 const LocationChanger = ({ className = "" }) => {
+  const [selectedOption, setSelectedOption] = useState("Bukit Batok");
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   return (
-    <div className={`location-changer ${className}`}>
-      <div className="outerframe" />
-      <div className="bukit-batok-parent">
-        <a className="bukit-batok">Bukit Batok</a>
-        <img
-          className="carbonlocation-filled-icon"
-          loading="lazy"
-          alt=""
-          src="/carbonlocationfilled.svg"
-        />
-      </div>
-      <div className="vector-frame">
-        <img
-          className="vector-icon7"
-          loading="lazy"
-          alt=""
-          src="/vector-31.svg"
-        />
-      </div>
+    <div className={`location-changer custom-dropdown ${className}`}>
+      <span className="dropdown-icon">📍</span>
+      <select value={selectedOption} onChange={handleChange}>
+        <option value="Bukit Batok">Bukit Batok</option>
+        <option value="Clementi">Clementi</option>
+        <option value="Jurong">Jurong</option>
+      </select>
+      <span className="arrow-icon">▼</span> {/* Dropdown arrow */}
     </div>
   );
 };
