@@ -15,6 +15,7 @@
   top: calc(50% - 11.5px);
   left: calc(50% - 28px);
   font-weight: 800;
+  background-color: var(--color-deeppink);
 }
 .text-button {
   position: absolute;
@@ -26,4 +27,6 @@
   font-size: var(--font-size-xl);
   color: var(--color-white);
   font-family: var(--font-sf-pro-text);
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Add smooth transitions */
+  cursor: pointer;
 }
