@@ -1,7 +1,24 @@
 import TextButton from "../components/TextButton";
 import "./LoginWebpage.css";
+import { useState } from "react";
 
 const LoginWebpage = () => {
+
+  // State to hold email and password in an object (loginData)
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  });
+
+  // Handle input change for email and password
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setLoginData({
+      ...loginData, // Spread existing data
+      [name]: value // Update the relevant field (email or password)
+    });
+  };
+
   return (
     <div className="login-webpage">
       <img className="mesh-wallpaper-icon" alt="" src="/mesh-wallpaper.svg" />
@@ -13,13 +30,13 @@ const LoginWebpage = () => {
       <div className="emailandpass">
         <div className="textbox">
           <div className="textbox-child" />
-          <b className="email">Email</b>
+          <input type="email" name="email" value={loginData.email} placeholder="Enter your email" onChange={handleInputChange} className="email"/>
           <img className="mdipassword-icon" alt="" src="/mdipassword.svg" />
         </div>
         <div className="textbox">
           <div className="textbox-child" />
           <img className="mdipassword-icon" alt="" src="/mdipassword1.svg" />
-          <b className="email">Password</b>
+          <input type="password" name="password" value={loginData.password} placeholder="Enter your password" onChange={handleInputChange} className="email"/>
         </div>
       </div>
       <img className="login-webpage-child" alt="" src="/ellipse-3@2x.png" />
