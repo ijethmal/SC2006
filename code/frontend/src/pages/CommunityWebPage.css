@@ -1,0 +1,90 @@
+.wallpaper2-icon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.location-changer-wrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 221px 0 220px;
+}
+.community-web-page,
+.wallpaper-frame {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.wallpaper-frame {
+  height: 982px;
+  flex: 1;
+  flex-direction: column;
+  padding: 104px 292px 791.8px;
+  box-sizing: border-box;
+  gap: 54.8px;
+  max-width: calc(100% - 271px);
+}
+.community-web-page {
+  width: 100%;
+  background-color: var(--color-white);
+  flex-direction: row;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1200px) {
+  .wallpaper-frame {
+    padding: var(--padding-49xl) 146px 515px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .wallpaper-frame {
+    padding-top: var(--padding-25xl);
+    padding-bottom: 335px;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  .community-web-page {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .location-changer-wrapper,
+  .wallpaper-frame {
+    padding-left: var(--padding-91xl);
+    padding-right: var(--padding-91xl);
+    box-sizing: border-box;
+  }
+  .wallpaper-frame {
+    height: auto;
+    gap: var(--gap-8xl);
+    padding-left: var(--padding-54xl);
+    padding-right: var(--padding-54xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .location-changer-wrapper {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .wallpaper-frame {
+    padding: var(--padding-10xl) var(--padding-xl) 218px;
+    box-sizing: border-box;
+  }
+}

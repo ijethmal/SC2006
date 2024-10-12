@@ -1,0 +1,67 @@
+.outerframe {
+  height: 86.2px;
+  width: 216.3px;
+  position: relative;
+  border-radius: var(--br-5xl-4);
+  background-color: var(--color-white);
+  display: none;
+  z-index: 1;
+}
+.bukit-batok {
+  text-decoration: none;
+  position: absolute;
+  top: 11.4px;
+  left: 0;
+  color: inherit;
+  display: inline-block;
+  width: 204.3px;
+  height: 40.7px;
+  z-index: 1;
+}
+.carbonlocation-filled-icon {
+  position: absolute;
+  top: 0;
+  left: 1.6px;
+  width: 40.7px;
+  height: 40.7px;
+  overflow: hidden;
+  z-index: 1;
+}
+.bukit-batok-parent {
+  height: 52.1px;
+  flex: 1;
+  position: relative;
+  flex-shrink: 0;
+}
+.vector-icon7 {
+  width: 16.3px;
+  height: 10.3px;
+  position: relative;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.location-changer,
+.vector-frame {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.vector-frame {
+  flex-direction: column;
+  padding: var(--padding-mid-2) 0 0;
+  margin-left: -38.1px;
+}
+.location-changer {
+  flex: 1;
+  border-radius: var(--br-5xl-4);
+  background-color: var(--color-white);
+  flex-direction: row;
+  padding: var(--padding-3xl-8) var(--padding-7xl) var(--padding-xs-3)
+    var(--padding-4xs);
+  flex-shrink: 0;
+  z-index: 1;
+  text-align: center;
+  font-size: var(--font-size-lgi-5);
+  color: var(--color-black);
+  font-family: var(--font-sf-pro);
+}

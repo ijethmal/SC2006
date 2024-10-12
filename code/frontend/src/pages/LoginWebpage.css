@@ -1,0 +1,133 @@
+.mesh-wallpaper-icon {
+  position: absolute;
+  top: -427px;
+  left: -499px;
+  width: 2806.1px;
+  height: 1905.5px;
+}
+.white-frame {
+  position: absolute;
+  top: calc(50% - 238px);
+  left: calc(50% - 423px);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.52);
+  width: 845px;
+  height: 477px;
+}
+.dont-have-an,
+.register1 {
+  position: relative;
+}
+.register1 {
+  color: var(--color-indigo);
+}
+.register {
+  position: absolute;
+  top: calc(50% + 206px);
+  left: calc(50% - 91px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+}
+.textbox-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-mini);
+  background-color: var(--color-white);
+  width: 318px;
+  height: 53px;
+}
+.email {
+  position: absolute;
+  top: calc(50% - 8.5px);
+  left: 54px;
+}
+.mdipassword-icon {
+  position: absolute;
+  top: 13px;
+  left: 16px;
+  width: 30px;
+  height: 28px;
+  overflow: hidden;
+}
+.textbox {
+  width: 318px;
+  position: relative;
+  height: 53px;
+}
+.emailandpass {
+  position: absolute;
+  top: 444px;
+  left: calc(50% - 159px);
+  width: 318px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+  font-size: var(--font-size-mini);
+  color: var(--color-dimgray);
+  font-family: var(--font-sf-pro-text);
+}
+.login-webpage-child {
+  position: absolute;
+  top: calc(50% - 383px);
+  left: calc(50% - 145px);
+  border-radius: 50%;
+  width: 290px;
+  height: 290px;
+  object-fit: cover;
+}
+.gatherhub {
+  position: absolute;
+  top: 57px;
+  left: calc(50% - 89px);
+  font-size: var(--font-size-21xl);
+  font-family: var(--font-satisfy);
+  color: var(--color-white);
+  display: inline-block;
+  width: 177px;
+}
+.rmb-child {
+  width: 15px;
+  position: relative;
+  background-color: var(--color-white);
+  border: 1px solid #b0b0b0;
+  box-sizing: border-box;
+  height: 15px;
+}
+.rmb {
+  position: absolute;
+  top: 586px;
+  left: 611px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 9px;
+}
+.span {
+  color: var(--color-black);
+}
+.forget-password {
+  position: absolute;
+  top: 590px;
+  left: 800px;
+  color: var(--color-indigo);
+}
+.login-webpage {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  height: 982px;
+  overflow: hidden;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-black);
+  font-family: var(--font-sf-pro);
+}
