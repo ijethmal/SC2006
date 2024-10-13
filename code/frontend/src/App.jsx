@@ -11,6 +11,7 @@ import SettingWebPage from "./pages/SettingWebPage";
 import CommunityWebPage from "./pages/CommunityWebPage";
 import ExploreWebPage from "./pages/ExploreWebPage";
 import GroupWebPage from "./pages/GroupWebPage";
+import TestPage from "./pages/TestPage";
 
 function App() {
   const action = useNavigationType();
@@ -76,6 +77,7 @@ function App() {
       <Route path="/community-web-page" element={<CommunityWebPage />} />
       <Route path="/explore-web-page" element={<ExploreWebPage />} />
       <Route path="/group-web-page" element={<GroupWebPage />} />
+      <Route path="/test-page" element={<TestPage />} />
     </Routes>
   );
 }
