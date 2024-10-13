@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, String> {
     //the id one is just an example. optional means may or may not exist
-    Optional<User> User findById(String id);
+    Optional<User> findById(String id);
 
     // add query methods here
 }
