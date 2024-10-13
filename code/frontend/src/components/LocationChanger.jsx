@@ -17,7 +17,7 @@ const LocationChanger = ({ className = "" }) => {
         <option value="Clementi">Clementi</option>
         <option value="Jurong">Jurong</option>
       </select>
-      <span className="arrow-icon">▼</span> {/* Dropdown arrow */}
+      {/* <span className="arrow-icon">▼</span> Dropdown arrow */}
     </div>
   );
 };
