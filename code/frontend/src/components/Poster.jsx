@@ -32,8 +32,7 @@ const Poster = ({ className = "" }) => {
           <div className="frame-child3" />
           <div className="find-your-inner-container">
             <p className="find-your-inner">
-              "Find your inner peace and strength with our rejuvenating yoga
-              classes. Join us to elevate your mind, body, and spirit!"
+              "Create Our branch!"
             </p>
             <p className="find-your-inner">&nbsp;</p>
             <p className="wwwyogabliss101com">www.YogaBliss101.com</p>
