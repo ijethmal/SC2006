@@ -43,6 +43,19 @@ public class UserService {
         return userRepo.save(user);
     }
 
+    public Optional<User> updateUser(String id, User user) {
+        return userRepo.findById(id)
+                .map(existingUser -> {
+                    existingUser.setName(user.getName());
+                    existingUser.setEmail(user.getEmail());
+                    existingUser.setLocation(user.getLocation());
+                    existingUser.setPassword(user.getPassword());
+                    existingUser.setPhotoUrl(user.getPhotoUrl());
+                    existingUser.setGroups(user.getGroups());
+                    return existingUser;
+                });
+    }
+
     // delete, update, and uploadPhoto methods go here
 
     
