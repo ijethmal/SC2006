@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import {
   Routes,
   Route,
-  useNavigationType,
-  useLocation,
+  useNavigationType, // returns the type of navigation action
+  useLocation, // for current URL path
 } from "react-router-dom";
 import LoginWebpage from "./pages/LoginWebpage";
 import UserProfile from "./pages/UserProfile";
@@ -31,26 +31,26 @@ function App() {
     switch (pathname) {
       case "/":
         title = "";
-        metaDescription = "";
+        metaDescription = "Main Page";
         break;
       case "/":
         title = "";
         metaDescription = "";
         break;
       case "/setting-web-page":
-        title = "";
+        title = "Settings 🔩";
         metaDescription = "";
         break;
       case "/community-web-page":
         title = "";
-        metaDescription = "";
+        metaDescription = "Community Page 👯";
         break;
       case "/explore-web-page":
-        title = "";
+        title = "Explore 🚗";
         metaDescription = "";
         break;
       case "/group-web-page":
-        title = "";
+        title = "Group 🤝";
         metaDescription = "";
         break;
     }
