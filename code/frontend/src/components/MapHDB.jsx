@@ -1,11 +1,11 @@
 import React from "react";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import hdb from "../data/hdb.json";
+
 import "./MapHDB.css";
 
 const MapComponent = () => {
-  console.log(hdb);
+  
   return (
     <div>
       <div>A Map</div>
