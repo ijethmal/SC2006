@@ -12,6 +12,7 @@ import CommunityWebPage from "./pages/CommunityWebPage";
 import ExploreWebPage from "./pages/ExploreWebPage";
 import GroupWebPage from "./pages/GroupWebPage";
 import TestPage from "./pages/TestPage";
+import MapBoxSearch from "./pages/MapBoxSearch";
 
 function App() {
   const action = useNavigationType();
@@ -78,6 +79,7 @@ function App() {
       <Route path="/explore-web-page" element={<ExploreWebPage />} />
       <Route path="/group-web-page" element={<GroupWebPage />} />
       <Route path="/test-page" element={<TestPage />} />
+      <Route path="/mapboxsearch" element={<MapBoxSearch />} />
     </Routes>
   );
 }
