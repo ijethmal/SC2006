@@ -1,0 +1,23 @@
+.card{
+    border: 1px solid rgb(181, 60, 146);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px  rgba(0, 0, 0, 0.104);
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    display: flex;
+
+}
+.card .card-image{
+    width: 30%;
+    height: auto;
+    background-color: rgb(181, 60, 146);
+    margin-bottom: 10px;
+}
+.card .card-info .card-title{
+    margin: 0
+}
+.card .card-info .card-description{
+    font-size: 14px;
+    color: rgb(181, 60, 146);
+}
