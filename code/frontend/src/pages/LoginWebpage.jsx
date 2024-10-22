@@ -2,6 +2,8 @@ import TextButton from "../components/TextButton";
 import "./LoginWebpage.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// login test
+import { login } from "../api/UserService.js";
 
 const LoginWebpage = () => {
   // State to hold email and password in an object (loginData)
@@ -21,11 +23,11 @@ const LoginWebpage = () => {
     });
   };
 
-  // Handle form submission or login button click
-  const handleLogin = () => {
+  // Handle form submission or login button click. note: made it async
+  const handleLogin = async () => {
     console.log(loginData);
 
-    // Check if email and password match the credentials
+    /*// Check if email and password match the credentials
     if (
       loginData.email === "abc@gmail.com" &&
       loginData.password === "password"
@@ -34,6 +36,18 @@ const LoginWebpage = () => {
       navigate("/community-web-page"); // Replace '/dashboard' with the desired route
     } else {
       // If credentials are incorrect, show an error message
+      alert("Invalid email or password");
+    }*/
+
+    // Call the login function from the UserService
+    try {
+      const response = await login(loginData.email, loginData.password);
+      if (response.data) {
+        navigate("/community-web-page"); // Replace '/community-web-page' with the desired route
+      } else {
+        alert("Invalid email or password");
+      }
+    } catch (error) {
       alert("Invalid email or password");
     }
   };
