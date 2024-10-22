@@ -14,6 +14,7 @@ import GroupWebPage from "./pages/GroupWebPage";
 import TestPage from "./pages/TestPage";
 import MapBoxSearch from "./pages/MapBoxSearch";
 
+
 function App() {
   const action = useNavigationType();
   const location = useLocation();
