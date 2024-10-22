@@ -39,6 +39,15 @@ public class UserService {
         }
     }
 
+    /*//one for login
+    public boolean login(String email, String password) {
+        return user.login(email, password);
+    }*/
+    public boolean login(String email, String password) {
+        Optional<User> user = userRepo.findByEmail(email);
+        return user.map(value -> value.login(email, password)).orElse(false);
+    }
+
     public User createUser(User user) {
         return userRepo.save(user);
     }

@@ -11,5 +11,10 @@ public interface UserRepo extends JpaRepository<User, String> {
     //the id one is just an example. optional means may or may not exist
     Optional<User> findById(String id);
 
+    Optional<User> findByEmail(String email);
+
     // add query methods here
+    
+    //method for login
+    
 }

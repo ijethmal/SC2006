@@ -40,6 +40,11 @@ public class User {
 
     //methods
 
+    // method for login
+    public boolean login(String email, String password) {
+        return this.email.equals(email) && this.password.equals(password);
+    } 
+
     //getters and setters
 
     //toString
