@@ -32,4 +32,6 @@ pids
 
 # OS-specific
 Thumbs.db
-  
+
+# Environment variables 
+.env

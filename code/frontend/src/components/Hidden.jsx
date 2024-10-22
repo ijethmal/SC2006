@@ -15,7 +15,7 @@ const Hidden = ({ className = "" }) => {
   }, [navigate]);
 
   const onProfileContainerClick = useCallback(() => {
-    navigate("/");
+    navigate("/user-profile");
   }, [navigate]);
 
   const onSettingContainerClick = useCallback(() => {

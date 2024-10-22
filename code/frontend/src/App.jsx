@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import {
   Routes,
   Route,
-  useNavigationType,
-  useLocation,
+  useNavigationType, // returns the type of navigation action
+  useLocation, // for current URL path
 } from "react-router-dom";
 import LoginWebpage from "./pages/LoginWebpage";
 import UserProfile from "./pages/UserProfile";
@@ -11,6 +11,9 @@ import SettingWebPage from "./pages/SettingWebPage";
 import CommunityWebPage from "./pages/CommunityWebPage";
 import ExploreWebPage from "./pages/ExploreWebPage";
 import GroupWebPage from "./pages/GroupWebPage";
+import TestPage from "./pages/TestPage";
+import MapBoxSearch from "./pages/MapBoxSearch";
+
 
 function App() {
   const action = useNavigationType();
@@ -30,26 +33,26 @@ function App() {
     switch (pathname) {
       case "/":
         title = "";
-        metaDescription = "";
+        metaDescription = "Main Page";
         break;
       case "/":
         title = "";
         metaDescription = "";
         break;
       case "/setting-web-page":
-        title = "";
+        title = "Settings 🔩";
         metaDescription = "";
         break;
       case "/community-web-page":
         title = "";
-        metaDescription = "";
+        metaDescription = "Community Page 👯";
         break;
       case "/explore-web-page":
-        title = "";
+        title = "Explore 🚗";
         metaDescription = "";
         break;
       case "/group-web-page":
-        title = "";
+        title = "Group 🤝";
         metaDescription = "";
         break;
     }
@@ -76,6 +79,8 @@ function App() {
       <Route path="/community-web-page" element={<CommunityWebPage />} />
       <Route path="/explore-web-page" element={<ExploreWebPage />} />
       <Route path="/group-web-page" element={<GroupWebPage />} />
+      <Route path="/test-page" element={<TestPage />} />
+      <Route path="/mapboxsearch" element={<MapBoxSearch />} />
     </Routes>
   );
 }
