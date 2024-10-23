@@ -4,6 +4,7 @@ import com.app1.app.domain.User;
 import com.app1.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,16 @@ public class UserResource {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    //login
+    @PostMapping("/login")
+public ResponseEntity<Void> login(@RequestParam String email, @RequestParam String password) {
+    boolean isAuthenticated = userService.login(email, password);
+    if (isAuthenticated) {
+        return ResponseEntity.ok().build();
+    } else {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+}
    /* @PutMapping("/{id}/photo")
     public ResponseEntity<User> uploadPhoto(@PathVariable String id, @RequestParam("photo") String photo) {
         try {

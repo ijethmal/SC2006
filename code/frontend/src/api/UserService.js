@@ -7,7 +7,7 @@ export async function getUsers() {
 }
 
 export async function login(email, password) {
-  return await axios.post(API_URL, {
+  return await axios.get(API_URL, {
     email,
     password
   });

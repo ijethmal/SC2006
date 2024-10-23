@@ -17,6 +17,7 @@ const LoginWebpage = () => {
   // Handle input change for email and password
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    //console.log(name, value);
     setLoginData({
       ...loginData, // Spread existing data
       [name]: value, // Update the relevant field (email or password)
@@ -43,12 +44,14 @@ const LoginWebpage = () => {
     try {
       const response = await login(loginData.email, loginData.password);
       if (response.data) {
-        navigate("/community-web-page"); // Replace '/community-web-page' with the desired route
+        console.log(response.data);
+        navigate("/community-web-page"); 
       } else {
+        console.log(response.data);
         alert("Invalid email or password");
       }
     } catch (error) {
-      alert("Invalid email or password");
+      alert("Error logging in");
     }
   };
 
