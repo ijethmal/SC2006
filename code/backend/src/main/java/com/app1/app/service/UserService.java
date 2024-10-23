@@ -31,12 +31,8 @@ public class UserService {
     }
 
     //not sure whether this will work
-    public Optional<User> getUser(String id) {
-        if (userRepo.findById(id).isEmpty()) {
-            return Optional.empty();
-        } else {
-            return userRepo.findById(id);
-        }
+    public User getUser(String id) {
+        return userRepo.findById(id).orElseThrow();
     }
 
     /*//one for login
@@ -45,10 +41,19 @@ public class UserService {
     }*/
     public boolean login(String email, String password) {
         Optional<User> user = userRepo.findByEmail(email);
-        return user.map(value -> value.login(email, password)).orElse(false);
+        if (!user.isPresent()) {
+            return false;
+        }
+
+        return user.get().getPassword().equals(password);
+
+        //return user.map(value -> value.login(email, password)).orElse(false);
     }
 
     public User createUser(User user) {
+        if(userRepo.findByEmail(user.getEmail()).isPresent()) {
+            return null;
+        }
         return userRepo.save(user);
     }
 
@@ -65,7 +70,11 @@ public class UserService {
                 });
     }
 
+    public void deleteAllUser() {
+        userRepo.deleteAll();
+    }
+
     // delete, update, and uploadPhoto methods go here
 
-    
+
 }

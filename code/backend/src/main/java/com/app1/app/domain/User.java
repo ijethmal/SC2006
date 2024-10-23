@@ -2,20 +2,15 @@ package com.app1.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 
 @Entity
 @Getter
 @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(Include.NON_DEFAULT)
@@ -29,7 +24,9 @@ public class User {
     @UuidGenerator
     @Column(name = "id", unique = true, updatable = false)
     private String id;
+
     private String name;
+    @Column(unique = true)
     private String email;
     private String location;
     private String password;
@@ -43,7 +40,7 @@ public class User {
     // method for login
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
-    } 
+    }
 
     //getters and setters
 

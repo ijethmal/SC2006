@@ -4,24 +4,31 @@ import com.app1.app.domain.User;
 import com.app1.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("users")
 @RequiredArgsConstructor
 public class UserResource {
     private final UserService userService;
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user) {
+
+        return userService.login(user.getEmail(), user.getPassword())
+                ? ResponseEntity.ok("Login successful")
+                : ResponseEntity.badRequest().body("Login failed");
+    }
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody User user) {
+        System.out.println(user.getName());
+        return userService.createUser(user) != null
+                ? ResponseEntity.ok("Registration successful")
+                : ResponseEntity.badRequest().body("Registration failed");
+    }
 
     @GetMapping
     public ResponseEntity<Page<User>> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -29,10 +36,8 @@ public class UserResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable String id) {
-        return userService.getUser(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<User> getUser(@PathVariable(value="id") String id) {
+        return ResponseEntity.ok().body(userService.getUser(id));
     }
 
     @PostMapping
@@ -47,16 +52,12 @@ public class UserResource {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //login
-    @PostMapping("/login")
-public ResponseEntity<Void> login(@RequestParam String email, @RequestParam String password) {
-    boolean isAuthenticated = userService.login(email, password);
-    if (isAuthenticated) {
-        return ResponseEntity.ok().build();
-    } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllUser() {
+        userService.deleteAllUser();
+        return ResponseEntity.ok("Deleted all users");
     }
-}
+
    /* @PutMapping("/{id}/photo")
     public ResponseEntity<User> uploadPhoto(@PathVariable String id, @RequestParam("photo") String photo) {
         try {
