@@ -12,7 +12,7 @@ const MapBoxSearch = () => {
 
     useEffect(() => {
         mapboxgl.accessToken =
-            "pk.eyJ1Ijoid2ludnN3b243OCIsImEiOiJjbTI5bnZjMGowN3FmMnFvcHgxNTQwZzlhIn0.CcCoZGOApaW_DxtDiWWpyA";
+            "access_token"; // Add your mapbox access token here
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,

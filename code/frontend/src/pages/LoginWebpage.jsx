@@ -27,21 +27,22 @@ const LoginWebpage = () => {
   const handleLogin = async () => {
     console.log(loginData);
 
-    // Check if email and password match the credentials
-    if (
-      loginData.email === "abc@gmail.com" &&
-      loginData.password === "password"
-    ) {
-      // If credentials are correct, navigate to the target route
-      navigate("/community-web-page"); // Replace '/dashboard' with the desired route
-    } else {
-      // If credentials are incorrect, show an error message
-      alert("Invalid email or password");
-    }
+    // // Check if email and password match the credentials
+    // if (
+    //   loginData.email === "abc@gmail.com" &&
+    //   loginData.password === "password"
+    // ) {
+    //   // If credentials are correct, navigate to the target route
+    //   navigate("/community-web-page"); // Replace '/dashboard' with the desired route
+    // } else {
+    //   // If credentials are incorrect, show an error message
+    //   alert("Invalid email or password");
+    // }
 
     // Call the login function from the UserService
     try {
       const response = await login(loginData.email, loginData.password);
+      console.log(response);
       if (response.data) {
         navigate("/community-web-page"); // Replace '/community-web-page' with the desired route
       } else {
