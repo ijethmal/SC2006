@@ -27,7 +27,7 @@ const LoginWebpage = () => {
   const handleLogin = async () => {
     console.log(loginData);
 
-    /*// Check if email and password match the credentials
+    // Check if email and password match the credentials
     if (
       loginData.email === "abc@gmail.com" &&
       loginData.password === "password"
@@ -37,7 +37,7 @@ const LoginWebpage = () => {
     } else {
       // If credentials are incorrect, show an error message
       alert("Invalid email or password");
-    }*/
+    }
 
     // Call the login function from the UserService
     try {
