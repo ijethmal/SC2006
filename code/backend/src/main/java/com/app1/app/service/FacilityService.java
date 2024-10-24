@@ -1,7 +1,7 @@
 package com.app1.app.service;
 
 import java.util.Optional;
-
+import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -44,9 +44,9 @@ public class FacilityService {
 
     public Facility updateFacility(String id, Facility facility) {
         Facility oFacility = getFacility(id);
-        oFacility.setName(facility.getName());
-        oFacility.setCoordinates(facility.getCoordinates());
-        oFacility.setAvailableFacilities(facility.getAvailableFacilities());
+        if (facility.getName() != null) oFacility.setName(facility.getName());
+        if (facility.getCoordinates() != null) oFacility.setCoordinates(facility.getCoordinates());
+        if (facility.getAvailableFacilities() != null) oFacility.setAvailableFacilities(facility.getAvailableFacilities());
         facilityRepo.save(oFacility);
         return oFacility;
     }

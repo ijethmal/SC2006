@@ -46,8 +46,8 @@ public class FacilityResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteFacility(@PathVariable String id, @RequestBody Facility facility){
-        facilityService.deleteFacility(facility);
+    public ResponseEntity<String> deleteFacility(@PathVariable String id){
+        facilityService.deleteFacility(facilityService.getFacility(id));
         return ResponseEntity.ok("Deleted facility");
     }
 
