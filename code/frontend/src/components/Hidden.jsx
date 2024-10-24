@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Hidden.css";
+import WeatherComponent from "./WeatherComponent";
 
 const Hidden = ({ className = "" }) => {
   const navigate = useNavigate();
@@ -70,6 +71,12 @@ const Hidden = ({ className = "" }) => {
         />
         <div className="setting-wrapper">
           <b className="home1">Setting</b>
+        </div>
+      </div>
+      <div className="weather">
+        <div className="setting-wrapper">
+          <b className="home1"><WeatherComponent/></b>
+          
         </div>
       </div>
     </div>
