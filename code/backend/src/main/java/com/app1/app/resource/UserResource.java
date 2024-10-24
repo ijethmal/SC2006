@@ -22,6 +22,7 @@ public class UserResource {
                 ? ResponseEntity.ok("Login successful")
                 : ResponseEntity.badRequest().body("Login failed");
     }
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         System.out.println(user.getName());

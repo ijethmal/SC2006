@@ -61,7 +61,7 @@ const LoginWebpage = () => {
       <div className="white-frame" />
       <div className="register">
         <div className="dont-have-an">{`Don’t have an account? `}</div>
-        <div className="register1">Register</div>
+        <div className="register1 hover-effect">Register</div>
       </div>
       <div className="emailandpass">
         <div className="textbox">
@@ -93,13 +93,12 @@ const LoginWebpage = () => {
       <div className="gatherhub">GatherHub</div>
       <TextButton onClick={handleLogin} />
       <div className="rmb">
-        <div className="rmb-child" />
+        <input className="rmb-child" type='checkbox'/>
         <div className="dont-have-an">Remember me</div>
       </div>
       <div className="forget-password">
-        <span>Forget</span>
         <span className="span">{` `}</span>
-        <span>password</span>
+        <span className='hover-effect'>Fortget password</span>
         <span className="span">?</span>
       </div>
     </div>

@@ -134,3 +134,11 @@
 }
 
 
+.hover-effect {
+  cursor: pointer;  /* Changes the cursor to a clickable hand */
+  text-decoration: none;  /* Removes underline by default */
+}
+
+.hover-effect:hover {
+  text-decoration: underline;  /* Adds underline on hover */
+}

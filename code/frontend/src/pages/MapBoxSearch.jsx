@@ -12,7 +12,7 @@ const MapBoxSearch = () => {
 
     useEffect(() => {
         mapboxgl.accessToken =
-            "Acess token";
+            "acceess_token"; // Add your mapbox access token here
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
@@ -38,8 +38,8 @@ const MapBoxSearch = () => {
                 type: "fill",
                 /* Add a GeoJSON source containing place coordinates and information. */
                 paint: {
-                    "fill-color": "#FF69B4", // Màu hồng (hot pink)
-                    "fill-opacity": 0.8, // Độ trong suốt
+                    "fill-color": "#FF69B4", 
+                    "fill-opacity": 0.8,
                 },
                 source: {
                     type: "geojson",
