@@ -30,6 +30,10 @@ public class UserService {
         return userRepo.findAll(PageRequest.of(page, size, Sort.by("name")));
     }
 
+    public Optional<User> findUserById(String id) {
+        return userRepo.findById(id);
+    }
+
     //not sure whether this will work
     public User getUser(String id) {
         return userRepo.findById(id).orElseThrow();
