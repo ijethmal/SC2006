@@ -27,30 +27,18 @@ const LoginWebpage = () => {
   // Handle form submission or login button click. note: made it async
   const handleLogin = async () => {
     console.log(loginData);
-
-    /*// Check if email and password match the credentials
-    if (
-      loginData.email === "abc@gmail.com" &&
-      loginData.password === "password"
-    ) {
-      // If credentials are correct, navigate to the target route
-      navigate("/community-web-page"); // Replace '/dashboard' with the desired route
-    } else {
-      // If credentials are incorrect, show an error message
-      alert("Invalid email or password");
-    }*/
-
-    // Call the login function from the UserService
     try {
       const response = await login(loginData.email, loginData.password);
-      if (response.data) {
-        console.log(response.data);
+      console.log("Response:");
+      console.log(response);
+      if (response.data && response.data === "Login successful") {
         navigate("/community-web-page"); 
       } else {
-        console.log(response.data);
-        alert("Invalid email or password");
+        alert(response.data || "Invalid email or password");
       }
     } catch (error) {
+      console.log("Error:");
+      console.log(error);
       alert("Error logging in");
     }
   };
@@ -70,8 +58,10 @@ const LoginWebpage = () => {
             type="email"
             name="email"
             value={loginData.email}
-            placeholder="Enter your email"
-            onChange={handleInputChange}
+            //placeholder="Enter your email"
+            //onChange={handleInputChange}
+            onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+            placeholder="Email"
             className="email"
           />
           <img className="mdipassword-icon" alt="" src="/mdipassword.svg" />
@@ -83,8 +73,10 @@ const LoginWebpage = () => {
             type="password"
             name="password"
             value={loginData.password}
-            placeholder="Enter your password"
-            onChange={handleInputChange}
+            //placeholder="Enter your password"
+            //onChange={handleInputChange}
+            onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+            placeholder="Password"
             className="email"
           />
         </div>

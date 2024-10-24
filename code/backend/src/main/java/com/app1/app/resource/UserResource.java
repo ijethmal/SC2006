@@ -3,6 +3,8 @@ package com.app1.app.resource;
 import com.app1.app.domain.User;
 import com.app1.app.service.UserService;
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.mapping.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +17,22 @@ import java.net.URI;
 public class UserResource {
     private final UserService userService;
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
 
         return userService.login(user.getEmail(), user.getPassword())
                 ? ResponseEntity.ok("Login successful")
                 : ResponseEntity.badRequest().body("Login failed");
+    }*/
+    @PostMapping("/login")
+        public ResponseEntity<?> login(@RequestBody User user) {
+            if (userService.login(user.getEmail(), user.getPassword())) {
+                return ResponseEntity.ok("Login successful");
+            } else {
+                return ResponseEntity.badRequest().body("Login failed");
     }
+}
+
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
