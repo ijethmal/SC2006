@@ -1,15 +1,14 @@
 import React from "react";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import MapHDB from "../components/MapHDB";
+import { useState } from "react";
+import WeatherComponent from "../components/WeatherComponent";
 
 const TestPage = () => {
-  console.log("Hehe");
-  return (
-    <div className="test-page">
-      <MapHDB />
-    </div>
-  );
+    return (<div>
+        <h1>Test Page</h1>
+        <WeatherComponent />
+    </div>);
 };
+
+
 
 export default TestPage;
