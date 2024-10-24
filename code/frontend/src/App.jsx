@@ -13,7 +13,7 @@ import ExploreWebPage from "./pages/ExploreWebPage";
 import GroupWebPage from "./pages/GroupWebPage";
 import TestPage from "./pages/TestPage";
 import MapBoxSearch from "./pages/MapBoxSearch";
-import RegisterWebpage from "./pages/RegisterWebPage";
+
 
 
 function App() {
@@ -82,7 +82,7 @@ function App() {
       <Route path="/group-web-page" element={<GroupWebPage />} />
       <Route path="/test-page" element={<TestPage />} />
       <Route path="/mapboxsearch" element={<MapBoxSearch />} />
-      <Route path="/register" element={<RegisterWebpage />} />
+      
     </Routes>
   );
 }
