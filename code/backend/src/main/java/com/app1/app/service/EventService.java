@@ -1,5 +1,7 @@
 package com.app1.app.service;
 
+import java.text.ParseException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +21,7 @@ public class EventService {
     public final EventRepo eventRepo;
 
     public Page<Event> getEvents (int page, int size){
-        return eventRepo.findAll(PageRequest.of(page, size, Sort.by("name")));
+        return eventRepo.findAll(PageRequest.of(page, size, Sort.by("time")));
     }
 
     public Event getEvent(String id) {
@@ -41,10 +43,21 @@ public class EventService {
 
     public Event updateEvent(String id, Event event) {
         Event oEvent = getEvent(id);
-        if (event.getTime() != 0) event.setTime(oEvent.getTime());
+        if (event.getTime() != 0) oEvent.setTime(event.getTime());
         if (event.getDetails() != null) oEvent.setDetails(event.getDetails());
         if (event.getAttendees() != 0) oEvent.setAttendees(event.getAttendees());
+        if (event.getFacility() != null) oEvent.setFacility(event.getFacility());
         eventRepo.save(oEvent);
         return oEvent;
+    }
+
+    public String epochToString(long epoch){
+        String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (epoch*1000));
+        return date;
+    }
+
+    public long stringToEpoch(String date) throws ParseException{
+        long epoch = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(date).getTime() / 1000;
+        return epoch;
     }
 }
