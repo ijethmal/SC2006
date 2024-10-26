@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -6,13 +6,18 @@ import "./MapBoxSearch.css";
 import NaviBar from "../components/NaviBar";
 import geoData from "../data/sports_data.json";
 
-mapboxgl.accessToken = "eyJ1Ijoid2ludnN3b243OCIsImEiOiJjbTI5bnZjMGowN3FmMnFvcHgxNTQwZzlhIn0.CcCoZGOApaW_DxtDiWWpyA"; // Add your mapbox access token here
+mapboxgl.accessToken =
+    "access token bro"; // Add your mapbox access token here
 
 const MapBoxSearch = () => {
     const mapRef = useRef();
     const mapContainerRef = useRef();
+    const [instructions, setInstructions] = useState([
+        "Please select a destination",
+    ]);
+    const [duration, setDuration] = useState(12);
 
-    const start = [103.8198, 1.3521];
+    const start = [103.68163638786746, 1.3462156563070138];
 
     useEffect(() => {
         mapRef.current = new mapboxgl.Map({
@@ -48,7 +53,33 @@ const MapBoxSearch = () => {
                 },
             });
 
-            mapRef.current.on("click", "locations", (e) => {
+            // Add a layer for the start point
+            mapRef.current.addLayer({
+                id: "point",
+                type: "circle",
+                source: {
+                    type: "geojson",
+                    data: {
+                        type: "FeatureCollection",
+                        features: [
+                            {
+                                type: "Feature",
+                                properties: {},
+                                geometry: {
+                                    type: "Point",
+                                    coordinates: start,
+                                },
+                            },
+                        ],
+                    },
+                },
+                paint: {
+                    "circle-radius": 10,
+                    "circle-color": "#3887be",
+                },
+            });
+
+            mapRef.current.on("mouseover", "locations", (e) => {
                 const coordinates = e.features[0].geometry.coordinates.slice();
                 const description = e.features[0].properties["Description"];
                 console.log(description);
@@ -143,6 +174,20 @@ const MapBoxSearch = () => {
         );
         const json = await query.json();
         const data = json.routes[0];
+        const steps = data.legs[0].steps;
+        let currentInstructions = [];
+        for (const step of steps) {
+            currentInstructions.push(step.maneuver.instruction);
+        }
+        setInstructions(currentInstructions);
+        setDuration(data.duration);
+        // let tripInstructions = [];
+        // for (const step of steps) {
+        //     tripInstructions += `<li>${step.maneuver.instruction}</li>`;
+        // }
+        // instructions.innerHTML = `<p><strong>Trip duration: ${Math.floor(
+        //     data.duration / 60
+        // )} min 🚴 </strong></p><ol>${tripInstructions}</ol>`;
         const route = data.geometry.coordinates;
         const geojson = {
             type: "Feature",
@@ -184,10 +229,23 @@ const MapBoxSearch = () => {
             <NaviBar />
             <div className="sidebar">
                 <div className="heading">
-                    <h1>Instructions</h1>
-                    <div className="instructions"></div>
+                    <h1>🚲 Where you want to go 🚲</h1>
                 </div>
-                <div id="listings" className="listings"></div>
+                <div className="instructions">
+                    <p>
+                        {duration && (
+                            <strong>
+                                Trip duration: {Math.floor(duration / 60)} min
+                                🚴{" "}
+                            </strong>
+                        )}
+                    </p>
+                    <ol>
+                        {instructions.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ol>
+                </div>
             </div>
             <div id="map-container" ref={mapContainerRef}></div>
         </div>
