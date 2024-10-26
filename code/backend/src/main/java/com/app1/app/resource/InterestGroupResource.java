@@ -50,6 +50,26 @@ public class InterestGroupResource {
         return ResponseEntity.ok().body("Added member");
     }
 
+    @PutMapping("/{groupId}/promote/{userId}")
+    public ResponseEntity<String> promoteToAdmin(@PathVariable String groupId, @PathVariable String userId) {
+        try {
+            interestGroupService.promoteToAdmin(groupId, userId);
+            return ResponseEntity.ok("User promoted to admin");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{groupId}/demote/{userId}")
+    public ResponseEntity<String> demoteFromAdmin(@PathVariable String groupId, @PathVariable String userId) {
+        try {
+            interestGroupService.demoteFromAdmin(groupId, userId);
+            return ResponseEntity.ok("User demoted from admin");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteFacility(@PathVariable String id){
         interestGroupService.deleteInterestGroup(interestGroupService.getInterestGroup(id));
@@ -67,4 +87,6 @@ public class InterestGroupResource {
         interestGroupService.removeMember(groupId, userId);
         return ResponseEntity.ok().body("Deleted member");
     }
+
+
 }

@@ -80,4 +80,20 @@ public class InterestGroupService {
         }
         else throw new Exception("User not found");
     }
+
+    public void promoteToAdmin(String groupId, String userId) throws Exception {
+        InterestGroup interestGroup = getInterestGroup(groupId);
+        if (!interestGroup.getMembers().containsKey(userId)) throw new Exception("User is not a member");
+
+        interestGroup.addAdmin(userId);
+        interestGroupRepo.save(interestGroup);
+    }
+
+    public void demoteFromAdmin(String groupId, String userId) throws Exception {
+        InterestGroup interestGroup = getInterestGroup(groupId);
+        if (!interestGroup.getAdmins().containsKey(userId)) throw new Exception("User is not an admin");
+
+        interestGroup.removeAdmin(userId);
+        interestGroupRepo.save(interestGroup);
+    }
 }
