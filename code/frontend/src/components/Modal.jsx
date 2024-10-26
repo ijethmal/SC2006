@@ -1,41 +1,123 @@
 import React from "react";
+import { useState } from "react";
 import "./Modal.css";
 
-function Modal({closeModal}) {
+function Modal({ closeModal }) {
+    const [isHovered, setIsHovered] = useState(false);
+    const [formData, setFormData] = useState({});
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
     // id . time(created), time(diễn ra), details, attendees, group, facility(location trong facility)
-    
+
     return (
-    <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              closeModal(false);
-            }}
-          >
-            X
-          </button>
+        <div className="modalBackground">
+            <div className="modalContainer">
+                <div className="titleCloseBtn">
+                    <button
+                        onClick={() => {
+                            closeModal(false);
+                        }}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        style={{
+                            padding: "10px",
+                            backgroundColor: isHovered
+                                ? "lightblue"
+                                : "lightgray",
+                            transition: "background-color 0.3s ease",
+                        }}
+                    >
+                        ❌
+                    </button>
+                </div>
+                <div className="title">
+                    <div className="text">Submit New Event</div>
+                    <div className="underline"></div>
+                </div>
+
+                <div className="body">
+                    <div className="input">
+                        <div>⏰</div>
+                        <input
+                            type="time_created"
+                            placeholder="Time created"
+                            name="time_created"
+                            value={formData.time_created}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="input">
+                        <div>⏱️</div>
+                        <input
+                            type="time_start"
+                            placeholder="Time start"
+                            name="time_start"
+                            value={formData.time_start}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="input">
+                        <div>🫂</div>
+                        <input
+                            type="attendees"
+                            placeholder="Attendees"
+                            name="attendees"
+                            value={formData.attendees}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="input">
+                        <div>👥</div>
+                        <input
+                            type="group"
+                            placeholder="Group Name"
+                            name="groupname"
+                            value={formData.groupname}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="input">
+                        <div>📍</div>
+                        <input
+                            type="facilities"
+                            placeholder="Facilities"
+                            name="facilities"
+                            value={formData.facilities}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="input">
+                        <div>📝</div>
+                        <input
+                            type="details"
+                            placeholder="Details"
+                            name="details"
+                            value={formData.details}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="footer">
+                    <button
+                        onClick={() => {
+                            closeModal(false);
+                        }}
+                        id="cancelBtn"
+                    >
+                        Cancel
+                    </button>
+                    <button>Create event</button>
+                </div>
+            </div>
         </div>
-        <div className="title">
-          <h1>Are You Sure You Want to Continue?</h1>
-        </div>
-        <div className="body">
-          <p>The next page looks amazing. Hope you want to go there!</p>
-        </div>
-        <div className="footer">
-          <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            id="cancelBtn"
-          >
-            Cancel
-          </button>
-          <button>Continue</button>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Modal;
