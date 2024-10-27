@@ -51,5 +51,5 @@
 
 ### Important Notes
 - When creating an interest group, the creator is automatically added as a member and admin.
-- Admins cannot be removed or demoted from their admin role.
+- Admins cannot be removed from the group.
 - The creator of an interest group cannot be demoted.
