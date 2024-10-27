@@ -83,17 +83,29 @@ public class InterestGroupService {
 
     public void promoteToAdmin(String groupId, String userId) throws Exception {
         InterestGroup interestGroup = getInterestGroup(groupId);
-        if (!interestGroup.getMembers().containsKey(userId)) throw new Exception("User is not a member");
 
-        interestGroup.addAdmin(userId);
-        interestGroupRepo.save(interestGroup);
+        if (interestGroup.getAdmins().containsKey(userId)) {
+            System.out.println("User is already an admin");
+        } else if (!interestGroup.getMembers().containsKey(userId)) {
+            throw new Exception("User not a member");
+        } else {
+            interestGroup.addAdmin(userId);
+            interestGroupRepo.save(interestGroup);
+        }
     }
 
     public void demoteFromAdmin(String groupId, String userId) throws Exception {
         InterestGroup interestGroup = getInterestGroup(groupId);
-        if (!interestGroup.getAdmins().containsKey(userId)) throw new Exception("User is not an admin");
 
-        interestGroup.removeAdmin(userId);
-        interestGroupRepo.save(interestGroup);
+        if (!interestGroup.getMembers().containsKey(userId)) {
+            throw new Exception("Wrong user");
+        } else if (!interestGroup.getAdmins().containsKey(userId)) {
+            throw new Exception("User not an admin");
+        } else if (userId.equals(interestGroup.getCreatedBy())) {
+            throw new Exception("Creator cannot be demoted");
+        } else {
+            interestGroup.removeAdmin(userId);
+            interestGroupRepo.save(interestGroup);
+        }
     }
 }

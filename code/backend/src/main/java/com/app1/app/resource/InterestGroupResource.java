@@ -1,6 +1,7 @@
 package com.app1.app.resource;
 
 import java.net.URI;
+import java.util.HashMap;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,29 @@ public class InterestGroupResource {
     }
 
     @PostMapping
-    public ResponseEntity<InterestGroup> createFacility(@RequestBody InterestGroup interestGroup) {
-        return ResponseEntity.created(URI.create("/interestgroups/" + interestGroupService.createInterestGroup(interestGroup).getId())).body(interestGroup);
+    public ResponseEntity<InterestGroup> createInterestGroup(@RequestBody InterestGroup interestGroup) {
+        String creatorId = interestGroup.getCreatedBy();
+
+        // Check if members is null before adding the creator
+        if (interestGroup.getMembers() == null) {
+            interestGroup.setMembers(new HashMap<>());
+        }
+        interestGroup.getMembers().put(creatorId, 1);
+
+        // Check if admins is null before adding the creator
+        if (interestGroup.getAdmins() == null) {
+            interestGroup.setAdmins(new HashMap<>());
+        }
+        interestGroup.getAdmins().put(creatorId, 1);
+
+        // Create the interest group with the updated members and admins
+        InterestGroup createdGroup = interestGroupService.createInterestGroup(interestGroup);
+
+        return ResponseEntity.created(URI.create("/interestgroups/" + createdGroup.getId())).body(createdGroup);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<InterestGroup> updateFacility(@PathVariable String id, @RequestBody InterestGroup interestGroup) {
+    public ResponseEntity<InterestGroup> updateInterestGroup(@PathVariable String id, @RequestBody InterestGroup interestGroup) {
         return ResponseEntity.ok().body(interestGroupService.updateInterestGroup(id, interestGroup));
     }
 
@@ -84,9 +102,17 @@ public class InterestGroupResource {
 
     @DeleteMapping("/{groupId}/members/{userId}")
     public ResponseEntity<String> deleteMember(@PathVariable String groupId, @PathVariable String userId) throws Exception {
-        interestGroupService.removeMember(groupId, userId);
-        return ResponseEntity.ok().body("Deleted member");
+        try {
+            InterestGroup interestGroup = interestGroupService.getInterestGroup(groupId);
+
+            if (interestGroup.getAdmins().containsKey(userId)) {
+                throw new Exception("Cannot delete admin");
+            }
+
+            interestGroupService.removeMember(groupId, userId);
+            return ResponseEntity.ok().body("Deleted member");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-
-
 }
