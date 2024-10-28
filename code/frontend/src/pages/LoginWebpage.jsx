@@ -58,7 +58,6 @@ const LoginWebpage = () => {
             type="email"
             name="email"
             value={loginData.email}
-            //placeholder="Enter your email"
             //onChange={handleInputChange}
             onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
             placeholder="Email"
