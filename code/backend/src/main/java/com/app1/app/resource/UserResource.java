@@ -3,8 +3,6 @@ package com.app1.app.resource;
 import com.app1.app.domain.User;
 import com.app1.app.service.UserService;
 import lombok.RequiredArgsConstructor;
-
-import org.hibernate.mapping.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,15 +57,19 @@ public class UserResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
-        return userService.updateUser(id, user)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(userService.updateUser(id, user));
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteAllUser() {
         userService.deleteAllUser();
         return ResponseEntity.ok("Deleted all users");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable String id){
+        userService.deleteUser(userService.getUser(id));
+        return ResponseEntity.ok("Deleted User");
     }
 
    /* @PutMapping("/{id}/photo")

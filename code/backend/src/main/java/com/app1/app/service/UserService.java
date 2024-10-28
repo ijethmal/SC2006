@@ -57,21 +57,26 @@ public class UserService {
         return userRepo.save(user);
     }
 
-    public Optional<User> updateUser(String id, User user) {
-        return userRepo.findById(id)
-                .map(existingUser -> {
-                    existingUser.setName(user.getName());
-                    existingUser.setEmail(user.getEmail());
-                    existingUser.setLocation(user.getLocation());
-                    existingUser.setPassword(user.getPassword());
-                    existingUser.setPhotoUrl(user.getPhotoUrl());
-                    existingUser.setGroups(user.getGroups());
-                    return existingUser;
-                });
+    public User updateUser(String id, User user) {
+        User oUser = getUser(id);
+        if (user.getName() != null) oUser.setName(user.getName());
+        if (user.getPassword() != null) oUser.setPassword(user.getPassword());
+        if (user.getLocation() != null) oUser.setLocation(user.getLocation());
+        if (user.getPhotoUrl() != null) oUser.setPhotoUrl(user.getPhotoUrl());
+        if (user.getBio() != null) oUser.setBio(user.getBio());
+        if (user.getEmail() != null) oUser.setEmail(user.getEmail());
+        if (user.getGroups() != null) oUser.setGroups(user.getGroups());
+        userRepo.save(oUser);
+        return oUser;
     }
 
     public void deleteAllUser() {
         userRepo.deleteAll();
+    }
+
+    public User deleteUser(User user){
+        userRepo.deleteById(user.getId());
+        return user;
     }
 
     // delete, update, and uploadPhoto methods go here
