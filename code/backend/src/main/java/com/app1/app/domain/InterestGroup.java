@@ -30,5 +30,14 @@ public class InterestGroup {
     private String location;
     private String createdBy;                  // Reference to the User who created the group
     private HashMap<String, Integer> members;  // List of users who are members of the group
-    private HashMap<String, Integer> events;   // List of events in the group 
+    private HashMap<String, Integer> admins;   // List of Admins
+    private HashMap<String, Integer> events;   // List of events in the group
+
+    public void addAdmin(String userId) {
+        admins.put(userId, 1);
+    }
+
+    public void removeAdmin(String userId) {
+        admins.remove(userId);
+    }
 }

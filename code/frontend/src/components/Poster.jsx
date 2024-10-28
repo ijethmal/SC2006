@@ -4,15 +4,15 @@ import PropTypes from "prop-types";
 import "./Poster.css";
 import "./Card.css";
 import Card from "./Card";
+import Modal from "./Modal";
 
 const Poster = ({ className = "" }) => {
-    const [cards, setCards] = useState([
-        <Card key={0} />,
-    ]);
+    const [openModal, setOpenModal] = useState(false);
+    const [cards, setCards] = useState([<Card key={0} />]);
 
-    const addCard = () => {
-        setCards([...cards, <Card key={cards.length} />]);
-    };
+    // const addCard = () => {
+    //     setCards([...cards, <Card key={cards.length} />]);
+    // };
 
     return (
         <div className={`poster ${className}`}>
@@ -34,9 +34,15 @@ const Poster = ({ className = "" }) => {
                 </div>
             </div> */}
 
-            <button className="button" onClick={addCard}>
+            <button
+                className="button"
+                onClick={() => {
+                    setOpenModal(true);
+                }}
+            >
                 <h3>Create Event 🔥🔥🔥</h3>
             </button>
+            {openModal && <Modal closeModal={setOpenModal}/>}
         </div>
     );
 };
