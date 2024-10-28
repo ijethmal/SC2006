@@ -1,0 +1,53 @@
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    overflow: auto;
+}
+
+/* Card for each event */
+.event-card {
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.event-card:hover {
+    transform: scale(1.02);
+}
+
+/* Event image styling */
+.event-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Content section within the event card */
+.event-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-title {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+strong {
+    color: #222;
+}

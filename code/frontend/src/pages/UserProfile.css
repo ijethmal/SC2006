@@ -1,5 +1,4 @@
-.placeholder-one-icon,
-.placeholder-two-icon {
+.placeholder-one-icon{
   position: absolute;
   top: 0;
   left: 0;
@@ -7,7 +6,15 @@
   height: 416px;
   object-fit: cover;
 }
-.placeholder-two-icon {
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1241px;
+  height: 416px;
+  object-fit: cover;
+}
+.avatar{
   top: 119px;
   left: 465px;
   width: 310px;
