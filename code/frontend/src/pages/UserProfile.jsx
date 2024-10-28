@@ -10,13 +10,13 @@ const UserProfile = () => {
         <section className="profile-header">
           <img
             className="placeholder-one-icon"
-            alt=""
+            alt="backgrond picture"
             src="/placeholder-one@2x.png"
           />
           <img
-            className="placeholder-two-icon"
+            className="avatar"
             loading="lazy"
-            alt=""
+            alt="avatar of user"
             src="/frame-7@2x.png"
           />
         </section>
