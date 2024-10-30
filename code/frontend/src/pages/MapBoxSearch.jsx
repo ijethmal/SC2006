@@ -7,7 +7,7 @@ import NaviBar from "../components/NaviBar";
 import geoData from "../data/sports_data.json";
 
 mapboxgl.accessToken =
-    "access token bro"; // Add your mapbox access token here
+    "acess token"; // Add your mapbox access token here
 
 const MapBoxSearch = () => {
     const mapRef = useRef();
