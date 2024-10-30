@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -27,8 +28,11 @@ public class Event {
     private String id;
     private long time;
     private String details;
-    private int attendees;
+    private ArrayList<String> attendees;
     private String group;
     private String facility;
+    private boolean isActiveSg;
+    private String eventUrl;
+    private String location;
     // private String bookingProofUrl;
 }

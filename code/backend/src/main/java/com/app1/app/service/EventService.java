@@ -45,7 +45,7 @@ public class EventService {
         Event oEvent = getEvent(id);
         if (event.getTime() != 0) oEvent.setTime(event.getTime());
         if (event.getDetails() != null) oEvent.setDetails(event.getDetails());
-        if (event.getAttendees() != 0) oEvent.setAttendees(event.getAttendees());
+        if (event.getAttendees() != null) oEvent.setAttendees(event.getAttendees());
         if (event.getFacility() != null) oEvent.setFacility(event.getFacility());
         eventRepo.save(oEvent);
         return oEvent;

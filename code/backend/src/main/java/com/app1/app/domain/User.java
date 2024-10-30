@@ -32,6 +32,7 @@ public class User {
     private String password;
     private String photoUrl;
     private String[] groups;
+    private String bio;
 
     //constructor
 
