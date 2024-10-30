@@ -1,0 +1,114 @@
+.cooking-class-zone {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.cooking-class-zone-h-wrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-118xl) 0 var(--padding-117xl);
+}
+.cook-2-icon1 {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.cook-2-container {
+  height: 192.9px;
+  width: 239px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-6xs) 0 0;
+  box-sizing: border-box;
+}
+.line-div {
+  height: 194.7px;
+  width: 1.8px;
+  position: relative;
+  border-right: 1.8px solid var(--color-whitesmoke);
+  box-sizing: border-box;
+  z-index: 1;
+}
+.discover-the-joy {
+  margin: 0;
+}
+.wwwchefmclassesnet {
+  margin: 0;
+  color: var(--color-mediumblue);
+}
+.discover-the-joy-container {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 201px;
+  z-index: 1;
+}
+.frame-parent5 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap-mini-1);
+  font-size: var(--font-size-2xl-2);
+}
+.frame-parent4,
+.poster-inner {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frame-parent4 {
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-7xl-9);
+}
+.poster-inner {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0 var(--padding-xs) var(--padding-4xs-9) var(--padding-mini);
+  box-sizing: border-box;
+  text-align: center;
+  font-size: var(--font-size-4xl);
+  color: var(--color-black);
+  font-family: var(--font-sf-pro);
+}
+@media screen and (max-width: 750px) {
+  .cooking-class-zone-h-wrapper {
+    padding-left: var(--padding-49xl);
+    padding-right: var(--padding-49xl);
+    box-sizing: border-box;
+  }
+  .line-div {
+    width: 100%;
+    height: 1.8px;
+  }
+  .frame-parent5 {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 450px) {
+  .cooking-class-zone {
+    font-size: var(--font-size-lg);
+  }
+  .cooking-class-zone-h-wrapper {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .discover-the-joy-container {
+    font-size: var(--font-size-mid);
+  }
+}
