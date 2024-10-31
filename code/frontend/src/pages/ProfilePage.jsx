@@ -35,6 +35,23 @@ const ProfilePage = () => {
             photoUrl:
                 "https://marketing-cdn.tickettailor.com/ZgP1j7LRO5ile62O_HowdoyouhostasmallcommunityeventA10-stepguide%2CMiniflagsattheevent.jpg?auto=format,compress",
         },
+        {
+            time_start: "20-10-2024",
+            details: "First person to arrive gets a free gift",
+            attendees: "10",
+            group: "Mr Beast group",
+            facility: "Gym",
+            photoUrl:
+                "https://marketing-cdn.tickettailor.com/ZgP1j7LRO5ile62O_HowdoyouhostasmallcommunityeventA10-stepguide%2CMiniflagsattheevent.jpg?auto=format,compress",
+        },{
+            time_start: "20-10-2024",
+            details: "First person to arrive gets a free gift",
+            attendees: "10",
+            group: "Mr Beast group",
+            facility: "Gym",
+            photoUrl:
+                "https://marketing-cdn.tickettailor.com/ZgP1j7LRO5ile62O_HowdoyouhostasmallcommunityeventA10-stepguide%2CMiniflagsattheevent.jpg?auto=format,compress",
+        },
     ];
     const interestGroup = {
         name: "Cooking",
@@ -44,59 +61,68 @@ const ProfilePage = () => {
     };
     return (
         <div className="profilePage">
-            <NaviBar></NaviBar>
+            <NaviBar className="nav"></NaviBar>
             <div className="profileWrapper">
                 {/* // this part is profile heeader */}
                 <div className="profile-header">
-                    <img
-                        src={userData.photoUrl}
-                        className="profile-picture"
-                        alt="Profile"
-                    />
-                    <div className="profile-name">
-                        {userData.name.toUpperCase()}
+                    <div className="profileInfo">
+                        <img
+                            src={userData.photoUrl}
+                            className="profile-picture"
+                            alt="Profile"
+                        />
+                        <div className="profile-name">
+                            {userData.name.toUpperCase()}
+                        </div>
+                        <div className="profile-tagline">{userData.desc}</div>
+                        <div className="location">
+                            <h3>🗺️ {userData.location}</h3>
+                        </div>
+                        <div className="profile-links">
+                            🖥&nbsp;
+                            <a
+                                href="https://www.google.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ color: "blue" }}
+                            >
+                                {userData.email}
+                            </a>
+                        </div>
                     </div>
-                    <div className="profile-tagline">{userData.desc}</div>
-                    <div className="location">{userData.location}</div>
-                    <div className="profile-links">
-                        🖥&nbsp;
-                        <a
-                            href="https://www.google.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {userData.email}
-                        </a>
-                    </div>
-
-                    {/* This part for user body */}
-                    <div className="profile-body">
+                    <div
+                    className="profileInterest">
                         <div className="interests-and-groups">
-                            <div className="interests">
-                                <h2>My Interests</h2>
-                                <div className="interests-list">
-                                    <InterestsBar
-                                        key={userData.interests}
-                                        interest={userData.interests}
-                                    />
-                                </div>
-                            </div>
-                            <div className="groups">
-                                <h2>My Groups</h2>
-                                <div className="interests-list">
-                                    <InterestsBar
-                                        key={userData.groups}
-                                        interest={userData.groups}
-                                    />
-                                </div>
+                        <div className="interests">
+                            <h2>My Interests</h2>
+                            <div className="interests-list">
+                                <InterestsBar
+                                    key={userData.interests}
+                                    interest={userData.interests}
+                                    name="Interests"
+                                />
                             </div>
                         </div>
-
-                        <div className="events">
-                            <h2>Upcomming events</h2>
-                            <div className="event-list">
-                                <EventList events={events} />
+                        <div className="groups">
+                            <h2>My Groups</h2>
+                            <div className="interests-list">
+                                <InterestsBar
+                                    key={userData.groups}
+                                    interest={userData.groups}
+                                    name="Groups"
+                                />
                             </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                {/* This part for user body */}
+                <div className="profile-body">
+                    <div className="events">
+                        <h2>Upcomming events</h2>
+                        <div className="event-list">
+                            <EventList events={events} />
                         </div>
                     </div>
                 </div>

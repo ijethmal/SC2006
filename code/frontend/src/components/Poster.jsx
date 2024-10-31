@@ -5,11 +5,42 @@ import "./Poster.css";
 import "./Card.css";
 import Card from "./Card";
 import Modal from "./Modal";
+import EventList from "./EventList";
 
 const Poster = ({ className = "" }) => {
     const [openModal, setOpenModal] = useState(false);
-    const [cards, setCards] = useState([<Card key={0} />]);
+    // const [events, setEvents] = useState([]);
+    // setting this event to be static for now
 
+    const events = [
+        {
+            time_start: "20-10-2024",
+            details: "First person to arrive gets a free gift",
+            attendees: "10",
+            group: "Mr Beast group",
+            facility: "Gym",
+            photoUrl:
+                "https://marketing-cdn.tickettailor.com/ZgP1j7LRO5ile62O_HowdoyouhostasmallcommunityeventA10-stepguide%2CMiniflagsattheevent.jpg?auto=format,compress",
+        },
+        {
+            time_start: "20-10-2024",
+            details: "Giving me 10000 dollars for free",
+            attendees: "10",
+            group: "Mr Bean group",
+            facility: "Gym",
+            photoUrl:
+                "https://marketing-cdn.tickettailor.com/ZgP1j7LRO5ile62O_HowdoyouhostasmallcommunityeventA10-stepguide%2CMiniflagsattheevent.jpg?auto=format,compress",
+        },
+        {
+            time_start: "20-10-2024",
+            details: "Ben 10 goes into 10 Ben",
+            attendees: "10",
+            group: "Mr Ben group",
+            facility: "Gym",
+            photoUrl:
+                "https://marketing-cdn.tickettailor.com/ZgP1j7LRO5ile62O_HowdoyouhostasmallcommunityeventA10-stepguide%2CMiniflagsattheevent.jpg?auto=format,compress",
+        }
+    ];
     // const addCard = () => {
     //     setCards([...cards, <Card key={cards.length} />]);
     // };
@@ -23,16 +54,8 @@ const Poster = ({ className = "" }) => {
                 </div>
             </div>
             <div className="scroll-container">
-                {cards.map((card, index) => (
-                    <React.Fragment key={index}>{card}</React.Fragment>
-                ))}
+                <EventList events={events} />
             </div>
-            {/* <div className="create-group-button-wrapper">
-                <div className="create-group-button">
-                    <div className="create-group-button-child" />
-                    <div className="create-new-group">Create new group</div>
-                </div>
-            </div> */}
 
             <button
                 className="button"
@@ -42,7 +65,7 @@ const Poster = ({ className = "" }) => {
             >
                 <h3>Create Event 🔥🔥🔥</h3>
             </button>
-            {openModal && <Modal closeModal={setOpenModal}/>}
+            {openModal && <Modal closeModal={setOpenModal} />}
         </div>
     );
 };
