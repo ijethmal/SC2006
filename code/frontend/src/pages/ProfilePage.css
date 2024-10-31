@@ -1,48 +1,70 @@
-.profilePage{
-  display: flex;
-  flex-direction: row;
+.profilePage {
+    display: flex;
+    flex-direction: row;
 }
-.profileWrapper{
-  width: 100%;
+.profileWrapper {
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
 }
 
 .profile-header {
     margin-bottom: 70px;
     color: var(--header-text);
-  }
-  
-  .profile-picture {
+}
+
+.profile-picture {
     display: inline-block;
     width: 256px;
     height: 256px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 25px;
-  }
-  
-  .profile-name {
-    font-family: 'Bungee Shade', cursive;
+}
+
+.profile-name {
+    font-family: "Bungee Shade", cursive;
     font-size: 48px;
     letter-spacing: 0.2em;
     margin-bottom: 16px;
-  }
-  
-  .profile-tagline {
+}
+
+.profile-tagline {
     font-family: Calligraffitti;
     font-size: 32px;
     letter-spacing: 3px;
     margin-bottom: 24px;
-  }
-  
-  .profile-links {
+}
+
+.profile-links {
     font-family: Poppins;
     font-size: 16px;
-  }
+}
 
-  .interests-and-groups{
+.interests-and-groups {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
-  }
-  .groups{
-    width: 30%;
-  }
+}
+.interests-list{
+    width: 90vh;
+    
+}
+.groups {
+    width: 100vh;
+}
+
+.profile-header{
+  display: flex;
+  flex-direction: row;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    flex-wrap: wrap;
+}

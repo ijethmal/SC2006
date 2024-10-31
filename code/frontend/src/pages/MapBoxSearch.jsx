@@ -1,13 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import "./MapBoxSearch.css";
 import NaviBar from "../components/NaviBar";
 import geoData from "../data/sports_data.json";
 
-mapboxgl.accessToken =
-    "acess token"; // Add your mapbox access token here
+mapboxgl.accessToken = "access token here"; // Add your mapbox access token here
 
 const MapBoxSearch = () => {
     const mapRef = useRef();
@@ -20,6 +20,7 @@ const MapBoxSearch = () => {
     const start = [103.68163638786746, 1.3462156563070138];
 
     useEffect(() => {
+        // map initialization
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: "mapbox://styles/mapbox/streets-v11", // Add map style
@@ -32,6 +33,26 @@ const MapBoxSearch = () => {
          * later to associate each point on the map with a listing
          * in the sidebar.
          */
+
+        // add geocoder
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            marker: {
+                color: "orange",
+            },
+            placeholder: "Search for locations",
+        });
+        mapRef.current.addControl(geocoder, "top-left");
+        geocoder.on("result", (e) => {
+            const { center } = e.result;
+            mapRef.current.flyTo({
+                center: center,
+                essential: true,
+                zoom: 14,
+            });
+        });
+
         geoData.features.forEach((stadium, i) => {
             stadium.properties.id = i;
         });

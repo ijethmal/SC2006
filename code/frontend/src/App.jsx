@@ -75,7 +75,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginWebpage />} />
-      <Route path="/user-profile" element={<UserProfile />} />
+      <Route path="/user-profile" element={<ProfilePage />} />
       <Route path="/setting-web-page" element={<SettingWebPage />} />
       <Route path="/community-web-page" element={<CommunityWebPage />} />
       <Route path="/explore-web-page" element={<MapBoxSearch />} />

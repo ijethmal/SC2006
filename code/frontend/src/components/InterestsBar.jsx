@@ -19,7 +19,7 @@ function InterestsBar(props) {
 
     return (
         <div className="interests-bar-container">
-            <label className="interests-label">Interests</label>
+            <label className="interests-label">{props.name}</label>
             <div className="interests-bar">
                 {interests.map((interest, index) => (
                     <div key={index} className="interest-button">
