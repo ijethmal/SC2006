@@ -9,10 +9,9 @@ import LoginWebpage from "./pages/LoginWebpage";
 import UserProfile from "./pages/UserProfile";
 import SettingWebPage from "./pages/SettingWebPage";
 import CommunityWebPage from "./pages/CommunityWebPage";
-import ExploreWebPage from "./pages/ExploreWebPage";
-import GroupWebPage from "./pages/GroupWebPage";
 import MapBoxSearch from "./pages/MapBoxSearch";
 import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/HomePage";
 
 
 
@@ -77,10 +76,10 @@ function App() {
       <Route path="/" element={<LoginWebpage />} />
       <Route path="/user-profile" element={<ProfilePage />} />
       <Route path="/setting-web-page" element={<SettingWebPage />} />
-      <Route path="/community-web-page" element={<CommunityWebPage />} />
+      <Route path="/community-web-page" element={<HomePage />} />
       <Route path="/explore-web-page" element={<MapBoxSearch />} />
-      <Route path="/group-web-page" element={<GroupWebPage />} />
-      <Route path="/test-page" element={<ProfilePage />} />
+      
+      {/* <Route path="/test-page" element={<TestPage />} /> */}
       
     </Routes>
   );

@@ -1,0 +1,36 @@
+.community-web-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+.page-wrapper{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.info{
+  display: flex;
+  flex-direction: row;
+}
+.events-wrapper{
+  width: 80%;
+  height: 100vh;
+  background-color: wheat;
+  overflow-y: auto;
+}
+.interests-wrapper{
+  width: 20%;
+  height: 100vh;
+  background-color: lightblue;
+}
+.header_info{
+  display: flex;
+  justify-content: center;
+}
+
+/* filter header */
+.filter_header{
+  font-size: 1.2em;
+}
+

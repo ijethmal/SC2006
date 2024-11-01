@@ -1,0 +1,26 @@
+.user-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+    background-color: var(--color-indigo)
+
+}
+.user-header-avatar{
+    width: 20px;
+    height: 20px; 
+    overflow: hidden; 
+    border-radius: 50%; 
+}
+.imgUrl {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+.user-header-details{
+    margin-left: 10px;
+    margin-right: 10px;
+    color: whitesmoke;
+    font-weight: medium;
+    font-family: Arial, Helvetica, sans-serif;
+}
