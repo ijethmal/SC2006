@@ -53,3 +53,27 @@
 - When creating an interest group, the creator is automatically added as a member and admin.
 - Admins cannot be removed from the group.
 - The creator of an interest group cannot be demoted.
+
+## Events
+### Endpoints
+1. **GET /events**
+    - Retrieves a paginated list of events.
+    - Parameters: `page` (default: 0) and `size` (default: 10).
+    - Response: Page of Events objects.
+2. **GET /events/{id}**
+    - Retrieves a specific event by ID.
+    - Response: Event object.
+3. **POST /events**
+    - Creates a new event.
+    - Request Body: Event object.
+    - Response: Event object.
+4. **PUT /events/{id}**
+    - Updates an existing interest group by ID.
+    - Request Body: Event object (does not have to contain all fields, only the updated fields).
+    - Response: Updated Event object.
+5. **DELETE /events**
+    - Deletes all events (Do not use. This is basically a factory reset).
+    - Response: Success message.
+6. **DELETE /events/{id}**
+    - Deletes an event with id.
+    - Response: Success message. 
