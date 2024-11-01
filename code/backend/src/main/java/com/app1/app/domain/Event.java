@@ -1,9 +1,6 @@
 package com.app1.app.domain;
 
-import org.hibernate.annotations.UuidGenerator;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,27 +9,29 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.ArrayList;
+import java.util.HashMap;
+import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_DEFAULT)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @Table(name = "events")
 public class Event {
     @Id
     @UuidGenerator
     @Column(name = "id", unique = true, updatable = false)
     private String id;
-    private long time;
+    private Long time;
     private String details;
-    private ArrayList<String> attendees;
+    private HashMap<String, Integer> attendees = new HashMap<>();
+    private Integer numAttendees = 0;
     private String group;
     private String facility;
-    private boolean isActiveSg;
-    private String eventUrl;
-    private String location;
+    private Boolean isActiveSg = true;
+    // private String eventUrl;
+    // private String location;
     // private String bookingProofUrl;
 }
