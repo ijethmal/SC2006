@@ -1,146 +1,16 @@
-.group-page-bg {
-    width: 656.5px;
-    height: 1167.9px;
-    position: relative;
-    box-shadow: 0 7.1px 7.1px rgba(0, 0, 0, 0.25);
-    border-radius: var(--br-7xl-5);
-    background-color: var(--color-white);
-    border: 1.8px solid var(--color-silver-100);
-    box-sizing: border-box;
-    display: none;
-    max-width: 100%;
-}
-.group-interests-near {
-    height: 65.5px;
-    width: 452.2px;
-    position: relative;
-    display: inline-block;
-    flex-shrink: 0;
-    max-width: 100%;
-}
-.group-interests-near-you-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 0 var(--padding-44xl);
-    box-sizing: border-box;
-    max-width: 100%;
-    font-size: var(--font-size-23xl-5);
-}
-.yoga-class-zone {
-    flex: 1;
-    position: relative;
-    z-index: 1;
-}
-.yoga-class-zone-f-wrapper {
-    align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 0 var(--padding-159xl) 0 var(--padding-152xl);
-}
-.yoga-2-icon1 {
-    align-self: stretch;
-    flex: 1;
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
-    max-height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-.yoga-2-wrapper {
-    height: 192.9px;
-    width: 256.6px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 0 var(--padding-5xl) 0 0;
-    box-sizing: border-box;
-}
-.frame-child3 {
-    height: 194.7px;
-    width: 1.8px;
-    position: relative;
-    border-right: 1.8px solid var(--color-whitesmoke);
-    box-sizing: border-box;
-    z-index: 1;
-}
-.find-your-inner {
-    margin: 0;
-}
-.wwwyogabliss101com {
-    margin: 0;
-    color: var(--color-mediumblue);
-}
-.find-your-inner-container {
-    flex: 1;
-    position: relative;
-    display: inline-block;
-    min-width: 218px;
-    max-width: 100%;
-    z-index: 1;
-}
-.frame-parent6,
-.frame-parent7 {
-    display: flex;
-    align-items: flex-start;
-    max-width: 100%;
-}
-.frame-parent7 {
-    align-self: stretch;
-    flex-direction: row;
-    justify-content: center;
-    gap: var(--gap-11xs-8);
-    font-size: var(--font-size-2xl-2);
-}
-.frame-parent6 {
-    width: 596.4px;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 0 0 var(--padding-4xs-9);
-    box-sizing: border-box;
-    gap: var(--gap-7xl-8);
-}
-.create-group-button-child {
-    height: 56.6px;
-    width: 212px;
-    position: relative;
-    border-radius: var(--br-7xl-5);
-    background-color: var(--color-indigo);
-    display: none;
-}
-.create-new-group {
-    flex: 1;
-    position: relative;
-    z-index: 1;
-}
-.create-group-button {
-    flex: 1;
-    border-radius: var(--br-7xl-5);
-    background-color: var(--color-indigo);
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: var(--padding-base) 0 var(--padding-base-6);
-    z-index: 1;
-}
-.create-group-button-wrapper,
-.poster {
-    align-self: stretch;
+.poster-header {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 0 var(--padding-174xl) 0 var(--padding-180xl);
-    font-size: var(--font-size-2xl-2);
-    color: var(--color-white);
+    justify-content: space-evenly;
+    font-size: var(--font-size-23xl-5);
 }
+
 .poster {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
     box-shadow: 0 7.1px 7.1px rgba(0, 0, 0, 0.25);
     border-radius: var(--br-7xl-5);
     background-color: var(--color-white);
@@ -160,67 +30,7 @@
     color: var(--color-black);
     font-family: var(--font-sf-pro);
 }
-@media screen and (max-width: 1050px) {
-    .group-interests-near {
-        font-size: var(--font-size-15xl);
-    }
-    .poster {
-        padding-top: var(--padding-5xl);
-        padding-bottom: var(--padding-15xl);
-        box-sizing: border-box;
-    }
-}
-@media screen and (max-width: 750px) {
-    .group-interests-near-you-wrapper {
-        padding-left: var(--padding-12xl);
-        padding-right: var(--padding-12xl);
-        box-sizing: border-box;
-    }
-    .yoga-class-zone-f-wrapper {
-        padding-left: var(--padding-66xl);
-        padding-right: var(--padding-70xl);
-        box-sizing: border-box;
-    }
-    .frame-child3 {
-        width: 100%;
-        height: 1.8px;
-    }
-    .frame-parent7 {
-        flex-wrap: wrap;
-    }
-    .create-group-button-wrapper {
-        padding-left: var(--padding-80xl);
-        padding-right: var(--padding-77xl);
-        box-sizing: border-box;
-    }
-    .poster {
-        gap: var(--gap-lgi);
-        padding-top: var(--padding-xl);
-        padding-bottom: var(--padding-3xl);
-        box-sizing: border-box;
-    }
-}
-@media screen and (max-width: 450px) {
-    .group-interests-near {
-        font-size: var(--font-size-6xl);
-    }
-    .yoga-class-zone {
-        font-size: var(--font-size-lg);
-    }
-    .yoga-class-zone-f-wrapper {
-        padding-left: var(--padding-xl);
-        padding-right: var(--padding-xl);
-        box-sizing: border-box;
-    }
-    .find-your-inner-container {
-        font-size: var(--font-size-mid);
-    }
-    .create-group-button-wrapper {
-        padding-left: var(--padding-xl);
-        padding-right: var(--padding-xl);
-        box-sizing: border-box;
-    }
-}
+
 
 .scroll-container {
     max-height: 400px;
@@ -234,6 +44,26 @@
     border-radius: 20px;
     text-decoration: none;
     font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.inputs{
+    border-radius: 20px;
+    max-width: 15%;
+    background-color: blanchedalmond;
+    font-family: var(--font-sf-pro);
+}
+.filter-button{
+    background-color: var(--color-indigo);
+    color: var(--color-white);
+    border-radius: 20px;
+    text-decoration: none;
     font-weight: bold;
     cursor: pointer;
 }

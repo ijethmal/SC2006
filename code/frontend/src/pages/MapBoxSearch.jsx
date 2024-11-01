@@ -34,24 +34,26 @@ const MapBoxSearch = () => {
          * in the sidebar.
          */
 
-        // add geocoder
-        const geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            marker: {
-                color: "orange",
-            },
-            placeholder: "Search for locations",
-        });
-        mapRef.current.addControl(geocoder, "top-left");
-        geocoder.on("result", (e) => {
-            const { center } = e.result;
-            mapRef.current.flyTo({
-                center: center,
-                essential: true,
-                zoom: 14,
-            });
-        });
+        // add geocoder: COMMENT THIS LINE FOR SEEING the code
+        // ---------------------------------------------
+        // const geocoder = new MapboxGeocoder({
+        //     accessToken: mapboxgl.accessToken,
+        //     mapboxgl: mapboxgl,
+        //     marker: {
+        //         color: "orange",
+        //     },
+        //     placeholder: "Search for locations",
+        // });
+        // mapRef.current.addControl(geocoder, "top-left");
+        // geocoder.on("result", (e) => {
+        //     const { center } = e.result;
+        //     mapRef.current.flyTo({
+        //         center: center,
+        //         essential: true,
+        //         zoom: 14,
+        //     });
+        // });
+        // ---------------------------------------------
 
         geoData.features.forEach((stadium, i) => {
             stadium.properties.id = i;
