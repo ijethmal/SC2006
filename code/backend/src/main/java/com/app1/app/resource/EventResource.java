@@ -44,6 +44,12 @@ public class EventResource {
         return ResponseEntity.ok().body(eventService.updateEvent(id, event));
     }
 
+    @PutMapping("/{eventId}/attendees/{userId}")
+    public ResponseEntity<String> addAttendee(@PathVariable String eventId, @PathVariable String userId) throws Exception {
+        eventService.addAttendee(eventId, userId);
+        return ResponseEntity.ok().body("Added attendee");
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable String id){
         eventService.deleteEvent(eventService.getEvent(id));
@@ -54,5 +60,11 @@ public class EventResource {
     public ResponseEntity<String> deleteAllEvent(){
         eventService.deleteAllEvent();
         return ResponseEntity.ok("Deleted all event");
+    }
+
+    @DeleteMapping("/{eventId}/attendees/{userId}")
+    public ResponseEntity<String> removeAttendee(@PathVariable String eventId, @PathVariable String userId) throws Exception{
+        eventService.removeAttendee(eventId, userId);
+        return ResponseEntity.ok().body("Removed attendee");
     }
 }

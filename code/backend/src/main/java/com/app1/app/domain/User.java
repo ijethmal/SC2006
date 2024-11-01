@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
-
+import java.util.HashMap;
 
 @Entity
 @Getter
@@ -33,7 +33,7 @@ public class User {
     private String photoUrl;
     private String[] groups;
     private String bio;
-
+    private HashMap<String, Integer> events;
     //constructor
 
     //methods
