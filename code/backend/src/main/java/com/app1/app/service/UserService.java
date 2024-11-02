@@ -50,7 +50,9 @@ public class UserService {
         //return user.map(value -> value.login(email, password)).orElse(false);
     }
 
-    public User createUser(User user) {
+    //one for register
+
+    public User register(User user) {
         if(userRepo.findByEmail(user.getEmail()).isPresent()) {
             return null;
         }

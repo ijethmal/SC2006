@@ -14,6 +14,7 @@ export async function login(email, password) {
     }
   }
 
+//register
 export async function register(user) {
     return await axios.post(API_URL +'/register', {
         user

@@ -35,7 +35,7 @@ public class UserResource {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         System.out.println(user.getName());
-        return userService.createUser(user) != null
+        return userService.register(user) != null
                 ? ResponseEntity.ok("Registration successful")
                 : ResponseEntity.badRequest().body("Registration failed");
     }

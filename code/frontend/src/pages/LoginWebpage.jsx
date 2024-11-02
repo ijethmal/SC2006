@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // login test
 import { login } from "../api/UserService.js";
+import axios from "axios";
 
 const LoginWebpage = () => {
   // State to hold email and password in an object (loginData)
@@ -93,7 +94,7 @@ const LoginWebpage = () => {
       </div>
       <div className="forget-password">
         <span className="span">{` `}</span>
-        <span className='hover-effect'>Fortget password</span>
+        <span className='hover-effect'>Forget password</span>
         <span className="span">?</span>
       </div>
     </div>

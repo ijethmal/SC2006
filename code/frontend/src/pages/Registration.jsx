@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Registration.css";
+import { register } from "../api/UserService.js";
+import axios from "axios";
 
 function Registration() {
     const [form, setForm] = useState({
@@ -8,7 +10,7 @@ function Registration() {
         location: "",
         password: "",
         photoUrl: "",
-        bio: "",
+        bio: ""
     });
 
     const handleChange = (e) => {
@@ -19,10 +21,26 @@ function Registration() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission here
+        console.log("Form submitted");
         console.log(form);
+        try {
+            const response = await axios.post('http://localhost:8080/users/register', form);
+            console.log("Response:");
+            console.log(response);
+            if (response.data && response.data === "Registration successful") {
+                alert("Registration successful");
+            } else {
+                alert(response.data || "Invalid email or password");
+            }
+        }
+        catch (error) {
+            console.log("Error:");
+            console.log(error);
+            alert("Error registering");
+        }
     };
 
     return (
@@ -111,6 +129,6 @@ function Registration() {
             </div>
         </div>
     );
-}
+};
 
 export default Registration;
