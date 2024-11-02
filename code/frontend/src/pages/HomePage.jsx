@@ -4,13 +4,23 @@ import Event from "../components/Event";
 import InterestGroup from "../components/InterestGroup";
 import UserHeader from "../components/UserHeader";
 import "./HomePage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllEvents } from "../api/EventService";
 
 const HomePage = () => {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        getAllEvents().then((data) => {
+            console.log(data.content);
+            setEvents(data.content);
+        });
+    }, []);
+
     const [filterData, setFilterData] = useState({
         distance: "",
         groupName: "",
-        activityType: "",  // only eventfinda or activesg
+        activityType: "", // only eventfinda or activesg
         location: "",
     });
 
@@ -23,7 +33,7 @@ const HomePage = () => {
     };
 
     // still need to fix this function
-    // function for filtering events: 
+    // function for filtering events:
     const filterEvents = (events, formData) => {
         return events.filter((event) => {
             const { distance, groupName, activityType, location } = formData;
@@ -75,12 +85,12 @@ const HomePage = () => {
             <NaviBar />
             <div className="page-wrapper">
                 {/* Hardcode userheader */}
-                <UserHeader /> 
+                <UserHeader />
                 <div className="info">
                     <div className="events-wrapper">
-                        <h1 className="header_info">
+                        <div className="header_info">
                             <h1>🏝️ What's happening! 🏝️</h1>
-                        </h1>
+                        </div>
                         <div className="filter">
                             <div className="filter_header">Display by</div>
                             <form onSubmit={handleSubmit}>
@@ -127,11 +137,14 @@ const HomePage = () => {
                             </form>
                         </div>
 
-
                         {/* This one for mapping events can pass props here: dummy_event */}
-                        <Event />
-                        <Event />
-                        <Event />
+                        
+                        {events.map((event, index) => {
+                            return (
+                                <Event event={event} key={index} />
+                            )
+                        })}
+
                     </div>
                     <div className="interests-wrapper">
                         <h3>Interest Groups Near You🥳</h3>

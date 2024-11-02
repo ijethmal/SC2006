@@ -12,6 +12,8 @@ import CommunityWebPage from "./pages/CommunityWebPage";
 import MapBoxSearch from "./pages/MapBoxSearch";
 import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
+import UserPage from "./pages/UserPage";
+import Registration from "./pages/Registration";
 
 
 
@@ -35,10 +37,6 @@ function App() {
         title = "";
         metaDescription = "Main Page";
         break;
-      case "/":
-        title = "";
-        metaDescription = "";
-        break;
       case "/setting-web-page":
         title = "Settings 🔩";
         metaDescription = "";
@@ -51,8 +49,8 @@ function App() {
         title = "Explore 🚗";
         metaDescription = "";
         break;
-      case "/group-web-page":
-        title = "Group 🤝";
+      case "/registration":
+        title = "Registration 🤝";
         metaDescription = "";
         break;
     }
@@ -74,10 +72,11 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginWebpage />} />
-      <Route path="/user-profile" element={<ProfilePage />} />
+      <Route path="/user-profile" element={<UserPage />} />
       <Route path="/setting-web-page" element={<SettingWebPage />} />
       <Route path="/community-web-page" element={<HomePage />} />
       <Route path="/explore-web-page" element={<MapBoxSearch />} />
+      <Route path="/registration" element={<Registration />} />
       
       {/* <Route path="/test-page" element={<TestPage />} /> */}
       
