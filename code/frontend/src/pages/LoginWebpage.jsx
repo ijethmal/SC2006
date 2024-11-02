@@ -49,7 +49,11 @@ const LoginWebpage = () => {
       <div className="white-frame" />
       <div className="register">
         <div className="dont-have-an">{`Don’t have an account? `}</div>
-        <div className="register1 hover-effect">Register</div>
+        <div className="register1 hover-effect">
+          <a href="/registration">
+          Register</a>
+          
+          </div>
       </div>
       <div className="emailandpass">
         <div className="textbox">

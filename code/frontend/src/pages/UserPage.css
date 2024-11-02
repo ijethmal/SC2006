@@ -1,0 +1,82 @@
+.user-web-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.page-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: beige;
+   
+}
+.profile-name {
+    font-family: "Bungee Shade", cursive;
+    font-size: 48px;
+    letter-spacing: 0.2em;
+    margin-bottom: 16px;
+}
+.img-wrapper {
+    width: 20vh;
+    height: 20vh; 
+    overflow: hidden; 
+    border-radius: 50%; 
+}
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.avt-info{
+    display: flex;
+    flex-direction: row;
+}
+.name-info{
+    display: flex;
+    flex-direction: column;
+    flex-direction: flex-end;
+    
+}
+.bio{
+    font-family: Calligraffitti;
+    color: rgb(203, 12, 118);
+    font-size: 200%;
+    letter-spacing: 3px;
+    margin-bottom: 24px;
+}
+.location-email{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.purple-button {
+    background-color: #6a0dad; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 15px;
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+.purple-button:hover {
+    background-color: #5a0085; 
+}
+
+.events_groups{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+   
+}
+.events{
+    
+    width: 150%;
+    overflow-y: auto;
+    
+}
+.groups{
+   overflow-y: auto;
+}

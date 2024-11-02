@@ -3,6 +3,7 @@ import "./ProfilePage.css";
 import InterestsBar from "../components/InterestsBar";
 import EventList from "../components/EventList";
 import NaviBar from "../components/NaviBar";
+import UserHeader from "../components/UserHeader";
 
 const ProfilePage = () => {
     const userData = {
@@ -63,6 +64,8 @@ const ProfilePage = () => {
         <div className="profilePage">
             <NaviBar className="nav"></NaviBar>
             <div className="profileWrapper">
+                <UserHeader/>
+
                 {/* // this part is profile heeader */}
                 <div className="profile-header">
                     <div className="profileInfo">
@@ -90,7 +93,9 @@ const ProfilePage = () => {
                             </a>
                         </div>
                     </div>
-                    <div
+                    
+
+                    {/* <div
                     className="profileInterest">
                         <div className="interests-and-groups">
                         <div className="interests">
@@ -114,13 +119,13 @@ const ProfilePage = () => {
                             </div>
                         </div>
                     </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* This part for user body */}
                 <div className="profile-body">
                     <div className="events">
-                        <h2>Upcomming events</h2>
+                        <h2>My Upcomming events</h2>
                         <div className="event-list">
                             <EventList events={events} />
                         </div>
