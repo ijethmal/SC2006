@@ -1,0 +1,83 @@
+.submit-page-container{
+    background: linear-gradient(#2A00B7, #4f1787);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.event-submit-container{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 200px;
+    background-color: #fff;
+    padding-bottom: 30px;
+    margin: auto;
+    border-radius: 20px;
+}
+.header-event-submit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 30px;
+}
+.text-submit{
+    color: #4f1787;
+    font-size: 48px;
+    font-weight: 700;
+    font-family: "SF Pro Text";
+}
+.underline-text{
+    width: 250px;
+    height: 6px;
+    background: #4f1787;
+    border-radius: 9px;
+}
+.inputs-field{
+    gap: 10px;
+    margin-top: 30px;
+    padding: 0 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.input-child{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    background-color: #eaeaea;
+    border-radius: 6px;
+}
+.input-child input{
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px
+}
+.submit-event-container{
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    justify-content: center;
+}
+.submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    background-color: #4f1787;
+    border-radius: 50px;
+    
+    font-weight: 700;
+    cursor: pointer;
+    color: white;
+}

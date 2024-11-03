@@ -11,3 +11,17 @@ export async function getAllEvents() {
     throw error; 
   }
 }
+
+export async function createEvent(eventPayload) {
+  try {
+    const response = await axios.post(`${API_URL}/events`, eventPayload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response; 
+  } catch (error) {
+    console.error("Error creating event:", error);
+    throw error; 
+  }
+}

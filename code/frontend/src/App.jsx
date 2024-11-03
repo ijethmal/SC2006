@@ -14,7 +14,7 @@ import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
 import UserPage from "./pages/UserPage";
 import Registration from "./pages/Registration";
-
+import SubmitEventPage from "./pages/SubmitEventPage";
 
 
 function App() {
@@ -77,8 +77,7 @@ function App() {
       <Route path="/community-web-page" element={<HomePage />} />
       <Route path="/explore-web-page" element={<MapBoxSearch />} />
       <Route path="/registration" element={<Registration />} />
-      
-      {/* <Route path="/test-page" element={<TestPage />} /> */}
+      <Route path="/submit-event" element={<SubmitEventPage />} />
       
     </Routes>
   );
