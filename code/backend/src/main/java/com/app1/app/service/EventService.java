@@ -1,18 +1,58 @@
 package com.app1.app.service;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.http.HttpHeaders;
 import java.text.ParseException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+
 import com.app1.app.domain.Event;
 import com.app1.app.domain.User;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.springframework.stereotype.Service;
 import com.app1.app.repo.EventRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.NodeList;
+//http imports
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicAuthCache;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import java.util.logging.Logger;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.util.EntityUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -20,15 +60,113 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional(rollbackOn = Exception.class)
 
 public class EventService {
+
+    @Autowired
     public final EventRepo eventRepo;
     public final UserService userService;
+    //private final RestTemplate restTemplate = new RestTemplate();
+    private static final Logger logger = Logger.getLogger(EventService.class.getName());
 
     public Page<Event> getEvents (int page, int size){
         return eventRepo.findAll(PageRequest.of(page, size, Sort.by("time")));
     }
 
+    public List<Event> getEventFromAPI(String id) {
+        HttpHost targetHost = new HttpHost("api.eventfinda.co.nz", 80, "http");
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(
+            new AuthScope(targetHost.getHostName(), targetHost.getPort()),
+            new UsernamePasswordCredentials("gather", "mmmb9mgbdymv")
+        );
+        
+
+        CloseableHttpClient httpclient = HttpClients.custom()
+            .setDefaultCredentialsProvider(credsProvider)
+            .build();
+
+        List<Event> eventsList = new ArrayList<>();
+        int page = 1;
+        int rows = 100; // Number of events per page
+        boolean hasMoreEvents = true;
+
+        try {
+            while (hasMoreEvents) {
+                AuthCache authCache = new BasicAuthCache();
+                BasicScheme basicAuth = new BasicScheme();
+                authCache.put(targetHost, basicAuth);
+
+                HttpClientContext localcontext = HttpClientContext.create();
+                localcontext.setAuthCache(authCache);
+
+                HttpGet httpget = new HttpGet("/v2/events.xml?rows=" + rows + "&page=" + page);
+                httpget.addHeader("Accept", "application/xml");
+                httpget.addHeader("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString(("gather:mmmb9mgbdymv").getBytes()));
+                logger.info("Executing request " + httpget.getRequestLine());
+                
+                HttpResponse response = httpclient.execute(targetHost, httpget, localcontext);
+                HttpEntity entity = response.getEntity();
+
+                StringBuilder xmlString = new StringBuilder();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(entity.getContent()));
+
+                String line;
+                while ((line = rd.readLine()) != null) {
+                    xmlString.append(line);
+                }
+
+                logger.info("API Response for page " + page + ": " + xmlString.toString());
+
+                // Load into events db
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(xmlString.toString().getBytes("UTF-8")));
+                NodeList events = doc.getElementsByTagName("event");
+                if (events.getLength() == 0) {
+                    hasMoreEvents = false;
+                } else {
+                    for (int i = 0; i < events.getLength(); i++) {
+                        org.w3c.dom.Node eventNode = events.item(i);
+                        if (eventNode.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                            org.w3c.dom.Element event = (org.w3c.dom.Element) eventNode;
+                            String name = event.getElementsByTagName("name").item(0).getTextContent();
+                            String date = event.getElementsByTagName("date").item(0).getTextContent();
+                            String time = event.getElementsByTagName("time").item(0).getTextContent();
+                            String venue = event.getElementsByTagName("venue").item(0).getTextContent();
+                            String description = event.getElementsByTagName("description").item(0).getTextContent();
+                            String url = event.getElementsByTagName("url").item(0).getTextContent();
+                            Event newEvent = new Event();
+                            newEvent.setName(name);
+                            newEvent.setTime(stringToEpoch(date + " " + time));
+                            newEvent.setDetails(description);
+                            newEvent.setFacility(venue);
+                            eventRepo.save(newEvent);
+                            eventsList.add(newEvent);
+                            logger.info("Saved event: " + newEvent);
+                        }
+                    }
+                    page++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.severe("Error fetching or saving events: " + e.getMessage());
+        } finally {
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.severe("Error closing HttpClient: " + e.getMessage());
+            }
+        }
+        return eventsList;
+    }
+
     public Event getEvent(String id) {
         return eventRepo.findById(id).orElseThrow(()->new RuntimeException("Cannot find event"));
+    }
+
+    public List<Event> getAllEvents() {
+        return eventRepo.findAll();
     }
 
     public Event createEvent(Event event){
@@ -91,4 +229,5 @@ public class EventService {
         long epoch = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date).getTime() / 1000;
         return epoch;
     }
+
 }

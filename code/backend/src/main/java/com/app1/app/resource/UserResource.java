@@ -52,7 +52,7 @@ public class UserResource {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.created(URI.create("/users/" + userService.createUser(user).getId())).body(user);
+        return ResponseEntity.created(URI.create("/users/" + userService.register(user).getId())).body(user);
     }
 
     @PutMapping("/{id}")

@@ -1,6 +1,7 @@
 package com.app1.app.resource;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import com.app1.app.service.EventService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("events")
 @RequiredArgsConstructor
 
 public class EventResource {
@@ -32,6 +33,12 @@ public class EventResource {
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEvent(@PathVariable String id) {
         return ResponseEntity.ok().body(eventService.getEvent(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Event>> getAllEvents() {
+        List<Event> events = eventService.getAllEvents();
+        return ResponseEntity.ok().body(events);
     }
 
     @PostMapping
@@ -67,4 +74,11 @@ public class EventResource {
         eventService.removeAttendee(eventId, userId);
         return ResponseEntity.ok().body("Removed attendee");
     }
+
+    @PostMapping("/eventfinda")
+    public ResponseEntity<List<Event>> getEventFromAPI(@RequestBody Event event) {
+        List<Event> events = eventService.getEventFromAPI(event.getId());
+        return ResponseEntity.ok().body(events);
+    }
+    
 }

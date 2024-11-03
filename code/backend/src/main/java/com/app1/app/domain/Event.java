@@ -24,6 +24,7 @@ public class Event {
     @UuidGenerator
     @Column(name = "id", unique = true, updatable = false)
     private String id;
+    private String name;
     private Long time;
     private String details;
     private HashMap<String, Integer> attendees = new HashMap<>();
@@ -31,7 +32,8 @@ public class Event {
     private String group;
     private String facility;
     private Boolean isActiveSg = true;
+    private String url;
     // private String eventUrl;
     // private String location;
-    // private String bookingProofUrl;
+    // private String bookingProofUrl
 }
