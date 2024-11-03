@@ -34,11 +34,11 @@ const InterestGroup = (props) => {
     };
 
     return (
-        <div className="container">
-            <div className="img_container">
+        <div className="interest-group-container">
+            <div className="img_container-interest-group">
                 <img
                     src={dummy_interest_group.imgUrl}
-                    className="imgUrl"
+                    className="imgUrl-interest-group"
                     alt="Interest Group"
                 />
             </div>
