@@ -86,11 +86,11 @@ public class EventService {
 
         List<Event> eventsList = new ArrayList<>();
         int page = 1;
-        int rows = 100; // Number of events per page
+        int rows = 2; // Number of events per page
         boolean hasMoreEvents = true;
 
         try {
-            while (hasMoreEvents) {
+            //while (hasMoreEvents) {
                 AuthCache authCache = new BasicAuthCache();
                 BasicScheme basicAuth = new BasicScheme();
                 authCache.put(targetHost, basicAuth);
@@ -102,7 +102,7 @@ public class EventService {
                 httpget.addHeader("Accept", "application/xml");
                 httpget.addHeader("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString(("gather:mmmb9mgbdymv").getBytes()));
                 logger.info("Executing request " + httpget.getRequestLine());
-                
+
                 HttpResponse response = httpclient.execute(targetHost, httpget, localcontext);
                 HttpEntity entity = response.getEntity();
 
@@ -114,7 +114,7 @@ public class EventService {
                     xmlString.append(line);
                 }
 
-                logger.info("API Response for page " + page + ": " + xmlString.toString());
+                //logger.info("API Response for page " + page + ": " + xmlString.toString());
 
                 // Load into events db
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -124,29 +124,44 @@ public class EventService {
                 if (events.getLength() == 0) {
                     hasMoreEvents = false;
                 } else {
-                    for (int i = 0; i < events.getLength(); i++) {
-                        org.w3c.dom.Node eventNode = events.item(i);
-                        if (eventNode.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                            org.w3c.dom.Element event = (org.w3c.dom.Element) eventNode;
-                            String name = event.getElementsByTagName("name").item(0).getTextContent();
-                            String date = event.getElementsByTagName("date").item(0).getTextContent();
-                            String time = event.getElementsByTagName("time").item(0).getTextContent();
-                            String venue = event.getElementsByTagName("venue").item(0).getTextContent();
-                            String description = event.getElementsByTagName("description").item(0).getTextContent();
-                            String url = event.getElementsByTagName("url").item(0).getTextContent();
+                        logger.info("Events found: " + events.getLength());
+                        for (int i = 0; i < events.getLength(); i++) {
+                            org.w3c.dom.Node event = events.item(i);
+                            //event.getTextContent();
+                            //get tags
+                            NodeList tags = event.getChildNodes();
+                            /*for (int j = 0; j < tags.getLength(); j++) {
+                                org.w3c.dom.Node tag = tags.item(j);
+                                if (tag.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                    org.w3c.dom.Element tagElement = (org.w3c.dom.Element) tag;
+                                    logger.info("Tag Name: " + tagElement.getTagName());
+                                }
+                            }*/
+                            //create a dictionary of event details
+                            HashMap<String, String> eventDetails = new HashMap<>();
+                            for (int j = 0; j < tags.getLength(); j++) {
+                                org.w3c.dom.Node tag = tags.item(j);
+                                if (tag.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                    org.w3c.dom.Element tagElement = (org.w3c.dom.Element) tag;
+                                    eventDetails.put(tagElement.getTagName(), tagElement.getTextContent());
+                                }
+                            }
+                            //logger.info("Event Details: " + eventDetails);
+                            //create an event object
                             Event newEvent = new Event();
-                            newEvent.setName(name);
-                            newEvent.setTime(stringToEpoch(date + " " + time));
-                            newEvent.setDetails(description);
-                            newEvent.setFacility(venue);
+                            newEvent.setName(eventDetails.get("name"));
+                            //newEvent.setTime(Long.parseLong(eventDetails.get("datetime_start")));
+                            newEvent.setDetails(eventDetails.get("description"));
+                            newEvent.setFacility(eventDetails.get("venue_name"));
+                            newEvent.setUrl(eventDetails.get("url"));
+                            //save event to db
                             eventRepo.save(newEvent);
+                            logger.info("Event saved: " + newEvent.getName());
                             eventsList.add(newEvent);
-                            logger.info("Saved event: " + newEvent);
                         }
-                    }
                     page++;
                 }
-            }
+            //}
         } catch (Exception e) {
             e.printStackTrace();
             logger.severe("Error fetching or saving events: " + e.getMessage());
