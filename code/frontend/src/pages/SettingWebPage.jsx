@@ -1,7 +1,29 @@
 import NaviBar from "../components/NaviBar";
 import "./SettingWebPage.css";
+import "../components/Pop_up.css";
+import Pop_up from "../components/Pop_up";
+import SettingModal from "../components/SettingModal"
+import PwModal from "../components/pwModal";
+import Removal from "../components/Removal";
+import React, { useState } from "react";
+import Search from "../components/Search";
+
 
 const SettingWebPage = () => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isPwModalOpen, setIsPwModalOpen] = useState(false);
+    const [isRemovalOpen, setIsRemovalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+    
+    const openPwModal = () => setIsPwModalOpen(true);
+    const closePwModal = () => setIsPwModalOpen(false);
+
+    const openRemoval = () => setIsRemovalOpen(true);
+    const closeRemoval = () => setIsRemovalOpen(false);
+
     return (
         <div className="setting-web-page">
             <NaviBar />
@@ -48,28 +70,35 @@ const SettingWebPage = () => {
                                                 </div>
                                                 <div className="personal-info-container">
                                                     <div className="personal-info-details">
-                                                        <div className="personal-account">
-                                                            Personal Account
-                                                        </div>
+                                                        <span className="personal-account" onClick={openModal}>
+                                                                Personal Account
+                                                        </span>
                                                         <div className="name-e-mail">
                                                             Name | E-mail |
                                                             personal information
                                                         </div>
+                                                        {isModalOpen && <SettingModal onClose={closeModal} />}
                                                     </div>
                                                     <div className="change-password">
-                                                        Change Password
+                                                        <span className="chg_pw" onClick={openPwModal}>
+                                                             Change Password
+                                                        </span>
                                                     </div>
+                                                    {isPwModalOpen && <PwModal onClose={closePwModal} />}
                                                     <div className="account-removal-container">
                                                         <div className="account-removal-details">
                                                             <div className="account-removal">
-                                                                Account Removal
+                                                                <span className="acc-rm" onClick={openRemoval}>
+                                                                    Account Removal
+                                                                </span>
                                                             </div>
                                                             <div className="name-e-mail">
-                                                                Deactivate |
+                                                                Deactivate 
                                                                 Deletion
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {isRemovalOpen && <Removal onClose={closeRemoval} />}
                                                 </div>
                                             </div>
                                         </div>
@@ -152,7 +181,7 @@ const SettingWebPage = () => {
                                         <div className="notification-details">
                                             <div className="notification-options">
                                                 <div className="allow-notifications">
-                                                    Allow notifications
+                                                    {/*Allow notifications*/}  <Pop_up />
                                                 </div>
                                                 <div className="new-groups">{`New groups | Upcoming events | E-mail `}</div>
                                             </div>
@@ -162,6 +191,7 @@ const SettingWebPage = () => {
                             </div>
                         </div>
                     </div>
+                    <Search />
                     <div className="language-container">
                         <button className="language-change">
                             <div className="language-change-child" />
@@ -170,14 +200,9 @@ const SettingWebPage = () => {
                                 alt=""
                                 src="/vector-5.svg"
                             />
-                            <a className="en">EN</a>
+                             <Languagechoice />
+                            {/*<a className="en">EN</a>*/}
                         </button>
-                        <img
-                            className="risearch-line-icon"
-                            loading="lazy"
-                            alt=""
-                            src="/risearchline.svg"
-                        />
                     </div>
                 </div>
             </section>
@@ -196,4 +221,16 @@ const Dropdown = () => {
     );
 };
 
+const Languagechoice = () =>{
+    return (
+        <select className="Languagechoice">
+            <option>EN</option>
+            <option>中文</option>
+            <option>Malay</option>
+            <option>தமிழ்</option>
+        </select>
+    );
+};
+
 export default SettingWebPage;
+
