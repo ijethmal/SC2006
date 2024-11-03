@@ -10,6 +10,7 @@ import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -67,101 +68,65 @@ public class EventService {
     //private final RestTemplate restTemplate = new RestTemplate();
     private static final Logger logger = Logger.getLogger(EventService.class.getName());
 
-    public Page<Event> getEvents (int page, int size){
-        return eventRepo.findAll(PageRequest.of(page, size, Sort.by("time")));
-    }
-
-    public List<Event> getEventFromAPI(String id) {
-        HttpHost targetHost = new HttpHost("api.eventfinda.co.nz", 80, "http");
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(
-            new AuthScope(targetHost.getHostName(), targetHost.getPort()),
-            new UsernamePasswordCredentials("gather", "mmmb9mgbdymv")
-        );
-        
-
-        CloseableHttpClient httpclient = HttpClients.custom()
-            .setDefaultCredentialsProvider(credsProvider)
-            .build();
+    public List<Event> getAllEventsFromAPI() {
+        HttpHost targetHost = new HttpHost("api.stb.gov.sg", 443, "https");
+        CloseableHttpClient httpclient = HttpClients.createDefault();
 
         List<Event> eventsList = new ArrayList<>();
-        int page = 1;
-        int rows = 2; // Number of events per page
-        boolean hasMoreEvents = true;
 
         try {
-            //while (hasMoreEvents) {
-                AuthCache authCache = new BasicAuthCache();
-                BasicScheme basicAuth = new BasicScheme();
-                authCache.put(targetHost, basicAuth);
+            HttpGet httpget = new HttpGet("/content/events/v2/search?searchType=keyword&searchValues=leisure");
+            //httpget.addHeader("ApiEndPointTitle", "Search Leisure Events By Keyword or UUIDs");
+            httpget.addHeader("Content-Type", "application/json");
+            httpget.addHeader("X-Content-Language", "en");
+            httpget.addHeader("X-API-Key", "y44WHNk5pZCCXiVXR4At0iImge3FiwgV");
 
-                HttpClientContext localcontext = HttpClientContext.create();
-                localcontext.setAuthCache(authCache);
+            logger.info("Executing request " + httpget.getRequestLine());
 
-                HttpGet httpget = new HttpGet("/v2/events.xml?rows=" + rows + "&page=" + page);
-                httpget.addHeader("Accept", "application/xml");
-                httpget.addHeader("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString(("gather:mmmb9mgbdymv").getBytes()));
-                logger.info("Executing request " + httpget.getRequestLine());
+            HttpResponse response = httpclient.execute(targetHost, httpget);
+            HttpEntity entity = response.getEntity();
 
-                HttpResponse response = httpclient.execute(targetHost, httpget, localcontext);
-                HttpEntity entity = response.getEntity();
+            StringBuilder jsonString = new StringBuilder();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(entity.getContent()));
 
-                StringBuilder xmlString = new StringBuilder();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(entity.getContent()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                jsonString.append(line);
+            }
 
-                String line;
-                while ((line = rd.readLine()) != null) {
-                    xmlString.append(line);
-                }
+            // Log the JSON response for debugging
+            logger.info("API Response: " + jsonString.toString());
 
-                //logger.info("API Response for page " + page + ": " + xmlString.toString());
+            // Parse the JSON response and load into events db
+            // Assuming the JSON response contains an array of events
+            // You need to implement the parsing logic based on the actual JSON structure
 
-                // Load into events db
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder builder = factory.newDocumentBuilder();
-                org.w3c.dom.Document doc = builder.parse(new ByteArrayInputStream(xmlString.toString().getBytes("UTF-8")));
-                NodeList events = doc.getElementsByTagName("event");
-                if (events.getLength() == 0) {
-                    hasMoreEvents = false;
-                } else {
-                        logger.info("Events found: " + events.getLength());
-                        for (int i = 0; i < events.getLength(); i++) {
-                            org.w3c.dom.Node event = events.item(i);
-                            //event.getTextContent();
-                            //get tags
-                            NodeList tags = event.getChildNodes();
-                            /*for (int j = 0; j < tags.getLength(); j++) {
-                                org.w3c.dom.Node tag = tags.item(j);
-                                if (tag.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                                    org.w3c.dom.Element tagElement = (org.w3c.dom.Element) tag;
-                                    logger.info("Tag Name: " + tagElement.getTagName());
-                                }
-                            }*/
-                            //create a dictionary of event details
-                            HashMap<String, String> eventDetails = new HashMap<>();
-                            for (int j = 0; j < tags.getLength(); j++) {
-                                org.w3c.dom.Node tag = tags.item(j);
-                                if (tag.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                                    org.w3c.dom.Element tagElement = (org.w3c.dom.Element) tag;
-                                    eventDetails.put(tagElement.getTagName(), tagElement.getTextContent());
-                                }
-                            }
-                            //logger.info("Event Details: " + eventDetails);
-                            //create an event object
-                            Event newEvent = new Event();
-                            newEvent.setName(eventDetails.get("name"));
-                            //newEvent.setTime(Long.parseLong(eventDetails.get("datetime_start")));
-                            newEvent.setDetails(eventDetails.get("description"));
-                            newEvent.setFacility(eventDetails.get("venue_name"));
-                            newEvent.setUrl(eventDetails.get("url"));
-                            //save event to db
-                            eventRepo.save(newEvent);
-                            logger.info("Event saved: " + newEvent.getName());
-                            eventsList.add(newEvent);
-                        }
-                    page++;
-                }
-            //}
+            // Example parsing logic (adjust based on actual JSON structure)
+            // JSONArray eventsArray = new JSONArray(jsonString.toString());
+            // for (int i = 0; i < eventsArray.length(); i++) {
+            //     JSONObject eventObject = eventsArray.getJSONObject(i);
+            //     String name = eventObject.getString("name");
+            //     String date = eventObject.getString("date");
+            //     String time = eventObject.getString("time");
+            //     String venue = eventObject.getString("venue");
+            //     String description = eventObject.getString("description");
+            //     String url = eventObject.getString("url");
+            //     logger.info("Event Name: " + name);
+            //     logger.info("Event Date: " + date);
+            //     logger.info("Event Time: " + time);
+            //     logger.info("Event Venue: " + venue);
+            //     logger.info("Event Description: " + description);
+            //     logger.info("Event URL: " + url);
+            //     Event newEvent = new Event();
+            //     newEvent.setName(name);
+            //     newEvent.setTime(stringToEpoch(date + " " + time));
+            //     newEvent.setDetails(description);
+            //     newEvent.setFacility(venue);
+            //     eventRepo.save(newEvent);
+            //     eventsList.add(newEvent);
+            //     logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility());
+            // }
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.severe("Error fetching or saving events: " + e.getMessage());
@@ -174,6 +139,85 @@ public class EventService {
             }
         }
         return eventsList;
+    }
+
+    public List<Event> getEventFromAPI(String keyword) {
+        HttpHost targetHost = new HttpHost("api.stb.gov.sg", 443, "https");
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        List<Event> eventsList = new ArrayList<>();
+
+        try {
+            String url = "/content/events/v2/search?searchType=keyword&searchValues=" + keyword;
+            HttpGet httpget = new HttpGet(url);
+            httpget.addHeader("ApiEndPointTitle", "Search Leisure Events By Keyword or UUIDs");
+            httpget.addHeader("Content-Type", "application/json");
+            httpget.addHeader("X-Content-Language", "en");
+            httpget.addHeader("X-API-Key", "y44WHNk5pZCCXiVXR4At0iImge3FiwgV");
+
+            logger.info("Executing request " + httpget.getRequestLine());
+
+            HttpResponse response = httpclient.execute(targetHost, httpget);
+            HttpEntity entity = response.getEntity();
+
+            StringBuilder jsonString = new StringBuilder();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(entity.getContent()));
+
+            String line;
+            while ((line = rd.readLine()) != null) {
+                jsonString.append(line);
+            }
+
+            // Log the JSON response for debugging
+            logger.info("API Response: " + jsonString.toString());
+
+            // Parse the JSON response and load into events db
+            // Assuming the JSON response contains an array of events
+            // You need to implement the parsing logic based on the actual JSON structure
+
+            // Example parsing logic (adjust based on actual JSON structure)
+            // JSONArray eventsArray = new JSONArray(jsonString.toString());
+            // for (int i = 0; i < eventsArray.length(); i++) {
+            //     JSONObject eventObject = eventsArray.getJSONObject(i);
+            //     String name = eventObject.getString("name");
+            //     String date = eventObject.getString("date");
+            //     String time = eventObject.getString("time");
+            //     String venue = eventObject.getString("venue");
+            //     String description = eventObject.getString("description");
+            //     String url = eventObject.getString("url");
+            //     logger.info("Event Name: " + name);
+            //     logger.info("Event Date: " + date);
+            //     logger.info("Event Time: " + time);
+            //     logger.info("Event Venue: " + venue);
+            //     logger.info("Event Description: " + description);
+            //     logger.info("Event URL: " + url);
+            //     Event newEvent = new Event();
+            //     newEvent.setName(name);
+            //     newEvent.setTime(stringToEpoch(date + " " + time));
+            //     newEvent.setDetails(description);
+            //     newEvent.setFacility(venue);
+            //     eventRepo.save(newEvent);
+            //     eventsList.add(newEvent);
+            //     logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility());
+            // }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.severe("Error fetching or saving events: " + e.getMessage());
+        } finally {
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                logger.severe("Error closing HttpClient: " + e.getMessage());
+            }
+        }
+        return eventsList;
+    }
+
+    public Page<Event> getEvents(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("time").descending());
+        return eventRepo.findAll(pageable);
     }
 
     public Event getEvent(String id) {

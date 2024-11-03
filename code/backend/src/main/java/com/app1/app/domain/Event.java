@@ -33,7 +33,7 @@ public class Event {
     private String facility;
     private Boolean isActiveSg = true;
     private String url;
-    // private String eventUrl;
-    // private String location;
+    private String eventUrl;
+    private String location;
     // private String bookingProofUrl
 }

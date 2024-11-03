@@ -75,9 +75,10 @@ public class EventResource {
         return ResponseEntity.ok().body("Removed attendee");
     }
 
-    @PostMapping("/eventfinda")
-    public ResponseEntity<List<Event>> getEventFromAPI(@RequestBody Event event) {
-        List<Event> events = eventService.getEventFromAPI(event.getId());
+    //post request for events from stb api
+    @GetMapping("/api")
+    public ResponseEntity<List<Event>> getEventsFromAPI() {
+        List<Event> events = eventService.getAllEventsFromAPI();
         return ResponseEntity.ok().body(events);
     }
     
