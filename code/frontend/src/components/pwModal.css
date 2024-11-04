@@ -1,0 +1,65 @@
+.pw-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pw-modal-content {
+    display: flex;                 
+    flex-direction: column;       
+    align-items: center;   
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pw-modal-content h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.pw-modal-content label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.pw-modal-content input,
+.pw-modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.pw-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.pw-modal-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pw-modal-buttons button[type="submit"] {
+    background-color: #371F76;
+    color: #fff;
+}
+
+.pw-modal-buttons button[type="button"] {
+    background-color: #ccc;
+}
