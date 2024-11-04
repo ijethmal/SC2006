@@ -35,5 +35,9 @@ public class Event {
     private String url;
     private String eventUrl;
     private String location;
+
+    private Double latitude;
+    private Double longitude;
+
     // private String bookingProofUrl
 }

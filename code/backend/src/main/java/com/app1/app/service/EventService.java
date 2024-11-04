@@ -96,25 +96,37 @@ public class EventService {
 
             for (int i = 0; i < eventsArray.length(); i++) {
                 JSONObject eventObject = eventsArray.getJSONObject(i);
-                String name = eventObject.getString("name");
-                //String description = eventObject.getString("description");
+                String name = truncate(eventObject.getString("name"), 255);
+                String description = truncate(eventObject.getString("description"), 255);
                 String startDate = eventObject.getString("startDate");
                 String endDate = eventObject.getString("endDate");
-                String venue = eventObject.getJSONObject("address").getString("buildingName");
+                String venue = truncate(eventObject.getJSONObject("address").getString("buildingName"), 255);
+                JSONObject location = eventObject.getJSONObject("location");
+                Double latitude = location.getDouble("latitude");
+                Double longitude = location.getDouble("longitude");
+                String eventUrl = eventObject.getString("officialWebsite");
+                
                 logger.info("Event Name: " + name);
-                //logger.info("Event Description: " + description);
+                logger.info("Event Description: " + description);
                 logger.info("Event Start Date: " + startDate);
                 logger.info("Event End Date: " + endDate);
+                logger.info("Event Latitude: " + latitude);
+                logger.info("Event Longitude: " + longitude);
                 logger.info("Event Venue: " + venue);
+                
                 Event newEvent = new Event();
                 newEvent.setName(name);
-                //newEvent.setDetails(description);
+                newEvent.setDetails(description);
                 newEvent.setTime(stringToEpoch(startDate));
                 //newEvent.setEndTime(stringToEpoch(endDate));
-                newEvent.setFacility(venue);
+                newEvent.setLocation(venue);
+                newEvent.setLatitude(latitude);
+                newEvent.setLongitude(longitude);
+                newEvent.setIsActiveSg(false);
+                newEvent.setEventUrl(eventUrl);
                 eventRepo.save(newEvent);
                 eventsList.add(newEvent);
-                logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility());
+                logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility() + ", " + newEvent.getLatitude() + ", " + newEvent.getLongitude());
             }
 
         } catch (Exception e) {
@@ -129,6 +141,13 @@ public class EventService {
             }
         }
         return eventsList;
+    }
+
+    private String truncate(String value, int length) {
+        if (value.length() > length) {
+            return value.substring(0, length);
+        }
+        return value;
     }
 
     public static long stringToEpoch(String dateTime) {

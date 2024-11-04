@@ -77,3 +77,15 @@
 6. **DELETE /events/{id}**
     - Deletes an event with id.
     - Response: Success message. 
+
+7. **GET /events/api**
+    - Fetches events from STB's database and loads them in the /events database.
+    - Response : 200 OK
+
+8. **GET /events**
+    - Response : List of events stored in the database
+
+##Users
+###Endpoints
+1. **GET /users**
+    - Response : Data of all users in the users database.
