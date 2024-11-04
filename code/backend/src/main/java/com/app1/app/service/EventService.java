@@ -32,28 +32,20 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.client.RestTemplate;
-import org.w3c.dom.NodeList;
 //http imports
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.AuthCache;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.BasicAuthCache;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import java.util.logging.Logger;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.util.EntityUtils;
+//import org.apache.http.protocol.BasicHttpContext;
+//import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
@@ -75,80 +67,7 @@ public class EventService {
         List<Event> eventsList = new ArrayList<>();
 
         try {
-            HttpGet httpget = new HttpGet("/content/events/v2/search?searchType=keyword&searchValues=leisure");
-            //httpget.addHeader("ApiEndPointTitle", "Search Leisure Events By Keyword or UUIDs");
-            httpget.addHeader("Content-Type", "application/json");
-            httpget.addHeader("X-Content-Language", "en");
-            httpget.addHeader("X-API-Key", "y44WHNk5pZCCXiVXR4At0iImge3FiwgV");
-
-            logger.info("Executing request " + httpget.getRequestLine());
-
-            HttpResponse response = httpclient.execute(targetHost, httpget);
-            HttpEntity entity = response.getEntity();
-
-            StringBuilder jsonString = new StringBuilder();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(entity.getContent()));
-
-            String line;
-            while ((line = rd.readLine()) != null) {
-                jsonString.append(line);
-            }
-
-            // Log the JSON response for debugging
-            logger.info("API Response: " + jsonString.toString());
-
-            // Parse the JSON response and load into events db
-            // Assuming the JSON response contains an array of events
-            // You need to implement the parsing logic based on the actual JSON structure
-
-            // Example parsing logic (adjust based on actual JSON structure)
-            // JSONArray eventsArray = new JSONArray(jsonString.toString());
-            // for (int i = 0; i < eventsArray.length(); i++) {
-            //     JSONObject eventObject = eventsArray.getJSONObject(i);
-            //     String name = eventObject.getString("name");
-            //     String date = eventObject.getString("date");
-            //     String time = eventObject.getString("time");
-            //     String venue = eventObject.getString("venue");
-            //     String description = eventObject.getString("description");
-            //     String url = eventObject.getString("url");
-            //     logger.info("Event Name: " + name);
-            //     logger.info("Event Date: " + date);
-            //     logger.info("Event Time: " + time);
-            //     logger.info("Event Venue: " + venue);
-            //     logger.info("Event Description: " + description);
-            //     logger.info("Event URL: " + url);
-            //     Event newEvent = new Event();
-            //     newEvent.setName(name);
-            //     newEvent.setTime(stringToEpoch(date + " " + time));
-            //     newEvent.setDetails(description);
-            //     newEvent.setFacility(venue);
-            //     eventRepo.save(newEvent);
-            //     eventsList.add(newEvent);
-            //     logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility());
-            // }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.severe("Error fetching or saving events: " + e.getMessage());
-        } finally {
-            try {
-                httpclient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                logger.severe("Error closing HttpClient: " + e.getMessage());
-            }
-        }
-        return eventsList;
-    }
-
-    public List<Event> getEventFromAPI(String keyword) {
-        HttpHost targetHost = new HttpHost("api.stb.gov.sg", 443, "https");
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-
-        List<Event> eventsList = new ArrayList<>();
-
-        try {
-            String url = "/content/events/v2/search?searchType=keyword&searchValues=" + keyword;
+            String url = "/content/events/v2/search?searchType=keyword&searchValues=" + "singapore";
             HttpGet httpget = new HttpGet(url);
             httpget.addHeader("ApiEndPointTitle", "Search Leisure Events By Keyword or UUIDs");
             httpget.addHeader("Content-Type", "application/json");
@@ -172,34 +91,31 @@ public class EventService {
             logger.info("API Response: " + jsonString.toString());
 
             // Parse the JSON response and load into events db
-            // Assuming the JSON response contains an array of events
-            // You need to implement the parsing logic based on the actual JSON structure
+            JSONObject jsonResponse = new JSONObject(jsonString.toString());
+            JSONArray eventsArray = jsonResponse.getJSONArray("data");
 
-            // Example parsing logic (adjust based on actual JSON structure)
-            // JSONArray eventsArray = new JSONArray(jsonString.toString());
-            // for (int i = 0; i < eventsArray.length(); i++) {
-            //     JSONObject eventObject = eventsArray.getJSONObject(i);
-            //     String name = eventObject.getString("name");
-            //     String date = eventObject.getString("date");
-            //     String time = eventObject.getString("time");
-            //     String venue = eventObject.getString("venue");
-            //     String description = eventObject.getString("description");
-            //     String url = eventObject.getString("url");
-            //     logger.info("Event Name: " + name);
-            //     logger.info("Event Date: " + date);
-            //     logger.info("Event Time: " + time);
-            //     logger.info("Event Venue: " + venue);
-            //     logger.info("Event Description: " + description);
-            //     logger.info("Event URL: " + url);
-            //     Event newEvent = new Event();
-            //     newEvent.setName(name);
-            //     newEvent.setTime(stringToEpoch(date + " " + time));
-            //     newEvent.setDetails(description);
-            //     newEvent.setFacility(venue);
-            //     eventRepo.save(newEvent);
-            //     eventsList.add(newEvent);
-            //     logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility());
-            // }
+            for (int i = 0; i < eventsArray.length(); i++) {
+                JSONObject eventObject = eventsArray.getJSONObject(i);
+                String name = eventObject.getString("name");
+                //String description = eventObject.getString("description");
+                String startDate = eventObject.getString("startDate");
+                String endDate = eventObject.getString("endDate");
+                String venue = eventObject.getJSONObject("address").getString("buildingName");
+                logger.info("Event Name: " + name);
+                //logger.info("Event Description: " + description);
+                logger.info("Event Start Date: " + startDate);
+                logger.info("Event End Date: " + endDate);
+                logger.info("Event Venue: " + venue);
+                Event newEvent = new Event();
+                newEvent.setName(name);
+                //newEvent.setDetails(description);
+                newEvent.setTime(stringToEpoch(startDate));
+                //newEvent.setEndTime(stringToEpoch(endDate));
+                newEvent.setFacility(venue);
+                eventRepo.save(newEvent);
+                eventsList.add(newEvent);
+                logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,6 +129,12 @@ public class EventService {
             }
         }
         return eventsList;
+    }
+
+    public static long stringToEpoch(String dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTime, formatter);
+        return zonedDateTime.toEpochSecond();
     }
 
     public Page<Event> getEvents(int page, int size) {
@@ -282,11 +204,6 @@ public class EventService {
     public static String epochToString(long epoch){
         String date = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date (epoch*1000));
         return date;
-    }
-
-    public static long stringToEpoch(String date) throws ParseException{
-        long epoch = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(date).getTime() / 1000;
-        return epoch;
     }
 
 }
