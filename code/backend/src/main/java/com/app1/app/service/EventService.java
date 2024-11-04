@@ -115,18 +115,18 @@ public class EventService {
                 logger.info("Event Venue: " + venue);
                 
                 Event newEvent = new Event();
-                newEvent.setName(name);
+                newEvent.setTitle(name);
                 newEvent.setDetails(description);
                 newEvent.setTime(stringToEpoch(startDate));
                 //newEvent.setEndTime(stringToEpoch(endDate));
                 newEvent.setLocation(venue);
-                newEvent.setLatitude(latitude);
-                newEvent.setLongitude(longitude);
+                Double[] coordinates = {latitude, longitude};
+                newEvent.setCoordinates(coordinates);
                 newEvent.setIsActiveSg(false);
                 newEvent.setEventUrl(eventUrl);
                 eventRepo.save(newEvent);
                 eventsList.add(newEvent);
-                logger.info("Saved event: " + newEvent.getName() + ", " + newEvent.getTime() + ", " + newEvent.getFacility() + ", " + newEvent.getLatitude() + ", " + newEvent.getLongitude());
+                logger.info("Saved event: " + newEvent.getTitle() + ", " + newEvent.getTime() + ", " + newEvent.getFacility() + ", " + newEvent.getCoordinates());
             }
 
         } catch (Exception e) {
