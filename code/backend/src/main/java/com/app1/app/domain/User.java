@@ -33,7 +33,12 @@ public class User {
     private String photoUrl;
     private String[] groups;
     private String bio;
+    @Column(unique = true)
+    private String verificationToken;
 
+    @Setter
+    @Column(nullable = false)
+    private boolean isVerified = false;
     //constructor
 
     //methods

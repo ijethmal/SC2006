@@ -31,3 +31,18 @@ server:
     path: /user/error
     whitelabel:
       enabled: false
+  logging:
+    level:
+      root: DEBUG
+  spring:
+    mail:
+      host: smtp.mailersend.net
+      port: 587
+      username: MS_g0eWNV@trial-yzkq3405xo3gd796.mlsender.net
+      password: 90XhfEwR8eUnDoEB
+      properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true

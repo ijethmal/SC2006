@@ -13,8 +13,6 @@ public interface UserRepo extends JpaRepository<User, String> {
 
     Optional<User> findByEmail(String email);
 
-    // add query methods here
-    
-    //method for login
+    Optional<User> findByVerificationToken(String verificationToken);
     
 }

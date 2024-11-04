@@ -2,6 +2,8 @@ package com.app1.app.service;
 
 import com.app1.app.domain.User;
 import com.app1.app.repo.UserRepo;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.UUID;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -25,6 +30,8 @@ import java.util.function.Function;
 @Transactional(rollbackOn = Exception.class)
 public class UserService {
     public final UserRepo userRepo;
+    private final JavaMailSender mailSender;
+
 
     public Page<User> getUsers(int page, int size) {
         return userRepo.findAll(PageRequest.of(page, size, Sort.by("name")));
@@ -50,11 +57,55 @@ public class UserService {
         //return user.map(value -> value.login(email, password)).orElse(false);
     }
 
+    public String generateVerificationToken() {
+        return UUID.randomUUID().toString();
+    }
+
+
+    public boolean sendVerificationEmail(User user) {
+        String verificationUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/users/verify")
+                .queryParam("token", user.getVerificationToken())
+                .toUriString();
+
+        String subject = "Verify Your Email";
+        String message = "Thank you for registering. Please verify your email by clicking the link below:\n" + verificationUrl;
+
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+            helper.setText(message, true);
+            helper.setTo(user.getEmail());
+            helper.setSubject(subject);
+            helper.setFrom("noreply@trial-yzkq3405xo3gd796.mlsender.net");
+            mailSender.send(mimeMessage);
+            return true;  // Email sent successfully
+        } catch (MessagingException e) {
+            log.error("Failed to send verification email", e);
+            return false;  // Email sending failed
+        }
+    }
+    public boolean verifyUser(String token) {
+        Optional<User> userOptional = userRepo.findByVerificationToken(token);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setVerified(true);
+            user.setVerificationToken(null); // Clear the token once verified
+            userRepo.save(user);
+            return true;
+        }
+        return false;
+    }
+
+
     public User createUser(User user) {
-        if(userRepo.findByEmail(user.getEmail()).isPresent()) {
+        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
             return null;
         }
-        return userRepo.save(user);
+        user.setVerificationToken(generateVerificationToken());
+        User savedUser = userRepo.save(user);
+        sendVerificationEmail(savedUser);  // New function to send the email
+        return savedUser;
     }
 
     public User updateUser(String id, User user) {
@@ -80,6 +131,11 @@ public class UserService {
     }
 
     // delete, update, and uploadPhoto methods go here
-
+    public Optional<User> uploadPhoto(String id, String photoPath) {
+        User user = getUser(id);
+        user.setPhotoUrl(photoPath);
+        userRepo.save(user);
+        return Optional.of(user);
+    }
 
 }

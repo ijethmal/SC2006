@@ -1,13 +1,20 @@
 package com.app1.app.resource;
 
 import com.app1.app.domain.User;
+import com.app1.app.repo.UserRepo;
 import com.app1.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("users")
@@ -30,15 +37,6 @@ public class UserResource {
                 return ResponseEntity.badRequest().body("Login failed");
     }
 }
-
-
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
-        System.out.println(user.getName());
-        return userService.createUser(user) != null
-                ? ResponseEntity.ok("Registration successful")
-                : ResponseEntity.badRequest().body("Registration failed");
-    }
 
     @GetMapping
     public ResponseEntity<Page<User>> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -72,16 +70,31 @@ public class UserResource {
         return ResponseEntity.ok("Deleted User");
     }
 
-   /* @PutMapping("/{id}/photo")
-    public ResponseEntity<User> uploadPhoto(@PathVariable String id, @RequestParam("photo") String photo) {
+    @PutMapping("/{id}/photo")
+    public ResponseEntity<User> uploadPhoto(@PathVariable String id, @RequestParam("photo") MultipartFile photo) {
         try {
-            byte[] bytes = photo.getBytes();
-            Files.write(Paths.get("uploads/" + id + ".jpg"), bytes);
-            return userService.uploadPhoto(id, "uploads/" + id + ".jpg")
+            Path path = Paths.get("uploads/" + id + "_" + photo.getOriginalFilename());
+            Files.write(path, photo.getBytes());
+            return userService.uploadPhoto(id, path.toString())
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }
-    } */
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody User user) {
+        return userService.createUser(user) != null
+                ? ResponseEntity.ok("Registration successful. Please check your email to verify your account.")
+                : ResponseEntity.badRequest().body("Registration failed.");
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyUser(@RequestParam("token") String token) {
+        return userService.verifyUser(token)
+                ? ResponseEntity.ok("Email verified successfully!")
+                : ResponseEntity.badRequest().body("Invalid or expired verification token.");
+    }
+
 }
