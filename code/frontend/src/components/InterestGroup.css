@@ -1,6 +1,6 @@
-.container {
+.interest-group-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     padding-top: 10px;
     padding-bottom: 10px;
     flex-direction: row;
@@ -9,13 +9,13 @@
     margin: 0 auto;
 }
 
-.img_container {
+.img_container-interest-group {
     width: 30px;
     height: 30px; 
     overflow: hidden; 
     border-radius: 50%; 
 }
-.imgUrl {
+.imgUrl-interest-group {
     width: 100%;
     height: 100%;
     object-fit: cover; 
