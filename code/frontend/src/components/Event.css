@@ -20,10 +20,9 @@
     width: 100%;
     height: auto;
     margin-bottom: 16px;
-    width: 50vh; 
-    height: 50vh; 
-    object-fit: cover; 
-    
+    width: 50vh;
+    height: 50vh;
+    object-fit: cover;
 }
 
 .post-footer {
@@ -33,7 +32,7 @@
     color: #555;
 }
 
-.img-container{
+.img-container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -42,3 +41,63 @@
 }
 
 /* event details */
+
+/*event modal*/
+.joining {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
+.join-button {
+    background-color: #4f1787;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.join-close {
+    background-color: #ff1a1a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.join-button:hover {
+    background-color: #40126d;
+}
+.join-close:hover {
+    background-color: #e60000;
+}
+.popup {
+    padding: 10px;
+    width: 100%;
+    height: 50px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: relative;
+  }
+  
+  .progress-bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 5px;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #28a745;
+    animation: progressBar 2s linear;
+  }
+  
+  @keyframes progressBar {
+    from { width: 0%; }
+    to { width: 100%; }
+  }

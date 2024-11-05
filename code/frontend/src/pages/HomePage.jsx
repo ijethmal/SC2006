@@ -137,11 +137,13 @@ const HomePage = () => {
                             </form>
                         </div>
 
-                        {/* This one for mapping events can pass props here: dummy_event */}
+                        {/* This one for mapping events can pass props here: dummy_event, uncomment this one */}
 
                         {events.map((event, index) => {
                             return <Event event={event} key={index} />;
                         })}
+
+                        {/* <Event /> */}
 
                         <div className="submit-event">
                             <h1>
