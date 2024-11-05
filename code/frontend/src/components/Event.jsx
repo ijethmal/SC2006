@@ -3,21 +3,22 @@ import "./Event.css";
 
 const Event = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const dummy_event = {
-        id: "12345",
-        time: 1698787200000,
-        title: "Play basketball",
-        details: "This is a special event for all members!",
-        attendees: ["John Doe", "Jane Smith", "Alice Johnson"],
-        numAttendees: 10,
-        group: "Community Group A",
-        facility: "Gym",
-        isActiveSg: true,
-        eventUrl: "https://www.google.com",
-        location: "Boon Lay",
-        imgUrl: "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_3x4.jpg",
-        distance: 1.5
-    };
+    const dummy_event = props.event;
+    // const dummy_event = {
+    //     id: "12345",
+    //     time: 1698787200000,
+    //     title: "Play basketball",
+    //     details: "This is a special event for all members!",
+    //     attendees: ["John Doe", "Jane Smith", "Alice Johnson"],
+    //     numAttendees: 10,
+    //     group: "Community Group A",
+    //     facility: "Gym",
+    //     isActiveSg: true,
+    //     eventUrl: "https://www.google.com",
+    //     location: "Boon Lay",
+    //     imgUrl: "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_3x4.jpg",
+    //     distance: 1.5
+    // };
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -39,6 +40,7 @@ const Event = (props) => {
 
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
+    console.log(dummy_event);
 
     return (
         <div className="post-card">
@@ -64,7 +66,7 @@ const Event = (props) => {
                                 </div>
                                 <h3>Details</h3>
                                 <div className="event-modal-user">
-                                    Attendees: {dummy_event.attendees.join(", ")}
+                                    Attendees: {JSON.stringify(dummy_event.attendees)}
                                 </div>
                                 <div className="event-modal-num-att">
                                     Number of Attendees: {dummy_event.numAttendees}
