@@ -12,3 +12,13 @@ export async function getAllGroups() {
     }
   }
   
+export async function getAllGroupsByUserId(userId) {
+    try {
+        const response = await axios.get(`${API_URL}/interestgroups/all/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching events:", error);
+        throw error;
+    }
+
+}

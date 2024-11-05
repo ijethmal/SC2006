@@ -3,8 +3,8 @@ import NaviBar from "../components/NaviBar";
 import UserHeader from "../components/UserHeader";
 import EventList from "../components/EventList";
 import InterestGroup from "../components/InterestGroup";
-import { getAllEvents } from "../api/EventService";
-import { getAllGroups } from "../api/GroupService";
+import { getAllEventsByUserID } from "../api/EventService";
+import { getAllGroupsByUserId } from "../api/GroupService";
 import { getUserByEmail } from "../api/UserService";
 import { useState, useEffect } from "react";
 
@@ -15,13 +15,14 @@ const UserPage = () => {
     const [userData, setUserData] = useState({id:"", name:"", email:"", location:"", photoUrl:"", groups:[], bio:"", events:[]});
 
     useEffect(() => {
-        getAllGroups().then((data) => {
-            setGroups(data.content);
-        });
         getUserByEmail("mrbeast@gmail.com").then((data) => {
-            console.log(data);
             setUserData(data);
+        }).then(() => {
+            getAllGroupsByUserId(userData.id).then((data) => {
+                setGroups(data.content);
+            });
         });
+        
     }, []);
 
     // const userData = {

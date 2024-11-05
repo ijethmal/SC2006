@@ -30,12 +30,12 @@ export async function createEvent(eventPayload) {
 
 
 // get Event by UserID
-export async function getEventByUserID(userID) {
+export async function getAllEventsByUserID(userID) {
   try {
-    const response = await axios.get(`${API_URL}/events/user/${userID}`); 
-    return response.data; 
+    const response = await axios.get(`${API_URL}/events/all/${userID}`);
+    return response.data;
   } catch (error) {
     console.error("Error fetching events:", error);
-    throw error; 
+    throw error;
   }
 }
