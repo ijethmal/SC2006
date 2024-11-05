@@ -85,7 +85,13 @@
 8. **GET /events**
     - Response : List of events stored in the database
 
-##Users
-###Endpoints
+9. **GET /events/all/{userId}**
+    - Response: List of events the user joined
+
+## Users
+### Endpoints
 1. **GET /users**
     - Response : Data of all users in the users database.
+
+2. **GET /users/{id}/name**
+    - Response : Name of user
