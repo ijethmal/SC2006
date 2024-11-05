@@ -35,6 +35,12 @@ public class User {
     // private HashMap<String, Integer> groups = new HashMap<>();
     private String bio;
     private HashMap<String, Integer> events = new HashMap<>();
+    @Column(unique = true)
+    private String verificationToken;
+
+    @Setter
+    @Column(nullable = false)
+    private boolean isVerified = false;
     //constructor
 
     //methods
