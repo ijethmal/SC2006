@@ -36,6 +36,10 @@ public class UserService {
     public Page<User> getUsers(int page, int size) {
         return userRepo.findAll(PageRequest.of(page, size, Sort.by("name")));
     }
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User with email " + email + " not found"));
+    }
 
     //not sure whether this will work
     public User getUser(String id) {

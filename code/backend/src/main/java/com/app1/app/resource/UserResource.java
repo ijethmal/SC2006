@@ -56,6 +56,11 @@ public class UserResource {
         return ResponseEntity.ok().body(userService.updateUser(id, user));
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok().body(userService.getUserByEmail(email));
+    }
+
     @DeleteMapping
     public ResponseEntity<String> deleteAllUser() {
         userService.deleteAllUser();
