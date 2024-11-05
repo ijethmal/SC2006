@@ -186,7 +186,7 @@ public class EventService {
         Event oEvent = getEvent(id);
         if (event.getTime() != 0) oEvent.setTime(event.getTime());
         if (event.getDetails() != null) oEvent.setDetails(event.getDetails());
-        //if (event.getAttendees() != null) oEvent.setAttendees(event.getAttendees());
+        if (event.getAttendees() != null) oEvent.setAttendees(event.getAttendees());
         if (event.getNumAttendees() != 0) oEvent.setNumAttendees(event.getNumAttendees());
         if (event.getFacility() != null) oEvent.setFacility(event.getFacility());
         eventRepo.save(oEvent);
@@ -203,7 +203,7 @@ public class EventService {
             attendees.put(userId, 1);
             event.setAttendees(attendees);
             event.setNumAttendees(event.getNumAttendees() + 1);
-            // userService.addEvent (to be implemented)
+            userService.addEvent(userId, eventId);
             eventRepo.save(event);
         }
     }
@@ -215,7 +215,7 @@ public class EventService {
             attendees.remove(userId);
             event.setAttendees(attendees);
             event.setNumAttendees(event.getNumAttendees() - 1);
-            // userService.removeEvent (to be implemented)
+            userService.removeEvent(userId, eventId);
             eventRepo.save(event);
         } else throw new Exception("User not found");
     }

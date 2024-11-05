@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -81,6 +82,21 @@ public class UserService {
         return user;
     }
 
+    public void addEvent(String userId, String eventId){ // only used internally, not meant to be called via api
+        User user = getUser(userId);
+        HashMap<String, Integer> events = user.getEvents();
+        events.put(eventId, 1);
+        user.setEvents(events);
+        userRepo.save(user);
+    }
+
+    public void removeEvent(String userId, String eventId){
+        User user = getUser(userId);
+        HashMap<String, Integer> events = user.getEvents();
+        events.remove(eventId);
+        user.setEvents(events);
+        userRepo.save(user);
+    }
     // delete, update, and uploadPhoto methods go here
 
 
