@@ -31,15 +31,6 @@ public class UserResource {
     }
 }
 
-
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
-        System.out.println(user.getName());
-        return userService.register(user) != null
-                ? ResponseEntity.ok("Registration successful")
-                : ResponseEntity.badRequest().body("Registration failed");
-    }
-
     @GetMapping
     public ResponseEntity<Page<User>> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(userService.getUsers(page, size));
@@ -75,6 +66,20 @@ public class UserResource {
     public ResponseEntity<String> deleteUser(@PathVariable String id){
         userService.deleteUser(userService.getUser(id));
         return ResponseEntity.ok("Deleted User");
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody User user) {
+        return userService.createUser(user) != null
+                ? ResponseEntity.ok("Registration successful. Please check your email to verify your account.")
+                : ResponseEntity.badRequest().body("Registration failed.");
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyUser(@RequestParam("token") String token) {
+        return userService.verifyUser(token)
+                ? ResponseEntity.ok("Email verified successfully!")
+                : ResponseEntity.badRequest().body("Invalid or expired verification token.");
     }
 
    /* @PutMapping("/{id}/photo")
