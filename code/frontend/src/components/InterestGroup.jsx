@@ -3,25 +3,27 @@ import "./InterestGroup.css";
 const InterestGroup = (props) => {
     // how to use: past in dummy_interest_group object like that. can be taken by props.dummy_interest_group
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const dummy_interest_group = {
-        id: "idgroup123",
-        name: "Hiking Enthusiasts",
-        activityType: "Outdoor",
-        location: "Boon Lay",
-        createdBy: "SpiderMan",
-        members: {
-            "userId1": 1,
-            "userId2": 1,
-        },
-        admins: {
-            "adminId1": 1,
-            "adminId2": 1,
-        },
-        events: {
-            "eventId1": 1,
-        },
-        imgUrl: "https://upload.wikimedia.org/wikipedia/en/2/21/Web_of_Spider-Man_Vol_1_129-1.png",
-    };
+    // const dummy_interest_group = {
+    //     id: "idgroup123",
+    //     name: "Hiking Enthusiasts",
+    //     activityType: "Outdoor",
+    //     location: "Boon Lay",
+    //     createdBy: "SpiderMan",
+    //     members: {
+    //         "userId1": 1,
+    //         "userId2": 1,
+    //     },
+    //     admins: {
+    //         "adminId1": 1,
+    //         "adminId2": 1,
+    //     },
+    //     events: {
+    //         "eventId1": 1,
+    //     },
+    //     imgUrl: "https://upload.wikimedia.org/wikipedia/en/2/21/Web_of_Spider-Man_Vol_1_129-1.png",
+    // };
+    const dummy_interest_group = props.group;
+   
 
     const openModal = () => {
         setIsModalOpen(true);

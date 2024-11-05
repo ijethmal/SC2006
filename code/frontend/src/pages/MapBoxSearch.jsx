@@ -7,7 +7,7 @@ import "./MapBoxSearch.css";
 import NaviBar from "../components/NaviBar";
 import geoData from "../data/sports_data.json";
 
-mapboxgl.accessToken = "access token here"; // Add your mapbox access token here
+mapboxgl.accessToken = ""; // Add your mapbox access token here
 
 const MapBoxSearch = () => {
     const mapRef = useRef();
@@ -35,24 +35,24 @@ const MapBoxSearch = () => {
          */
 
         // add geocoder: COMMENT THIS LINE FOR SEEING the code
-        // ---------------------------------------------
-        // const geocoder = new MapboxGeocoder({
-        //     accessToken: mapboxgl.accessToken,
-        //     mapboxgl: mapboxgl,
-        //     marker: {
-        //         color: "orange",
-        //     },
-        //     placeholder: "Search for locations",
-        // });
-        // mapRef.current.addControl(geocoder, "top-left");
-        // geocoder.on("result", (e) => {
-        //     const { center } = e.result;
-        //     mapRef.current.flyTo({
-        //         center: center,
-        //         essential: true,
-        //         zoom: 14,
-        //     });
-        // });
+        //---------------------------------------------
+        const geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl,
+            marker: {
+                color: "orange",
+            },
+            placeholder: "Search for locations",
+        });
+        mapRef.current.addControl(geocoder, "top-left");
+        geocoder.on("result", (e) => {
+            const { center } = e.result;
+            mapRef.current.flyTo({
+                center: center,
+                essential: true,
+                zoom: 14,
+            });
+        });
         // ---------------------------------------------
 
         geoData.features.forEach((stadium, i) => {
