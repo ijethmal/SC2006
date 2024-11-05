@@ -1,5 +1,6 @@
 package com.app1.app.service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.HashMap;
 import java.util.Objects;
@@ -107,5 +108,19 @@ public class InterestGroupService {
             interestGroup.removeAdmin(userId);
             interestGroupRepo.save(interestGroup);
         }
+    }
+
+    public ArrayList<InterestGroup> getGroupsOfUser(String userId, int size){
+        User user = userService.getUser(userId);
+        ArrayList<InterestGroup> output_grps = new ArrayList<>();
+        HashMap<String, Integer> groups = user.getGroups();
+        int cnt = 0;
+        for (String key : groups.keySet()){
+            InterestGroup group = getInterestGroup(key);
+            output_grps.add(group);
+            cnt ++;
+            if (cnt == size) break;
+        }
+        return output_grps;
     }
 }

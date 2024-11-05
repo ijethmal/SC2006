@@ -1,6 +1,7 @@
 package com.app1.app.resource;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.data.domain.Page;
@@ -114,5 +115,10 @@ public class InterestGroupResource {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<ArrayList<InterestGroup>> getGroupsOfUsers(@PathVariable String userId, @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok().body(interestGroupService.getGroupsOfUser(userId, size));
     }
 }
