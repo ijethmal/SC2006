@@ -32,6 +32,7 @@ public class User {
     private String password;
     private String photoUrl;
     private String[] groups;
+    // private HashMap<String, Integer> groups = new HashMap<>();
     private String bio;
     private HashMap<String, Integer> events = new HashMap<>();
     //constructor
