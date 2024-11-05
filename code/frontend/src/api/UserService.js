@@ -20,3 +20,14 @@ export async function register(user) {
         user
     });
 }
+
+
+//get user by email
+export async function getUserByEmail(email) {
+    try {
+        const response = await axios.get(`${API_URL}/email/${email}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}

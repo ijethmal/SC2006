@@ -5,36 +5,40 @@ import EventList from "../components/EventList";
 import InterestGroup from "../components/InterestGroup";
 import { getAllEvents } from "../api/EventService";
 import { getAllGroups } from "../api/GroupService";
+import { getUserByEmail } from "../api/UserService";
 import { useState, useEffect } from "react";
 
 const UserPage = () => {
     // calling api here
     const [events, setEvents] = useState([]);
     const [groups, setGroups] = useState([]);
+    const [userData, setUserData] = useState({id:"", name:"", email:"", location:"", photoUrl:"", groups:[], bio:"", events:[]});
 
     useEffect(() => {
         getAllGroups().then((data) => {
             setGroups(data.content);
         });
+        getUserByEmail("mrbeast@gmail.com").then((data) => {
+            console.log(data);
+            setUserData(data);
+        });
     }, []);
 
-    const userData = {
-        name: "MrBeast",
-        email: "mrbeast@gmail.com",
-        location: "Boon Lay",
-        password: "securePassword123",
-        photoUrl:
-            "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
-        groups: ["Basketball Hall 2", "Baking At 5:30", "Dancing In the Dark"],
-        bio: "Hello I am MrBeast, I donate money for monkey",
-        events: {
-            "Birthday Party": 2024,
-            "Charity Event": 2025,
-            "Cooking Class": 2024,
-        },
-    };
-
-    
+    // const userData = {
+    //     name: "MrBeast",
+    //     email: "mrbeast@gmail.com",
+    //     location: "Boon Lay",
+    //     password: "securePassword123",
+    //     photoUrl:
+    //         "https://pbs.twimg.com/profile_images/994592419705274369/RLplF55e_400x400.jpg",
+    //     groups: ["Basketball Hall 2", "Baking At 5:30", "Dancing In the Dark"],
+    //     bio: "Hello I am MrBeast, I donate money for monkey",
+    //     events: {
+    //         "Birthday Party": 2024,
+    //         "Charity Event": 2025,
+    //         "Cooking Class": 2024,
+    //     },
+    // };
 
     return (
         <div className="user-web-page">
