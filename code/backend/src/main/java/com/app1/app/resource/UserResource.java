@@ -55,6 +55,11 @@ public class UserResource {
         return ResponseEntity.created(URI.create("/users/" + userService.register(user).getId())).body(user);
     }
 
+    @GetMapping("/{id}/name")
+    public ResponseEntity<String> showName(@PathVariable String id) {
+        return ResponseEntity.ok().body(userService.getUser(id).getName());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
         return ResponseEntity.ok().body(userService.updateUser(id, user));
