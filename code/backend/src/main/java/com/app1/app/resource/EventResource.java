@@ -1,6 +1,7 @@
 package com.app1.app.resource;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.app1.app.domain.Event;
+import com.app1.app.domain.User;
 import com.app1.app.service.EventService;
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +41,11 @@ public class EventResource {
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
         return ResponseEntity.ok().body(events);
+    }
+
+    @GetMapping("all/{userId}")
+    public ResponseEntity<ArrayList<Event>> getEventsOfUser(@PathVariable String userId, @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok().body(eventService.getEventsOfUser(userId, size));
     }
 
     @PostMapping

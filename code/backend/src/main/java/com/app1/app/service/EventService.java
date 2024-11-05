@@ -225,4 +225,18 @@ public class EventService {
         return date;
     }
 
+    public ArrayList<Event> getEventsOfUser(String userId, int size){
+        User user = userService.getUser(userId);
+        ArrayList<Event> output_events = new ArrayList<>();
+        HashMap<String, Integer> events = user.getEvents();
+        int cnt = 0;
+        for (String key : events.keySet()){
+            Event event = getEvent(key);
+            output_events.add(event);
+            cnt ++;
+            if (cnt == size) break;
+        }
+        return output_events;
+    }
+
 }
