@@ -2,6 +2,7 @@ body.active-popup {
     overflow-y: hidden;
 }
 
+
 .btn-popup {
     padding: 3px;
     display: block;
@@ -10,6 +11,10 @@ body.active-popup {
     width: 227px;
     position: relative;
     cursor: pointer; /* Pointer cursor on hover */
+    background-color: purple;
+    color: white;  
+    font-weight: bold;
+    border-radius: 50px;
 }
 
 .popup,.overlay {
@@ -44,4 +49,8 @@ body.active-popup {
     right: 10px;
     padding: 5px 7px;
     cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 50px;
+    background-color: red;
+    color: white;
+    font-weight: 600;
 }
