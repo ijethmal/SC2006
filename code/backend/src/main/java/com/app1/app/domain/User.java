@@ -33,7 +33,7 @@ public class User {
     private String photoUrl;
     private String[] groups;
     private String bio;
-    private HashMap<String, Integer> events;
+    private HashMap<String, Integer> events = new HashMap<>();
     //constructor
 
     //methods
