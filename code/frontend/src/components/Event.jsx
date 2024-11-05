@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import "./Event.css";
+import { joinEvent } from "../api/EventService";
+import { getUserByEmail, getUserNameById } from "../api/UserService";
+import { useEffect } from "react";
 
 const Event = (props) => {
     // to do in this function: get the event from props, if it's joined, then just show the button
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isJoined, setIsJoined] = useState(false); // for user joining part
     const [showPopup, setShowPopup] = useState(false);
+    const [userData, setUserData] = useState({
+        id: "",
+        name: "",
+        email: "",
+        location: "",
+        photoUrl: "",
+        groups: [],
+        bio: "",
+        events: [],
+    });
+    const [names, setNames] = useState([]);
     const dummy_event = props.event;
     // const dummy_event = {
     //     id: "12345",
@@ -23,6 +37,12 @@ const Event = (props) => {
     //     distance: 1.5,
     // };
 
+    useEffect(() => {
+        getUserByEmail("mrbeast@gmail.com").then((data) => {
+            setUserData(data);
+        });
+    }, []);
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -30,12 +50,37 @@ const Event = (props) => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    
+
+    useEffect(() => {
+        const processName = async () => {
+            const ids = Object.keys(dummy_event.attendees);
+
+            try {
+                // fetch all names
+                const fetchedNames = await Promise.all(
+                    ids.map(async (id) => {
+                        const name = await getUserNameById(id);
+                        return name;
+                    })
+                );
+
+                // set state
+                setNames(fetchedNames);
+            } catch (error) {
+                console.error("Error fetching names:", error);
+            }
+        };
+
+        // call the function
+        processName();
+    }, [dummy_event.attendees]);
 
     function formatTimestamp(timestamp) {
         const date = new Date(timestamp);
 
         const day = date.getDate().toString().padStart(2, "0");
-        const month = (date.getMonth() + 1).toString().padStart(2, "0"); 
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
         const year = date.getFullYear();
 
         const hours = date.getHours().toString().padStart(2, "0");
@@ -44,10 +89,10 @@ const Event = (props) => {
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
 
-    const handleJoinClick = () => {
+    const handleJoinClick = async () => {
         setIsJoined(true);
         setShowPopup(true);
-
+        const respone = await joinEvent(dummy_event.id, userData.id);
         setTimeout(() => {
             setShowPopup(false);
         }, 2000);
@@ -78,7 +123,7 @@ const Event = (props) => {
                                 <h3>Details</h3>
                                 <div className="event-modal-user">
                                     Attendees:{" "}
-                                    {JSON.stringify(dummy_event.attendees)}
+                                    {names.join(", ") || "No attendees yet"}
                                 </div>
                                 <div className="event-modal-num-att">
                                     Number of Attendees:{" "}
@@ -107,7 +152,10 @@ const Event = (props) => {
                                         {isJoined ? "Joined" : "Join"}
                                     </button>
 
-                                    <button className="join-close" onClick={closeModal}>
+                                    <button
+                                        className="join-close"
+                                        onClick={closeModal}
+                                    >
                                         Close
                                     </button>
                                 </div>

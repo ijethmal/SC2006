@@ -12,18 +12,39 @@ const UserPage = () => {
     // calling api here
     const [events, setEvents] = useState([]);
     const [groups, setGroups] = useState([]);
-    const [userData, setUserData] = useState({id:"", name:"", email:"", location:"", photoUrl:"", groups:[], bio:"", events:[]});
+    const [userData, setUserData] = useState({
+        id: "",
+        name: "",
+        email: "",
+        location: "",
+        photoUrl: "",
+        groups: [],
+        bio: "",
+        events: [],
+    });
 
     useEffect(() => {
         getUserByEmail("mrbeast@gmail.com").then((data) => {
             setUserData(data);
-        }).then(() => {
-            getAllGroupsByUserId(userData.id).then((data) => {
-                setGroups(data.content);
-            });
         });
-        
     }, []);
+    useEffect(() => {
+        if (userData?.id) {
+            getAllGroupsByUserId(userData.id).then((data) => {
+                setGroups(data);
+            });
+        }
+    }, [userData]);
+    useEffect(() => {
+        if (userData?.id) {
+            getAllEventsByUserID(userData.id).then((data) => {
+                setEvents(data);
+            });
+        }
+    }, [userData]);
+    
+    
+
 
     // const userData = {
     //     name: "MrBeast",
@@ -87,7 +108,7 @@ const UserPage = () => {
                 <div className="events_groups">
                     <div className="events">
                         <h2>My upcomming events !</h2>
-                        <EventList events={userData.events} />
+                        <EventList events={events} />
                     </div>
                     <div className="groups">
                         <h2>My current groups</h2>

@@ -39,3 +39,15 @@ export async function getAllEventsByUserID(userID) {
     throw error;
   }
 }
+
+// join an unjoined event: should code here to join the event
+export async function joinEvent(eventId, userId) {
+  try {
+    const response = await axios.put(`${API_URL}/events/${eventId}/attendees/${userId}`);
+    return response;
+  } catch (error) {
+    console.error("Error joining event:", error);
+    throw error;
+  }
+}
+

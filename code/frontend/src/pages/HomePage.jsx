@@ -7,11 +7,14 @@ import "./HomePage.css";
 import { useEffect, useState } from "react";
 import { getAllEvents } from "../api/EventService";
 import { getAllGroups } from "../api/GroupService";
+import { getUserByEmail } from "../api/UserService";
 
 const HomePage = () => {
     const [events, setEvents] = useState([]);
     const [groups, setGroups] = useState([]);
+   
 
+   
     useEffect(() => {
         getAllEvents().then((data) => {
             setEvents(data.content);
@@ -83,7 +86,6 @@ const HomePage = () => {
             location: "",
         });
     };
-    
 
     return (
         <div className="community-web-page">
@@ -165,9 +167,9 @@ const HomePage = () => {
                     <div className="interests-wrapper">
                         <h3>Interest Groups Near You🥳</h3>
                         {/* can pass props here: dummy_interest_group */}
-                        
+
                         {groups.map((group, index) => {
-                            return <InterestGroup  group={group} key={index}/>
+                            return <InterestGroup group={group} key={index} />;
                         })}
                     </div>
                 </div>

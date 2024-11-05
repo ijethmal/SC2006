@@ -31,3 +31,13 @@ export async function getUserByEmail(email) {
         throw error;
     }
 }
+
+// get user name by id
+export async function getUserNameById(id) {
+    try {
+        const response = await axios.get(`${API_URL}/${id}/name`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
