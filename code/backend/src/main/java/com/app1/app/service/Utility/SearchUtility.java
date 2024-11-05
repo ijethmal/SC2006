@@ -1,4 +1,4 @@
-package com.app1.app.service;
+package com.app1.app.service.Utility;
 
 import java.util.HashMap;
 import java.util.HashSet;
