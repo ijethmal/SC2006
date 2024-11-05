@@ -88,6 +88,12 @@
 9. **GET /events/all/{userId}**
     - Response: List of events the user joined
 
+10. **PUT /events/{eventId}/attendees/{userId}**
+    - Response: Add an user to an event
+
+11. **DELETE /events/{eventId}/attendees/{userId}**
+    - Response: Remove an user from an event
+
 ## Users
 ### Endpoints
 1. **GET /users**
