@@ -4,14 +4,21 @@ import UserHeader from "../components/UserHeader";
 import EventList from "../components/EventList";
 import InterestGroup from "../components/InterestGroup";
 import { getAllEvents } from "../api/EventService";
+import { getAllGroups } from "../api/GroupService";
+import { useState, useEffect } from "react";
 
 const UserPage = () => {
     // calling api here
-    
+    const [events, setEvents] = useState([]);
+    const [groups, setGroups] = useState([]);
 
+    useEffect(() => {
+        getAllGroups().then((data) => {
+            setGroups(data.content);
+        });
+    }, []);
 
     const userData = {
-        id: "12345",
         name: "MrBeast",
         email: "mrbeast@gmail.com",
         location: "Boon Lay",
@@ -27,7 +34,7 @@ const UserPage = () => {
         },
     };
 
-    const userGroups = {}
+    
 
     return (
         <div className="user-web-page">
@@ -70,7 +77,7 @@ const UserPage = () => {
                     </div>
                     <button className="purple-button">Settings ⚙️</button>
                 </div>
-                
+
                 {/* SHOWING CURRENT INTERSETS GROUPS AND CURRENT EVENTS */}
                 <div className="events_groups">
                     <div className="events">
@@ -79,8 +86,10 @@ const UserPage = () => {
                     </div>
                     <div className="groups">
                         <h2>My current groups</h2>
-                        <InterestGroup/>
-                        <InterestGroup/>
+                        {groups.map((group, index) => {
+                            return <InterestGroup group={group} key={index} />;
+                        })}
+                        <div>Create New Group</div>
                     </div>
                 </div>
             </div>
