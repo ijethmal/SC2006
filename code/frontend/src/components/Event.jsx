@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import "./Event.css";
 
 const Event = (props) => {
+    // to do in this function: get the event from props, if it's joined, then just show the button
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isJoined, setIsJoined] = useState(false); // for user joining part
+    const [showPopup, setShowPopup] = useState(false);
     const dummy_event = props.event;
     // const dummy_event = {
     //     id: "12345",
@@ -17,7 +20,7 @@ const Event = (props) => {
     //     eventUrl: "https://www.google.com",
     //     location: "Boon Lay",
     //     imgUrl: "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_3x4.jpg",
-    //     distance: 1.5
+    //     distance: 1.5,
     // };
 
     const openModal = () => {
@@ -40,7 +43,15 @@ const Event = (props) => {
 
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
-    console.log(dummy_event);
+
+    const handleJoinClick = () => {
+        setIsJoined(true);
+        setShowPopup(true);
+
+        setTimeout(() => {
+            setShowPopup(false);
+        }, 2000);
+    };
 
     return (
         <div className="post-card">
@@ -66,10 +77,12 @@ const Event = (props) => {
                                 </div>
                                 <h3>Details</h3>
                                 <div className="event-modal-user">
-                                    Attendees: {JSON.stringify(dummy_event.attendees)}
+                                    Attendees:{" "}
+                                    {JSON.stringify(dummy_event.attendees)}
                                 </div>
                                 <div className="event-modal-num-att">
-                                    Number of Attendees: {dummy_event.numAttendees}
+                                    Number of Attendees:{" "}
+                                    {dummy_event.numAttendees}
                                 </div>
                                 <div className="event-modal-group">
                                     Group: {dummy_event.group}
@@ -81,8 +94,31 @@ const Event = (props) => {
                                     Location: {dummy_event.location}
                                 </div>
                                 <div className="event-modal-url">
-                                    <a href={dummy_event.eventUrl}>Event URL : Click here</a>
+                                    <a href={dummy_event.eventUrl}>
+                                        Event URL : Click here
+                                    </a>
                                 </div>
+                                <div className="joining">
+                                    <button
+                                        className="join-button"
+                                        onClick={handleJoinClick}
+                                        disabled={isJoined}
+                                    >
+                                        {isJoined ? "Joined" : "Join"}
+                                    </button>
+
+                                    <button className="join-close" onClick={closeModal}>
+                                        Close
+                                    </button>
+                                </div>
+                                {showPopup && (
+                                    <div className="popup">
+                                        <p>Joined successfully</p>
+                                        <div className="progress-bar-container">
+                                            <div className="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
