@@ -12,9 +12,7 @@ import { getUserByEmail } from "../api/UserService";
 const HomePage = () => {
     const [events, setEvents] = useState([]);
     const [groups, setGroups] = useState([]);
-   
 
-   
     useEffect(() => {
         getAllEvents().then((data) => {
             setEvents(data.content);
@@ -151,18 +149,6 @@ const HomePage = () => {
                         })}
 
                         {/* <Event /> */}
-
-                        <div className="submit-event">
-                            <h1>
-                                Nothing Interested ?? 💀💀
-                                <a
-                                    href="/submit-event"
-                                    className="submit-event-button"
-                                >
-                                    <u>Submit yours! </u>🎉
-                                </a>
-                            </h1>
-                        </div>
                     </div>
                     <div className="interests-wrapper">
                         <h3>Interest Groups Near You🥳</h3>

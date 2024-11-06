@@ -3,22 +3,22 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEvent } from "../api/EventService";
 import { getAllGroups } from "../api/GroupService";
+import { useLocation } from "react-router-dom";
+import { getInterestGroupById } from "../api/GroupService";
+import { addEventToGroup } from "../api/GroupService";
 
-const SubmitEventPage = () => {
+const SubmitEventPage = (props) => {
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
-    const [groups, setGroups] = useState([]);
+    const location = useLocation();
+    const groupId = location.state?.groupId;
+
+    const [group, setGroup] = useState({});
     const [eventData, setEventData] = useState({
         eventDate: "",
         eventTime: "",
         title: "",
         details: "",
-        attendees: {
-            "Captain America": 1,
-            "Black Adam": 1,
-            "Thor": 1,
-        },
-        numAttendees: "",
         group: "",
         facility: "",
         isActiveSg: true,
@@ -28,12 +28,20 @@ const SubmitEventPage = () => {
     });
 
     useEffect(() => {
-        getAllGroups().then((data) => {
-            setGroups(data.content);
-        });
-    }, []);
-    console.log(groups);
-    
+        const fetchGroup = async () => {
+            try {
+                const data = await getInterestGroupById(groupId);
+                setGroup(data); // Set fetched group data
+            } catch (error) {
+                console.error("Error fetching group data:", error);
+            }
+        };
+
+        if (groupId) {
+            // Ensure groupId is defined before fetching
+            fetchGroup();
+        }
+    }, [groupId]); // Add groupId as a dependency
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -44,39 +52,56 @@ const SubmitEventPage = () => {
     };
 
     const handleSubmit = async () => {
-        // convert to timestamp
+        // Convert date and time to timestamp
         const datetimeString = `${eventData.eventDate}T${eventData.eventTime}:00`;
         const timestamp = new Date(datetimeString).getTime();
 
-        // create object to send
+        // Create the event payload
         const eventPayload = {
             time: timestamp,
             title: eventData.title,
             details: eventData.details,
-            attendees: eventData.attendees,
-            group: eventData.group,
             facility: eventData.facility,
-            isActiveSg: eventData.isActiveSg,
+            isActiveSg: true,
             eventUrl: eventData.eventUrl,
             location: eventData.location,
             imgUrl: eventData.imgUrl,
         };
 
+        console.log("Creating event with payload:", eventPayload);
+
         try {
+            // Step 1: Create the event
             const response = await createEvent(eventPayload);
 
             if (response.status === 201) {
-                // if 201 then okay
-                setShowPopup(true);
-                setTimeout(() => {
-                    setShowPopup(false);
-                    navigate("/community-web-page");
-                }, 2000);
+                const createdEvent = response.data; // Assuming `response.data` contains the created event details
+                const eventId = createdEvent.id; // Assuming the event's ID is returned as `id`
+                
+
+
+                console.log(createdEvent)
+                console.log(eventId)
+                console.log(groupId)
+                // Step 2: Add the event to the specified group
+                try {
+                    await addEventToGroup(groupId, eventId);
+                    console.log("Event successfully added to group");
+
+                    // Show success popup and navigate
+                    setShowPopup(true);
+                    setTimeout(() => {
+                        setShowPopup(false);
+                        navigate("/community-web-page");
+                    }, 2000);
+                } catch (error) {
+                    console.error("Failed to add event to group:", error);
+                }
             } else {
                 console.error("Failed to create event");
             }
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error creating event:", error);
         }
     };
 
@@ -96,6 +121,10 @@ const SubmitEventPage = () => {
                     )}
                 </div>
                 <div className="inputs-field">
+                    <div className="input-child">
+                        <div className="icon">🗽</div>
+                        This event belongs to groups: {group.name}
+                    </div>
                     <div className="input-child">
                         <div className="icon">📅</div>
                         <input
@@ -136,23 +165,7 @@ const SubmitEventPage = () => {
                             placeholder="Details"
                         />
                     </div>
-                    <div className="input-child">
-                        <div className="icon">🗽</div>
-                        <select
-                            type="text"
-                            name="group"
-                            value="{eventData.group}"
-                            onChange={(e) => handleGroupSelect(e.target.value)}
-                        >
-                            {groups.map((group, index) => {
-                                return (
-                                    <option key={index} value={group.name}>
-                                        {group.name}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
+
                     <div className="input-child">
                         <div className="icon">🏡</div>
                         <input

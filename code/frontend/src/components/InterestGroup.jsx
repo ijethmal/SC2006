@@ -2,6 +2,7 @@ import React, { useState , useEffect} from "react";
 import "./InterestGroup.css";
 import { joinGroup, leaveGroup } from "../api/GroupService";
 import { getUserByEmail } from "../api/UserService";
+import { Link } from "react-router-dom";
 const InterestGroup = (props) => {
     // how to use: past in dummy_interest_group object like that. can be taken by props.dummy_interest_group
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -119,6 +120,11 @@ const InterestGroup = (props) => {
                                     <h3>Created By 🗿</h3>
                                     <p>{dummy_interest_group.createdBy}</p>
                                 </div>
+                                <div className="interest_details">
+                                    <h3>Group Page </h3>
+                                    <Link to={`/group-page/${dummy_interest_group.id}`}>Go to Group Page</Link>
+                                </div>
+
                                 <div className="joined-button">
                                     <button className="purple-button" onClick={handleJoinGroup}>Join Group</button>
                                     <button className="red-button" onClick={handleLeaveGroup}>Leave Group</button>

@@ -24,7 +24,7 @@
 /* Event image styling */
 .event-image {
     width: 150px;
-    height: 150px;
+    height: 180px;
     object-fit: cover;
 }
 
@@ -51,13 +51,23 @@ p {
 strong {
     color: #222;
 }
+.leavebutton{
+    display: flex;
+    
+}
 .leave-button{
     background-color: rgb(238, 65, 65);
     border-radius: 8px;
-
-    
 }
 .leave-button:hover{
     background-color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+.join-event-group-button{
+    background-color: rgb(0, 255, 0);
+    border-radius: 8px;
+}
+.join-event-group-button:hover{
+    background-color: rgb(0, 238, 0);
     cursor: pointer;
 }

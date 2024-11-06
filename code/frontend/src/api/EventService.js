@@ -62,3 +62,16 @@ export async function leaveEvent(eventId, userId) {
     throw error;
   }
 }
+
+
+// show all events in the group
+export async function getAllEventsByGroupID(groupId) {
+  try{
+    const response = await axios.get(`${API_URL}/events/all/groups/${groupId}`);
+    return response;
+  }
+  catch(error){
+    console.error("Error fetching events:", error);
+    throw error;
+  }
+}
