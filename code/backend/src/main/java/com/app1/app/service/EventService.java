@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.http.HttpHeaders;
 import java.text.ParseException;
 
+import com.app1.app.domain.InterestGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,6 +58,7 @@ public class EventService {
     @Autowired
     public final EventRepo eventRepo;
     public final UserService userService;
+    public final InterestGroupService interestGroupService;
     //private final RestTemplate restTemplate = new RestTemplate();
     private static final Logger logger = Logger.getLogger(EventService.class.getName());
 
@@ -229,6 +231,20 @@ public class EventService {
         User user = userService.getUser(userId);
         ArrayList<Event> output_events = new ArrayList<>();
         HashMap<String, Integer> events = user.getEvents();
+        int cnt = 0;
+        for (String key : events.keySet()){
+            Event event = getEvent(key);
+            output_events.add(event);
+            cnt ++;
+            if (cnt == size) break;
+        }
+        return output_events;
+    }
+
+    public ArrayList<Event> getEventsOfGroup(String groupId, int size){
+        InterestGroup group = interestGroupService.getInterestGroup(groupId);
+        ArrayList<Event> output_events = new ArrayList<>();
+        HashMap<String, Integer> events = group.getEvents();
         int cnt = 0;
         for (String key : events.keySet()){
             Event event = getEvent(key);

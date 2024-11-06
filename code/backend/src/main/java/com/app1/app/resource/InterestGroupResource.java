@@ -69,6 +69,12 @@ public class InterestGroupResource {
         return ResponseEntity.ok().body("Added member");
     }
 
+    @PutMapping("/{groupId}/events/{eventId}")
+    public ResponseEntity<String> addEvent(@PathVariable String groupId, @PathVariable String eventId) throws Exception {
+        interestGroupService.addEvent(groupId, eventId);
+        return ResponseEntity.ok().body("Added event");
+    }
+
     @PutMapping("/{groupId}/promote/{userId}")
     public ResponseEntity<String> promoteToAdmin(@PathVariable String groupId, @PathVariable String userId) {
         try {
@@ -112,6 +118,16 @@ public class InterestGroupResource {
 
             interestGroupService.removeMember(groupId, userId);
             return ResponseEntity.ok().body("Deleted member");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{groupId}/events/{eventId}")
+    public ResponseEntity<String> deleteEvent(@PathVariable String groupId, @PathVariable String eventId) throws Exception {
+        try {
+            interestGroupService.removeEvent(groupId, eventId);
+            return ResponseEntity.ok().body("Deleted event");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

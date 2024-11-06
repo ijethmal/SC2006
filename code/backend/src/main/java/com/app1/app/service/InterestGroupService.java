@@ -82,6 +82,29 @@ public class InterestGroupService {
         else throw new Exception("User not found");
     }
 
+    public void addEvent(String groupId, String eventId) throws Exception {
+        InterestGroup interestGroup = getInterestGroup(groupId);
+        HashMap<String, Integer> events = interestGroup.getEvents();
+        if (events == null) events = new HashMap<>();
+        if (events.get(eventId) != null) throw new Exception("Event already added");
+        else{
+            events.put(eventId, 1);
+            interestGroup.setEvents(events);
+            interestGroupRepo.save(interestGroup);
+        }
+    }
+
+    public void removeEvent(String groupId, String eventId) throws Exception {
+        InterestGroup interestGroup = getInterestGroup(groupId);
+        HashMap<String, Integer> events = interestGroup.getEvents();
+        if (events.get(eventId) != null) {
+            events.remove(eventId);
+            interestGroup.setEvents(events);
+            interestGroupRepo.save(interestGroup);
+        }
+        else throw new Exception("Event not found");
+    }
+
     public void promoteToAdmin(String groupId, String userId) throws Exception {
         InterestGroup interestGroup = getInterestGroup(groupId);
 
