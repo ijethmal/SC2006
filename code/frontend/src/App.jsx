@@ -15,7 +15,7 @@ import HomePage from "./pages/HomePage";
 import UserPage from "./pages/UserPage";
 import Registration from "./pages/Registration";
 import SubmitEventPage from "./pages/SubmitEventPage";
-
+import SubmitGroup from "./pages/SubmitGroup";
 
 function App() {
   const action = useNavigationType();
@@ -78,7 +78,7 @@ function App() {
       <Route path="/explore-web-page" element={<MapBoxSearch />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="/submit-event" element={<SubmitEventPage />} />
-      
+      <Route path="/submit-group" element={<SubmitGroup />} />
     </Routes>
   );
 }
