@@ -93,6 +93,8 @@
 
 11. **DELETE /events/{eventId}/attendees/{userId}**
     - Response: Remove an user from an event
+12. **GET /events/all/groups/{groupId}**
+    - Response: All events in a group 
 
 ## Users
 ### Endpoints

@@ -48,6 +48,11 @@ public class EventResource {
         return ResponseEntity.ok().body(eventService.getEventsOfUser(userId, size));
     }
 
+    @GetMapping("all/groups/{groupId}")
+    public ResponseEntity<ArrayList<Event>> getEventsOfGroup(@PathVariable String groupId, @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok().body(eventService.getEventsOfGroup(groupId, size));
+    }
+
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return ResponseEntity.created(URI.create("/events/" + eventService.createEvent(event).getId())).body(event);
