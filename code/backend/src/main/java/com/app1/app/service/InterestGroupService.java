@@ -67,6 +67,7 @@ public class InterestGroupService {
         else{
             members.put(userId, 1);
             interestGroup.setMembers(members);
+            userService.addGroup(userId, groupId);
             interestGroupRepo.save(interestGroup);
         }
     }
@@ -77,6 +78,7 @@ public class InterestGroupService {
         if (members.get(userId) != null) {
             members.remove(userId);
             interestGroup.setMembers(members);
+            userService.removeGroup(userId, groupId);
             interestGroupRepo.save(interestGroup);
         }
         else throw new Exception("User not found");

@@ -36,6 +36,7 @@ public class Event {
     private String eventUrl;
     private String location;
     private Double[] coordinates;
+    private String imgUrl;
     //private Double latitude;
     //private Double longitude;
 
