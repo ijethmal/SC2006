@@ -80,3 +80,8 @@
 .groups{
    overflow-y: auto;
 }
+
+/* hover on button create group */
+a:hover {
+    color: white; 
+}

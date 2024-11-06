@@ -1,22 +1,22 @@
 import "./SubmitEventPage.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEvent } from "../api/EventService";
+import { getAllGroups } from "../api/GroupService";
 
 const SubmitEventPage = () => {
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
+    const [groups, setGroups] = useState([]);
     const [eventData, setEventData] = useState({
         eventDate: "",
         eventTime: "",
         title: "",
         details: "",
         attendees: {
-            "Captain Teemoo": 1,
+            "Captain America": 1,
             "Black Adam": 1,
-            "Jane Streeet": 1,
-            Superman: 1,
-            Batman: 1,
+            "Thor": 1,
         },
         numAttendees: "",
         group: "",
@@ -26,6 +26,14 @@ const SubmitEventPage = () => {
         location: "",
         imgUrl: "",
     });
+
+    useEffect(() => {
+        getAllGroups().then((data) => {
+            setGroups(data.content);
+        });
+    }, []);
+    console.log(groups);
+    
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -46,7 +54,6 @@ const SubmitEventPage = () => {
             title: eventData.title,
             details: eventData.details,
             attendees: eventData.attendees,
-            numAttendees: parseInt(eventData.numAttendees, 10),
             group: eventData.group,
             facility: eventData.facility,
             isActiveSg: eventData.isActiveSg,
@@ -130,24 +137,21 @@ const SubmitEventPage = () => {
                         />
                     </div>
                     <div className="input-child">
-                        <div className="icon">#️⃣</div>
-                        <input
-                            type="number"
-                            name="numAttendees"
-                            value={eventData.numAttendees}
-                            onChange={handleChange}
-                            placeholder="Number of Max Attendees"
-                        />
-                    </div>
-                    <div className="input-child">
                         <div className="icon">🗽</div>
-                        <input
+                        <select
                             type="text"
                             name="group"
-                            value={eventData.group}
-                            onChange={handleChange}
-                            placeholder="Group"
-                        />
+                            value="{eventData.group}"
+                            onChange={(e) => handleGroupSelect(e.target.value)}
+                        >
+                            {groups.map((group, index) => {
+                                return (
+                                    <option key={index} value={group.name}>
+                                        {group.name}
+                                    </option>
+                                );
+                            })}
+                        </select>
                     </div>
                     <div className="input-child">
                         <div className="icon">🏡</div>

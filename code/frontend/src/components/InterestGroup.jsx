@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import "./InterestGroup.css";
+import { joinGroup, leaveGroup } from "../api/GroupService";
+import { getUserByEmail } from "../api/UserService";
 const InterestGroup = (props) => {
     // how to use: past in dummy_interest_group object like that. can be taken by props.dummy_interest_group
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +24,27 @@ const InterestGroup = (props) => {
     //     },
     //     imgUrl: "https://upload.wikimedia.org/wikipedia/en/2/21/Web_of_Spider-Man_Vol_1_129-1.png",
     // };
+    const [userData, setUserData] = useState({
+        id: "",
+        name: "",
+        email: "",
+        location: "",
+        photoUrl: "",
+        groups: [],
+        bio: "",
+        events: [],
+    });
+
+    useEffect(() => {
+        getUserByEmail("mrbeast@gmail.com").then((data) => {
+            setUserData(data);
+        });
+    }, []);
+
+
     const dummy_interest_group = props.group;
    
+    
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -32,6 +53,26 @@ const InterestGroup = (props) => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    const handleJoinGroup = async () => {
+        const response = await joinGroup(dummy_interest_group.id, userData.id);
+        if (response) {
+            alert("Joined group successfully");
+        }
+        else{
+            alert("Error joining group");
+        }
+    }
+
+    const handleLeaveGroup = async () => {
+        const response = await leaveGroup(dummy_interest_group.id, userData.id);
+        if (response) {
+            alert("Left group successfully");
+        }
+        else{
+            alert("Error leaving group");
+        }
+    }
 
     return (
         <div className="interest-group-container">
@@ -77,6 +118,10 @@ const InterestGroup = (props) => {
                                 <div className="interest_details">
                                     <h3>Created By 🗿</h3>
                                     <p>{dummy_interest_group.createdBy}</p>
+                                </div>
+                                <div className="joined-button">
+                                    <button className="purple-button" onClick={handleJoinGroup}>Join Group</button>
+                                    <button className="red-button" onClick={handleLeaveGroup}>Leave Group</button>
                                 </div>
                             </div>
                         </div>
