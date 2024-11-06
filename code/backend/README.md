@@ -49,6 +49,10 @@
     - Deletes a member from an interest group.
     - Response: Success message.
 
+10. **PUT /interestgroups/{groupId}/events/{eventId}**
+    - Add an event to an interest group
+
+
 ### Important Notes
 - When creating an interest group, the creator is automatically added as a member and admin.
 - Admins cannot be removed from the group.
