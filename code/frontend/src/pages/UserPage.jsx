@@ -9,6 +9,8 @@ import { getUserByEmail } from "../api/UserService";
 import { useState, useEffect } from "react";
 
 const UserPage = () => {
+    
+
     // calling api here
     const [events, setEvents] = useState([]);
     const [groups, setGroups] = useState([]);
@@ -42,9 +44,8 @@ const UserPage = () => {
             });
         }
     }, [userData]);
-    
-    
 
+   
 
     // const userData = {
     //     name: "MrBeast",
@@ -115,7 +116,15 @@ const UserPage = () => {
                         {groups.map((group, index) => {
                             return <InterestGroup group={group} key={index} />;
                         })}
-                        <div>Create New Group</div>
+                        <div className="submit-group">
+                            <a
+                                className="purple-button anchor" 
+                                href="/submit-group"
+                            >
+                                Create Group 🛠️
+                                
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

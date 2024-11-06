@@ -1,7 +1,29 @@
 import React from "react";
 import "./EventList.css";
+import { useState } from "react";
+import {leaveEvent} from "../api/EventService";
+import { getUserByEmail } from "../api/UserService";
+import { useEffect } from "react";
 
 function EventList(props) {
+    const [userData, setUserData] = useState({
+        id: "",
+        name: "",
+        email: "",
+        location: "",
+        photoUrl: "",
+        groups: [],
+        bio: "",
+        events: [],
+    });
+
+    useEffect(() => {
+        getUserByEmail("mrbeast@gmail.com").then((data) => {
+            setUserData(data);
+        });
+    }, []);
+
+
     // passing a list of events as props
     console.log(props.events);
     // const events = [
@@ -38,6 +60,8 @@ function EventList(props) {
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
 
+ 
+
     return (
         <div className="event-list">
             {events.map((event, index) => (
@@ -61,7 +85,11 @@ function EventList(props) {
                         <p>
                             <strong>Facility:</strong> {event.facility}
                         </p>
+                        <div className="leavebutton">
+                            <button className="leave-button">Leave 😿</button> 
+                        </div>
                     </div>
+                    
                 </div>
             ))}
         </div>

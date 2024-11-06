@@ -51,3 +51,14 @@ export async function joinEvent(eventId, userId) {
   }
 }
 
+
+// Leave an event
+export async function leaveEvent(eventId, userId) {
+  try {
+    const response = await axios.delete(`${API_URL}/events/${eventId}/attendees/${userId}`);
+    return response;
+  } catch (error) {
+    console.error("Error leaving event:", error);
+    throw error;
+  }
+}
