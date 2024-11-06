@@ -4,6 +4,7 @@ import { useState } from "react";
 import {leaveEvent} from "../api/EventService";
 import { getUserByEmail } from "../api/UserService";
 import { useEffect } from "react";
+import { joinEvent } from "../api/EventService";
 
 function EventList(props) {
     const [userData, setUserData] = useState({
@@ -49,7 +50,7 @@ function EventList(props) {
         const date = new Date(timestamp);
 
         const day = date.getDate().toString().padStart(2, "0");
-        const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Tháng bắt đầu từ 0 nên cần +1
+        const month = (date.getMonth() + 1).toString().padStart(2, "0"); 
         const year = date.getFullYear();
 
         const hours = date.getHours().toString().padStart(2, "0");
@@ -68,6 +69,16 @@ function EventList(props) {
         }
     }
 
+    const handleJoinEvent = async (event_id) => {
+        const response = await joinEvent(event_id, userData.id);
+        if (response) {
+            alert("Joined event successfully");
+        }
+        else{
+            alert("Error joining event");
+        }         
+    }
+
 
     return (
         <div className="event-list">
@@ -79,7 +90,7 @@ function EventList(props) {
                         className="event-image"
                     />
                     <div className="event-content">
-                        <h3 className="event-title">{event.group}</h3>
+                        <h3 className="event-title">{event.title}</h3>
                         <p>
                             <strong>Date:</strong> {formatTimestamp(event.time)}
                         </p>
@@ -93,6 +104,7 @@ function EventList(props) {
                             <strong>Facility:</strong> {event.facility}
                         </p>
                         <div className="leavebutton">
+                            <button className="join-event-group-button" value={event.id} onClick={() => {handleJoinEvent(event.id)}}>Join 🐱</button>
                             <button className="leave-button" value={event.id} onClick={() => {handleLeaveEvent(event.id)}}>Leave 😿</button> 
                         </div>
                     </div>

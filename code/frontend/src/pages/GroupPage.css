@@ -1,0 +1,26 @@
+.group-page-container{
+    display: flex;
+    flex-direction: row;
+}
+.group-page-content{
+    width: 100%;
+    background-color: beige
+}
+.group-img-container {
+    width: 100%;
+    height: 30vh; 
+    overflow: hidden; 
+    
+}
+.group-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.group-page-info{
+    display: flex;
+    flex-direction: row;
+}
+.all-events{
+    overflow-y: auto;
+}

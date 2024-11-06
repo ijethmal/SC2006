@@ -16,6 +16,7 @@ import UserPage from "./pages/UserPage";
 import Registration from "./pages/Registration";
 import SubmitEventPage from "./pages/SubmitEventPage";
 import SubmitGroup from "./pages/SubmitGroup";
+import GroupPage from "./pages/GroupPage";
 
 function App() {
   const action = useNavigationType();
@@ -79,6 +80,7 @@ function App() {
       <Route path="/registration" element={<Registration />} />
       <Route path="/submit-event" element={<SubmitEventPage />} />
       <Route path="/submit-group" element={<SubmitGroup />} />
+      <Route path="/group-page/:groupId" element={<GroupPage />} />
     </Routes>
   );
 }

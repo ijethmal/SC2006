@@ -56,3 +56,25 @@ export async function leaveGroup(groupId, userId) {
         throw error;
     }
 }
+
+// get interest group by ID
+export async function getInterestGroupById(groupId) {
+    try {
+        const response = await axios.get(`${API_URL}/interestgroups/${groupId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching group:", error);
+        throw error;
+    }
+}
+
+// add an event to a group
+export async function addEventToGroup(groupId, eventId) {
+    try {
+        const response = await axios.put(`${API_URL}/interestgroups/${groupId}/events/${eventId}`);
+        return response;
+    } catch (error) {
+        console.error("Error adding event to group:", error);
+        throw error;
+    }
+}
