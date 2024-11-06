@@ -100,6 +100,22 @@ public class UserService {
         userRepo.save(user);
     }
 
+    public void addGroup(String userId, String groupId){ // only used internally, not meant to be called via api
+        User user = getUser(userId);
+        HashMap<String, Integer> groups = user.getGroups();
+        groups.put(groupId, 1);
+        user.setGroups(groups);
+        userRepo.save(user);
+    }
+
+    public void removeGroup(String userId, String groupId){
+        User user = getUser(userId);
+        HashMap<String, Integer> groups = user.getGroups();
+        groups.remove(groupId);
+        user.setGroups(groups);
+        userRepo.save(user);
+    }
+
     public void removeEvent(String userId, String eventId){
         User user = getUser(userId);
         HashMap<String, Integer> events = user.getEvents();

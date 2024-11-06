@@ -23,9 +23,7 @@ function EventList(props) {
         });
     }, []);
 
-
-    // passing a list of events as props
-    console.log(props.events);
+    // passing a list of events as props    
     // const events = [
     //     {
     //         id: "12345",
@@ -60,7 +58,16 @@ function EventList(props) {
         return `${day}/${month}/${year} ${hours}:${minutes}`;
     }
 
- 
+    const handleLeaveEvent = async (event_id) => {
+        const respone = await leaveEvent(event_id, userData.id);
+        if (respone) {
+            alert("Left event successfully");
+        }
+        else{
+            alert("Error leaving event");
+        }
+    }
+
 
     return (
         <div className="event-list">
@@ -86,7 +93,7 @@ function EventList(props) {
                             <strong>Facility:</strong> {event.facility}
                         </p>
                         <div className="leavebutton">
-                            <button className="leave-button">Leave 😿</button> 
+                            <button className="leave-button" value={event.id} onClick={() => {handleLeaveEvent(event.id)}}>Leave 😿</button> 
                         </div>
                     </div>
                     

@@ -36,4 +36,4 @@ Thumbs.db
 # Environment variables 
 .env
 
-.class
+*.class
