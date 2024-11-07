@@ -26,7 +26,7 @@ const UserPage = () => {
     });
 
     useEffect(() => {
-        getUserByEmail("luuthang7803@gmail.com").then((data) => {
+        getUserByEmail("mrbeast@gmail.com").then((data) => {
             setUserData(data);
         });
     }, []);
