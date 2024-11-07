@@ -2,6 +2,8 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/users";
 
+
+// login
 export async function login(email, password) {
     try {
       const response = await axios.post(`${API_URL}/login`, {
@@ -16,9 +18,12 @@ export async function login(email, password) {
 
 //register
 export async function register(user) {
-    return await axios.post(API_URL +'/register', {
-        user
-    });
+    try {
+        const response = await axios.post(`${API_URL}/register`, user);
+        return response;
+    } catch (error) {
+        throw error;
+    }
 }
 
 

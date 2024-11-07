@@ -21,17 +21,71 @@ function Registration() {
         }));
     };
 
+    const validate = (form) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email format
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/; // Password should contain lowercase, uppercase, special character, and be at least 8 characters long
+       
+
+
+        // Case 1: Check if any required field is empty
+        if (!form.username || !form.email || !form.password || !form.bio) {
+            alert("Please fill in all fields!") // Show error if any field is empty
+            return false;
+        }
+
+        // Case 2: Name (username) must be between 4 and 20 characters
+        if (form.name.length < 4 || form.name.length > 20) {
+            setMessage('Username must be from 4 characters to 20 characters'); // Show error if name length is invalid
+            return false;
+        }
+
+        // case 3: user name must be unique
+        if (form.name == "MrBeast") {
+            window.alert('User already exist'); // Show error if name is already taken
+            return false;
+          }
+         
+        // Case 4: Email must be in valid format
+        if (!emailRegex.test(form.email)) {
+            window.alert('Error registering'); // Show error if email format is invalid
+            return false;
+          }
+
+        
+        // Case 5: Check for duplicate email
+        if (existingUsers.emails.includes(form.email)) {
+            window.alert('Error registering'); // Show error if email is already registered
+            return false;
+        }
+      
+         // Case 7: Validate password format
+        if (!passwordRegex.test(form.password)) {
+            window.alert('Password not secure enough. Should have at least a special character and uppercase character'); // Show error if password format is invalid
+            return false;
+        }
+
+        if (user.bio.length > 200) {
+            window.alert('Please type in shorter bio'); // Show error if bio is too long
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission here
-        console.log("Form submitted");
+        
         console.log(form);
+        if (!validate(form)) {
+            return;
+        }
+
+
         try {
-            const response = await axios.post('http://localhost:8080/users/register', form);
-            console.log("Response:");
-            console.log(response);
-            if (response.data && response.data === "Registration successful") {
-                alert("Registration successful");
+            const response = await register(form);
+            if (response.status != 500) {
+                alert("Registration successful 🎉. Please check your email to verify user account.");
             } else {
                 alert(response.data || "Invalid email or password");
             }
@@ -39,7 +93,7 @@ function Registration() {
         catch (error) {
             console.log("Error:");
             console.log(error);
-            alert("Error registering");
+            alert("Email existed. Please try another email");
         }
     };
 
