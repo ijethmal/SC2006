@@ -1,7 +1,12 @@
 import "./UserHeader.css";
 import { getUserByEmail } from "../api/UserService";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../pages/UserContext";
 const UserHeader = () => {
+    const { user } = useUserContext();
+    const navigate = useNavigate();
+    console.log(user);
     // normally passing users data from parent component
     const [userData, setUserData] = useState({
         id: "",
@@ -14,11 +19,17 @@ const UserHeader = () => {
         events: [],
     });
     useEffect(() => {
-        getUserByEmail("mrbeast@gmail.com").then((data) => {
+        getUserByEmail(user).then((data) => {
             setUserData(data);  
         });
     }, []);
     
+    const handleLogout = () => {
+        // Clear user data from context
+        // Redirect to login page
+        navigate("/");
+    }
+
     return (
         <div className="user-header">
             <div className="user-header-container">
@@ -30,7 +41,7 @@ const UserHeader = () => {
                     />
                 </div>
                 <div className="user-header-details">{userData.name}</div>
-                <div className="user-header-details">Log Out</div>
+                <div className="user-header-details logout" onClick={handleLogout}>Log Out</div>
             </div>
         </div>
     );

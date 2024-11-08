@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // login test
 import { login } from "../api/UserService.js";
+import { useUserContext } from "./UserContext.jsx";
 
 const LoginWebpage = () => {
     // State to hold email and password in an object (loginData)
@@ -11,6 +12,7 @@ const LoginWebpage = () => {
         email: "",
         password: "",
     });
+    const { setUser } = useUserContext(); // Access setUser from UserContext
 
     const navigate = useNavigate(); // Get the navigate function from useNavigate
 
@@ -60,6 +62,8 @@ const LoginWebpage = () => {
             alert("Invalid password");
             return;
         }
+
+        setUser(loginData.email); // Set the user in context
 
         try {
             const response = await login(loginData.email, loginData.password);

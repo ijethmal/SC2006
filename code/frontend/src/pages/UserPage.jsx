@@ -7,10 +7,11 @@ import { getAllEventsByUserID } from "../api/EventService";
 import { getAllGroupsByUserId } from "../api/GroupService";
 import { getUserByEmail } from "../api/UserService";
 import { useState, useEffect } from "react";
+import { useUserContext } from "./UserContext";
 
 const UserPage = () => {
     const isUserPage = true;
-
+    const { user } = useUserContext();
     // calling api here
     const [events, setEvents] = useState([]);
     const [groups, setGroups] = useState([]);
@@ -26,7 +27,7 @@ const UserPage = () => {
     });
 
     useEffect(() => {
-        getUserByEmail("mrbeast@gmail.com").then((data) => {
+        getUserByEmail(user).then((data) => {
             setUserData(data);
         });
     }, []);
