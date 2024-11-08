@@ -29,8 +29,23 @@
   justify-content: center;
 }
 
+.filter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+
 /* filter header */
 .filter_header{
   font-size: 1.2em;
 }
-
+.choices{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 800px;
+}
+.inputs{
+  width: 200%;
+}

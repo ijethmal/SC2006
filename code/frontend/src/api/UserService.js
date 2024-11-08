@@ -5,6 +5,7 @@ const API_URL = "http://localhost:8080/users";
 
 // login
 export async function login(email, password) {
+    console.log(email, password);
     try {
       const response = await axios.post(`${API_URL}/login`, {
         email,
@@ -15,6 +16,8 @@ export async function login(email, password) {
       throw error;
     }
   }
+
+
 
 //register
 export async function register(user) {

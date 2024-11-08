@@ -9,7 +9,7 @@ import { getUserByEmail } from "../api/UserService";
 import { useState, useEffect } from "react";
 
 const UserPage = () => {
-    
+    const isUserPage = true;
 
     // calling api here
     const [events, setEvents] = useState([]);
@@ -109,12 +109,12 @@ const UserPage = () => {
                 <div className="events_groups">
                     <div className="events">
                         <h2>My upcomming events !</h2>
-                        <EventList events={events} />
+                        <EventList events={events} isUserPage={isUserPage}/>
                     </div>
                     <div className="groups">
                         <h2>My current groups</h2>
                         {groups.map((group, index) => {
-                            return <InterestGroup group={group} key={index} />;
+                            return <InterestGroup group={group} key={index} isUserPage={isUserPage}/>;
                         })}
                         <div className="submit-group">
                             <a
