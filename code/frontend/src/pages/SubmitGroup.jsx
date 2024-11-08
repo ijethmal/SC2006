@@ -34,6 +34,29 @@ const SubmitGroup = () => {
         }));
     };
 
+
+    const validateGroupData = (groupPayload) => {
+        const { name, activityType, location, createdBy, imgUrl} = groupPayload;
+    
+        // Check if all required fields are filled
+        if (!name || !activityType || !location || !createdBy || !imgUrl) {
+          window.alert('Error creating: All fields must be filled');
+          return false;
+        }
+    
+        // Group name should be between 3 and 100 characters
+        if (name.length < 3 || name.length > 100) {
+          window.alert('Error creating: Group name must be between 3 and 100 characters');
+          return false;
+        }
+
+    
+        // Additional validations (e.g., activityType or location) can be added here if needed
+    
+        return true;
+      };
+    
+
     const handleSubmit = async () => {
         // Create object to send
         const groupPayload = {
@@ -45,7 +68,10 @@ const SubmitGroup = () => {
             members: groupData.members,
         };
 
-      
+        // Validate group data
+        if (!validateGroupData(groupPayload)) {
+            return;
+        }
 
         try {
             const response = await createGroup(groupPayload);

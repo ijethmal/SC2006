@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { joinEvent } from "../api/EventService";
 
 function EventList(props) {
+    const isUserPage = props.isUserPage || false;
     const [userData, setUserData] = useState({
         id: "",
         name: "",
@@ -104,8 +105,8 @@ function EventList(props) {
                             <strong>Facility:</strong> {event.facility}
                         </p>
                         <div className="leavebutton">
-                            <button className="join-event-group-button" value={event.id} onClick={() => {handleJoinEvent(event.id)}}>Join 🐱</button>
-                            <button className="leave-button" value={event.id} onClick={() => {handleLeaveEvent(event.id)}}>Leave 😿</button> 
+                            <button className="join-event-group-button" value={event.id} onClick={() => {handleJoinEvent(event.id)}}>{isUserPage ? "Joined 🐱" : "Join 🐱"}</button>
+                            {isUserPage && <button className="leave-button" value={event.id} onClick={() => {handleLeaveEvent(event.id)}}>Leave 😿</button> }
                         </div>
                     </div>
                     
