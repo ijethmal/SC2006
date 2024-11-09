@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import WeatherIcon from "./WeatherIcon";
+import "./WeatherComponent.css";
 function WeatherComponent() {
     const [currentWeather, setCurrentWeather] = useState(null);
 
@@ -17,7 +18,7 @@ function WeatherComponent() {
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <p>{currentWeather ? currentWeather : "Loading..."}</p>
+            <p className="white-text">{currentWeather ? currentWeather : "Loading..."}</p>
             <WeatherIcon forecast={currentWeather ? currentWeather : "Loading..."}/>
         </div>
     );

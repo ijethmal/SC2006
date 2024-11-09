@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.app1.app.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 public class InterestGroupResource {
     private final InterestGroupService interestGroupService;
+    private final UserService userService;
 
     @GetMapping
     public ResponseEntity<Page<InterestGroup>> getInterestGroup(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -45,6 +47,7 @@ public class InterestGroupResource {
             interestGroup.setMembers(new HashMap<>());
         }
         interestGroup.getMembers().put(creatorId, 1);
+
 
         // Check if admins is null before adding the creator
         if (interestGroup.getAdmins() == null) {

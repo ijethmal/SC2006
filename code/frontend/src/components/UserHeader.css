@@ -27,3 +27,10 @@
     font-weight: medium;
     font-family: Arial, Helvetica, sans-serif;
 }
+.user-header-details.logout {
+    cursor: pointer; /* Makes the div look clickable */
+  }
+  
+  .user-header-details.logout:hover {
+    text-decoration: underline; /* Underline on hover */
+  }

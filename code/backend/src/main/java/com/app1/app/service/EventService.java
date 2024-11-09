@@ -223,7 +223,7 @@ public class EventService {
     }
 
     public static String epochToString(long epoch){
-        String date = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date (epoch*1000));
+        String date = new java.text.SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new java.util.Date (epoch*1000));
         return date;
     }
 
