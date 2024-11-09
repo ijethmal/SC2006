@@ -6,7 +6,6 @@ import { useUserContext } from "../pages/UserContext";
 const UserHeader = () => {
     const { user } = useUserContext();
     const navigate = useNavigate();
-    console.log(user);
     // normally passing users data from parent component
     const [userData, setUserData] = useState({
         id: "",
@@ -19,7 +18,7 @@ const UserHeader = () => {
         events: [],
     });
     useEffect(() => {
-        getUserByEmail(user).then((data) => {
+        getUserByEmail(user || "mrbeast@gmail.com").then((data) => {
             setUserData(data);  
         });
     }, []);

@@ -8,6 +8,7 @@ import NaviBar from "../components/NaviBar";
 import geoData from "../data/sports_data.json";
 
 mapboxgl.accessToken = "pk.eyJ1Ijoid2ludnN3b243OCIsImEiOiJjbTI5bnZjMGowN3FmMnFvcHgxNTQwZzlhIn0.CcCoZGOApaW_DxtDiWWpyA"; // Add your mapbox access token here
+// 
 
 
 const MapBoxSearch = () => {

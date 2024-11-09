@@ -27,16 +27,20 @@ const UserPage = () => {
     });
 
     useEffect(() => {
-        getUserByEmail(user).then((data) => {
+        getUserByEmail(user || "mrbeast@gmail.com").then((data) => {
             setUserData(data);
+            
         });
     }, []);
     useEffect(() => {
         if (userData?.id) {
+            
             getAllGroupsByUserId(userData.id).then((data) => {
                 setGroups(data);
             });
+            
         }
+        
     }, [userData]);
     useEffect(() => {
         if (userData?.id) {

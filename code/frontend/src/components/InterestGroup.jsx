@@ -4,6 +4,7 @@ import { joinGroup, leaveGroup } from "../api/GroupService";
 import { getUserByEmail } from "../api/UserService";
 import { Link } from "react-router-dom";
 const InterestGroup = (props) => {
+    const isJoined = props.isUserPage
     // how to use: past in dummy_interest_group object like that. can be taken by props.dummy_interest_group
     const [isModalOpen, setIsModalOpen] = useState(false);
     // const dummy_interest_group = {
@@ -42,6 +43,7 @@ const InterestGroup = (props) => {
         });
     }, []);
 
+    console.log(props.group);
 
     const dummy_interest_group = props.group;
    
@@ -126,7 +128,7 @@ const InterestGroup = (props) => {
                                 </div>
 
                                 <div className="joined-button">
-                                    <button className="purple-button" onClick={handleJoinGroup}>Join Group</button>
+                                    <button className="purple-button" onClick={handleJoinGroup}>{isJoined ? "Joined" : "Join Group"}</button>
                                     <button className="red-button" onClick={handleLeaveGroup}>Leave Group</button>
                                 </div>
                             </div>

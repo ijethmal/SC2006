@@ -28,7 +28,7 @@ function Registration() {
 
 
         // Case 1: Check if any required field is empty
-        if (!form.username || !form.email || !form.password || !form.bio) {
+        if (!form.name || !form.email || !form.password || !form.bio) {
             alert("Please fill in all fields!") // Show error if any field is empty
             return false;
         }
@@ -40,10 +40,10 @@ function Registration() {
         }
 
         // case 3: user name must be unique
-        if (form.name == "MrBeast") {
-            window.alert('User already exist'); // Show error if name is already taken
-            return false;
-          }
+        // if (form.name == "MrBeast") {
+        //     window.alert('User already exist'); // Show error if name is already taken
+        //     return false;
+        //   }
          
         // Case 4: Email must be in valid format
         if (!emailRegex.test(form.email)) {
@@ -52,19 +52,14 @@ function Registration() {
           }
 
         
-        // Case 5: Check for duplicate email
-        if (existingUsers.emails.includes(form.email)) {
-            window.alert('Error registering'); // Show error if email is already registered
-            return false;
-        }
-      
+    
          // Case 7: Validate password format
         if (!passwordRegex.test(form.password)) {
             window.alert('Password not secure enough. Should have at least a special character and uppercase character'); // Show error if password format is invalid
             return false;
         }
 
-        if (user.bio.length > 200) {
+        if (form.bio.length > 200) {
             window.alert('Please type in shorter bio'); // Show error if bio is too long
             return false;
         }
