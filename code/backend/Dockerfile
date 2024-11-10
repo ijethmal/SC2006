@@ -16,6 +16,7 @@ RUN mvn clean install -DskipTests
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /backend
 EXPOSE 8080
+EXPOSE 5432
 
 # Copy the JAR file from the builder stage
 COPY --from=builder /backend/target/app-0.0.1-SNAPSHOT.jar /backend/app.jar
