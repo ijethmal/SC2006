@@ -1,10 +1,8 @@
-#spring.application.name=app
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gatherhub
-    username: postgres
-    password: 123456
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
@@ -32,16 +30,16 @@ server:
     whitelabel:
       enabled: false
 logging:
-    level:
-      root: DEBUG
-    mail:
-      host: smtp.mailersend.net
-      port: 587
-      username: MS_g0eWNV@trial-yzkq3405xo3gd796.mlsender.net
-      password: 90XhfEwR8eUnDoEB
-      properties:
-        mail:
-          smtp:
-            auth: true
-            starttls:
-              enable: true
+  level:
+    root: DEBUG
+  mail:
+    host: smtp.mailersend.net
+    port: 587
+    username: MS_g0eWNV@trial-yzkq3405xo3gd796.mlsender.net
+    password: 90XhfEwR8eUnDoEB
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
